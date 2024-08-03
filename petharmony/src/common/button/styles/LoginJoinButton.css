@@ -1,0 +1,49 @@
+.login_button {
+    width: 254px;
+    height: 36px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #72C85A;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: "nanumgothic";
+}
+
+.login_button.login_mode {
+    background-color: #72C85A;
+    color: #FFFFFF;
+}
+
+.login_button.go_join_mode {
+    background-color: #FFFFFF;
+    color: #72C85A;
+    margin-top: 7px;
+}
+
+.login_button.join_mode {
+    background-color: #72C85A;
+    color: #FFFFFF;
+    margin-top: 31px;
+}
+
+.social_button {
+    width: 112px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    flex: display;
+    justify-content: space-between;
+}
+
+.social_button img {
+    width: 40px;
+    height: 40px;
+}
+
+.login_button:active,
+.social_button:active {
+    transform: scale(0.97);
+}

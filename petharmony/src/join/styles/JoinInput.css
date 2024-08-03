@@ -1,0 +1,39 @@
+.join_input {
+    width: 258px;
+    height: 228px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    cursor: pointer;
+}
+
+.ji_container {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.ji_icon {
+    position: absolute;
+    left: 19px;
+}
+
+.join_input input {
+    width: 258px;
+    height: 36px;
+    border-radius: 20px;
+    border: 1px solid #BCBCBC;
+    cursor: pointer;
+    padding: 0 19px 0 49px;
+    font-family: "nanumgothic";
+}
+
+.join_input input:focus {
+    outline: 1px solid #72C85A;
+}
+
+.join_input input::placeholder {
+    color: #BCBCBC;
+    font-size: 14px;
+    font-family: "nanumgothic";
+}

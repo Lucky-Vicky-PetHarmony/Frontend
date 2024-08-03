@@ -1,0 +1,33 @@
+@import url('http://fonts.googleapis.com/earlyaccess/nanumgothic.css');
+
+.join_modal {
+    width: 465px;
+    height: 500px;
+    border-radius: 32px;
+    border-image-source: linear-gradient(123.89deg,
+            rgba(170, 170, 170, 0.3) 9.82%,
+            rgba(170, 170, 170, 0.05) 32.32%,
+            rgba(170, 170, 170, 0.2) 61.65%,
+            rgba(170, 170, 170, 0.05) 90.18%);
+    box-shadow: 5px 5px 20px 0px rgba(0, 0, 0, 0.15),
+        4px 4px 4px 0px rgba(255, 255, 255, 0.1) inset;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.jm_logo {
+    width: 126px;
+    height: 63px;
+}
+
+.jm_msg {
+    font-family: "nanumgothic";
+    font-size: 14px;
+    color: #8C8C8C;
+    margin-top: 10px;
+    margin-bottom: 27px;
+}
