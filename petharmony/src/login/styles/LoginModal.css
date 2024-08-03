@@ -1,0 +1,40 @@
+@import url('http://fonts.googleapis.com/earlyaccess/nanumgothic.css');
+
+.login_modal {
+    width: 465px;
+    height: 500px;
+    border-radius: 32px;
+    border-image-source: linear-gradient(123.89deg,
+            rgba(170, 170, 170, 0.3) 9.82%,
+            rgba(170, 170, 170, 0.05) 32.32%,
+            rgba(170, 170, 170, 0.2) 61.65%,
+            rgba(170, 170, 170, 0.05) 90.18%);
+    box-shadow: 5px 5px 20px 0px rgba(0, 0, 0, 0.15),
+        4px 4px 4px 0px rgba(255, 255, 255, 0.1) inset;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.lm_logo {
+    width: 190px;
+    height: 95px;
+}
+
+.lm_form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 25px;
+}
+
+.lm_self {
+    margin-top: 20px;
+}
+
+.lm_social {
+    margin-top: 23px;
+}
