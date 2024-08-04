@@ -1,0 +1,38 @@
+.boardpagination{
+    margin-top: 32px;
+    width: 280px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+}
+
+.boardpagination>*{
+    cursor: pointer;
+}
+
+.boardpagination_arrow_left{
+    width: 16px;
+    height: 24px;
+    transform: scaleX(-1);
+}
+
+.boardpagination_arrow_right{
+    width: 16px;
+    height: 24px;
+}
+
+.boardpagination_pagenumber{
+    display: flex;
+    gap: 10px;
+}
+
+.boardpagination_pagenumber>p{
+    font-size: 15px;
+    color: var(--color-gray3);
+}
+
+.boardpagination_pagenumber>.active{
+    color: var(--color-gray1);
+    font-weight: 700;
+}
