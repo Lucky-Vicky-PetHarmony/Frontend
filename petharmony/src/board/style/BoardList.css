@@ -5,14 +5,30 @@
     width: 1080px;
 }
 
-.boardlist>.boardlist_top{
+.boardlist>img{
+    width: 100%;
+    height: 100px;
+    margin-bottom: 16px;
+}
+
+.boardlist>.boardlist_top_top{
     width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 8px ;
-    padding: 16px;
+    margin: 8px 0px;
+    padding: 4px 8px;
+}
+
+.boardlist>.boardlist_top_bottom{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 4px 0px;
+    padding: 0px 4px;
 }
 
 .boardlist>.boardlist_middle{
