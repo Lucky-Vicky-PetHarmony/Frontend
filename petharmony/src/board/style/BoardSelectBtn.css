@@ -1,0 +1,39 @@
+
+.board_select_btn_group{
+    display: flex;
+    gap: 52px;
+}
+
+.board_select_btn{
+    font-size: 16px;
+    padding: 4px 16px;
+    border: 1px solid #5D5D5D;
+    background-color: white;
+    border-radius: 32px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 25%);
+    color: #5D5D5D;
+    transition: box-shadow 0.2s, background-color 0.2s, color 0.2s;
+}
+
+.board_select_btn:hover{
+    cursor: pointer;
+}
+
+.board_select_btn.active{
+    color: white;
+    box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 25%);
+    border: none;
+}
+
+.board_select_btn.active.all{
+    background-color: #C1460D;
+}
+.board_select_btn.active.free{
+    background-color: #FC363E;
+}
+.board_select_btn.active.information{
+    background-color: #3A70DF;
+}
+.board_select_btn.active.adoption{
+    background-color: #72C85A;
+}
