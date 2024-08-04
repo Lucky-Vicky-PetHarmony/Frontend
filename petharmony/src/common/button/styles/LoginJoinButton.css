@@ -17,10 +17,16 @@
     color: #FFFFFF;
 }
 
-.login_button.join_mode {
+.login_button.go_join_mode {
     background-color: #FFFFFF;
     color: #72C85A;
     margin-top: 7px;
+}
+
+.login_button.join_mode {
+    background-color: #72C85A;
+    color: #FFFFFF;
+    margin-top: 31px;
 }
 
 .social_button {
