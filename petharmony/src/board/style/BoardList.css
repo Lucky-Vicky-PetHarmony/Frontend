@@ -1,0 +1,25 @@
+.boardlist{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 1080px;
+}
+
+.boardlist>.boardlist_top{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px ;
+    padding: 16px;
+}
+
+.boardlist>.boardlist_middle{
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+
