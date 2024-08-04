@@ -12,8 +12,32 @@ const JoinModal = () => {
     const [passwordCheck, setPasswordCheck] = useState("");
     const [phone, setPhone] = useState("");
 
-    const handleJoin = (e) => {
+    const emailRegEx = /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/;
+    const passwordRegEx = /^[a-zA-Z0-9!@#$%^&*(),.?":{}|<>]{8,20}$/;
+
+    const handleJoinSubmit = (e) => {
         e.preventDefault();
+
+        if (!name || !email || !password || !passwordCheck || !phone) {
+            alert("모든 항목을 입력해주세요.");
+            return;
+        }
+
+        if (!emailRegEx.test(email)) {
+            alert("이메일 형식이 올바르지 않습니다.");
+            return
+        }
+
+        if (!passwordRegEx.test(password)) {
+            alert("비밀번호는 8-20자의 영문자와 숫자로만 구성되어야 합니다.");
+            return;
+        }
+
+        if (password !== passwordCheck) {
+            alert("비밀번호가 일치하지 않습니다.");
+            return;
+        }
+        
         console.log(
             "Name: ", name,
             "Email: ", email,
@@ -40,7 +64,7 @@ const JoinModal = () => {
                 <div className="jm_button">
                     <LoginJoinButton
                         mode="join"
-                        onClick={handleJoin}
+                        onClick={handleJoinSubmit}
                     />
                 </div>
             </div>
