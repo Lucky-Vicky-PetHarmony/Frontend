@@ -10,28 +10,11 @@
     --color-white: #FFFFFF;
 }
 
-@font-face {
-    font-family: 'Pretendard-Regular';
-    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Giants-Bold';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/Giants-Bold.woff2') format('woff2');
-    font-weight: 700;
-    font-style: normal;
-}
+@import url('http://fonts.googleapis.com/earlyaccess/nanumgothic.css');
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Pretendard-Regular';
-}
-body{
-    padding: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    font-family: 'nanumgothic';
 }
