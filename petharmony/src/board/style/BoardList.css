@@ -1,0 +1,41 @@
+.boardlist{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 1080px;
+}
+
+.boardlist>img{
+    width: 100%;
+    height: 100px;
+    margin-bottom: 16px;
+}
+
+.boardlist>.boardlist_top_top{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 8px 0px;
+    padding: 4px 8px;
+}
+
+.boardlist>.boardlist_top_bottom{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 4px 0px;
+    padding: 0px 4px;
+}
+
+.boardlist>.boardlist_middle{
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+

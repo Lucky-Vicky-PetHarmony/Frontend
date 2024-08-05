@@ -1,0 +1,26 @@
+.board_search{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 12px;
+    border: 1px solid var(--color-gray4);
+    border-radius: 12px;
+}
+
+.board_search>input{
+    border: none;
+    font-size: 14px;
+    outline: none;
+}
+
+.board_search>input::placeholder{
+    color: var(--color-gray4);
+}
+
+.board_search>img{
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    margin-left: 2px;
+}

@@ -1,0 +1,20 @@
+:root {
+    --color-yellow: #FED60D;
+    --color-red: #FC363E;
+    --color-blue: #3A70DF;
+    --color-green: #72C85A;
+    --color-gray1: #5D5D5D;
+    --color-gray2: #8C8C8C;
+    --color-gray3: #ababab;
+    --color-gray4: #D9D9D9;
+    --color-white: #FFFFFF;
+}
+
+@import url('http://fonts.googleapis.com/earlyaccess/nanumgothic.css');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'nanumgothic';
+}
