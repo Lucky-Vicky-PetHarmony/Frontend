@@ -1,8 +1,8 @@
 import React from "react";
-import '../style/BoardContent.css';
-import viewimg from '../asset/view.png';
-import commentimg from '../asset/comment.png';
-import pictureimg from '../asset/picture.png';
+import '../../style/boardList/BoardContent.css';
+import viewimg from '../../asset/view.png';
+import commentimg from '../../asset/comment.png';
+import pictureimg from '../../asset/picture.png';
 
 
 const BoardContent = () => {

@@ -1,5 +1,5 @@
 import React from "react";
-import '../style/BoardWriteBtn.css';
+import '../../style/boardList/BoardWriteBtn.css';
 
 const BoardWriteBtn = () => {
 

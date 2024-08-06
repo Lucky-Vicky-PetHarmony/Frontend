@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import '../style/BoardSelectBtn.css'
+import '../../style/boardList/BoardSelectBtn.css'
 
 const BoardSelectBtn = () => {
     const [activeBtn, setActiveBtn] = useState("all");

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import '../style/BoardSearch.css';
-import searchImg from "../asset/search.png";
+import '../../style/boardList/BoardSearch.css';
+import searchImg from "../../asset/search.png";
 
 const BoardSearch = () => {
     return (

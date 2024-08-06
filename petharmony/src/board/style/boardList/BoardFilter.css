@@ -40,7 +40,7 @@
 }
 
 .board_filter_dropdown_btn{
-    font-size: 13px;
+    font-size: 12px;
     color: var(--color-gray1);
     cursor: pointer;
 }

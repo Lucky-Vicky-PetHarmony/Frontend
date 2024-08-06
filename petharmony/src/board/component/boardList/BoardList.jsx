@@ -1,10 +1,10 @@
 import React from "react";
-import '../style/BoardList.css';
+import '../../style/boardList/BoardList.css';
+import boardbannerimg from "../../asset/boardbanner.png"
 import BoardContent from "./BoardContent";
 import BoardPagination from "./BoardPagination";
 import BoardSelectBtn from "./BoardSelectBtn";
 import BoardWriteBtn from "./BoardWriteBtn";
-import boardbannerimg from "../asset/boardbanner.png"
 import BoardSearch from "./BoardSearch";
 import BoardFilter from "./BoardFilter";
 
