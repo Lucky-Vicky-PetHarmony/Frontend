@@ -1,12 +1,12 @@
 import React from "react";
 import '../../style/boardList/BoardList.css';
 import boardbannerimg from "../../asset/boardbanner.png"
-import BoardContent from "./BoardContent";
 import BoardPagination from "./BoardPagination";
 import BoardSelectBtn from "./BoardSelectBtn";
 import BoardWriteBtn from "./BoardWriteBtn";
 import BoardSearch from "./BoardSearch";
 import BoardFilter from "./BoardFilter";
+import BoardListElem from "./BoardListElem";
 
 
 const BoardList = () => {
@@ -23,14 +23,14 @@ const BoardList = () => {
                 <BoardSearch/>
             </div>
             <div className="boardlist_middle">
-                <BoardContent/>
-                <BoardContent/>
-                <BoardContent/>
-                <BoardContent/>
-                <BoardContent/>
-                <BoardContent/>
-                <BoardContent/>
-                <BoardContent/>
+                <BoardListElem/>
+                <BoardListElem/>
+                <BoardListElem/>
+                <BoardListElem/>
+                <BoardListElem/>
+                <BoardListElem/>
+                <BoardListElem/>
+                <BoardListElem/>
             </div>
             <BoardPagination/>
         </div>
