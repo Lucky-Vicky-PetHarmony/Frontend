@@ -1,0 +1,20 @@
+.BoardView{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.BoardView_backbtn{
+    margin-top: 20px;
+    margin-right: 12px;
+    padding: 10px 20px;
+    border: 1.5px solid var(--color-gray3);
+    border-radius: 4px;
+    color: var(--color-gray2);
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.BoardView_backbtn:active{
+    transform: scale(0.97);
+}

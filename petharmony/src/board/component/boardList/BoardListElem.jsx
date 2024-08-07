@@ -1,11 +1,11 @@
 import React from "react";
-import '../style/BoardContent.css';
-import viewimg from '../asset/view.png';
-import commentimg from '../asset/comment.png';
-import pictureimg from '../asset/picture.png';
+import '../../style/boardList/BoardListElem.css';
+import viewimg from '../../asset/view.png';
+import commentimg from '../../asset/comment.png';
+import pictureimg from '../../asset/picture.png';
 
 
-const BoardContent = () => {
+const BoardListElem = () => {
 
     return (
         <div className="boardcontent">
@@ -31,4 +31,4 @@ const BoardContent = () => {
     );
 }
 
-export default BoardContent;
+export default BoardListElem;

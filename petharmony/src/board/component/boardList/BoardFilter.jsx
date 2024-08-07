@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import '../style/BoardFilter.css'
-import dropdownimg from "../asset/dropdown.png"
+import '../../style/boardList/BoardFilter.css'
+import dropdownimg from "../../asset/dropdown.png"
 
 const BoardFilter = () => {
     const [filterStatus, setFilterStatus] = useState("최신순");

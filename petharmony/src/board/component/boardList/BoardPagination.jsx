@@ -1,6 +1,6 @@
 import React from "react";
-import '../style/BoardPagination.css';
-import arrowimg from '../asset/arrow.png';
+import '../../style/boardList/BoardPagination.css';
+import arrowimg from '../../asset/arrow.png';
 
 
 const BoardPagination = () => {
