@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../../common.css";
 import "../styles/LoginModal.css";
 import logo from "../../common/logo/assets/logo.png";
 import LoginInput from "./LoginInput";
@@ -10,25 +11,26 @@ const LoginModal = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const handleLogin = (e) => {
+    const handleSubmitLogin = (e) => {
         e.preventDefault();
         console.log(
             "Email: ", email,
             "Password: ", password
         );
+        // TODO: 서버로 전송하는 로직 추가 예정
     };
 
-    const handleGoJoin = (e) => {
+    const handleMoveJoin = (e) => {
         e.preventDefault();
         navigate('/join');
     };
 
-    const handleFindId = (e) => {
+    const handleMoveFindId = (e) => {
         e.preventDefault();
         navigate('/find-account', { state: { mode: 'id' } });
     };
 
-    const handleFindPassword = (e) => {
+    const handleMoveFindPassword = (e) => {
         e.preventDefault();
         navigate('/find-account', { state: { mode: 'password' } });
     };
@@ -37,7 +39,7 @@ const LoginModal = () => {
         <>
             <div className="login_modal">
                 <img className="lm_logo" src={logo} alt="로고" />
-                <div className="lm_form">
+                <div className="lm_login">
                     <LoginInput
                         setEmail={setEmail}
                         setPassword={setPassword}
@@ -46,16 +48,16 @@ const LoginModal = () => {
                         <LoginJoinButton
                             mode="login"
                             type="submit"
-                            onClick={handleLogin}
+                            onClick={handleSubmitLogin}
                         />
                         <LoginJoinButton
-                            mode="goJoin"
-                            onClick={handleGoJoin}
+                            mode="joinForm"
+                            onClick={handleMoveJoin}
                         />
                         <div className="lm_find">
-                            <button className="lm_find_btn" onClick={handleFindId}>이메일 찾기</button>
+                            <button className="lm_find_btn" onClick={handleMoveFindId}>이메일 찾기</button>
                             <span className="lm_find_line">|</span>
-                            <button className="lm_find_btn" onClick={handleFindPassword}>비밀번호 찾기</button>
+                            <button className="lm_find_btn" onClick={handleMoveFindPassword}>비밀번호 찾기</button>
                         </div>
                     </div>
                 </div>

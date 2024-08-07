@@ -1,6 +1,8 @@
-@import url('http://fonts.googleapis.com/earlyaccess/nanumgothic.css');
-
 .find_account {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 465px;
     height: 500px;
     border-radius: 32px;
@@ -13,102 +15,84 @@
         4px 4px 4px 0px rgba(255, 255, 255, 0.1) inset;
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: relative;
 }
 
 .fa_logo {
-    width: 190px;
-    height: 95px;
     position: absolute;
     top: 60px;
+    width: 190px;
+    height: 95px;
 }
 
 .fa_title {
-    margin: 0px;
-    font-family: "nanumgothic";
-    font-size: 13px;
-    color: #8C8C8C;
-    text-align: center;
-    white-space: pre-wrap;
     position: absolute;
     top: 185px;
+    font-size: 13px;
+    color: var(--color-gray2);
+    text-align: center;
 }
 
 .fa_title_margin {
-    margin: 0;
-}
-
-.poss {
-    margin-top: 7px;
+    margin-top: 6px;
 }
 
 .fa_id_content {
-    width: 303px;
-    height: 121px;
     position: absolute;
     top: 250px;
+    width: 303px;
+    height: 121px;
 }
 
 .fa_id_content_req {
-    width: 304px;
     display: flex;
     justify-content: space-between;
     gap: 8px;
 }
 
 .fa_id_contnet_req_tel {
-    width: 196px;
-    height: 34px;
-    border: 1px solid #BCBCBC;
-    border-radius: 8px;
-    font-family: "nanumgothic";
-    color: #BCBCBC;
-    font-size: 14px;
-    padding: 0 14px;
-}
-
-.fa_id_content_req_btn {
-    width: 96px;
+    width: 198px;
     height: 36px;
-    background-color: #FFFFFF;
-    border: 1px solid #72C85A;
+    padding: 0 14px;
+    border: 1px solid var(--color-gray5);
     border-radius: 8px;
-    font-family: "nanumgothic";
-    color: #72C85A;
-    font-size: 12px;
+    font-size: 14px;
     cursor: pointer;
 }
 
-.fa_id_content_msg {
-    font-family: "nanumgothic";
+.fa_id_content_req_btn {
+    width: 98px;
+    height: 36px;
+    background-color: var(--color-white);
+    border: 1px solid var(--color-green);
+    border-radius: 8px;
+    color: var(--color-green);
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.fa_content_msg {
+    margin: 6px 0 0 7px;
     font-size: 10px;
-    margin: 0;
-    margin-top: 6px;
-    padding-left: 10px;
-    color: #3A70DF;
+    color: var(--color-red);
 }
 
 .fa_id_content_verify {
     display: flex;
     justify-content: space-between;
     gap: 8px;
-    margin-top: 16px;
+    margin: 16px 0 0 0;
 }
 
 .fa_id_content_verify_input {
-    width: 244px;
-    height: 34px;
-    background-color: #FFFFFF;
-    border: 1px solid #BCBCBC;
-    border-radius: 8px;
-    font-family: "nanumgothic";
-    color: #BCBCBC;
-    font-size: 14px;
+    width: 246px;
+    height: 36px;
     padding: 0 14px;
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gray5);
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
 }
 
 .fa_id_content_verify_btn {
@@ -116,18 +100,19 @@
     height: 36px;
     border: none;
     border-radius: 8px;
-    background-color: #72C85A;
-    font-family: "nanumgothic";
-    color: #FFFFFF;
-    font-size: 12x;
+    background-color: var(--color-green);
+    color: var(--color-white);
+    font-size: 12px;
+    font-weight: bold;
     cursor: pointer;
 }
 
 .fa_finish {
+    position: absolute;
+    top: 176px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 29px;
 }
 
 .fa_finish_img {
@@ -136,65 +121,69 @@
 }
 
 .fa_finish_text {
-    font-family: "nanumgothic";
-    color: #8C8C8C;
+    margin: 18px 0 0 0;
+    color: var(--color-gray2);
     font-size: 12px;
 }
 
 .fa_finish_box {
-    width: 272px;
-    height: 110px;
-    border: 1px solid #BCBCBC;
-    border-radius: 4px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    width: 272px;
+    height: 110px;
+    margin: 18px 0 0 0;
+    border: 1px solid var(--color-gray5);
+    border-radius: 4px;
 }
 
 .fa_finish_box_text {
-    font-family: "nanumgothic";
-    color: #5D5D5D;
+    padding: 0 0 0 33px;
+    color: var(--color-gray1);
     font-size: 13px;
-    padding-left: 33px;
+}
+
+.fa_finish_box_text.margin {
+    margin: 16px 0 0 0;
 }
 
 .fa_password_content {
-    width: 258px;
-    height: 92px;
+    position: absolute;
+    top: 250px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    position: absolute;
-    top: 252px;
+    width: 258px;
+    height: 106px;
 }
 
 .fa_password_content_email {
-    height: 34px;
-    border: 1px solid #BCBCBC;
-    border-radius: 8px;
-    font-family: "nanumgothic";
-    color: #BCBCBC;
-    font-size: 14px;
+    height: 36px;
     padding: 0 19px;
+    border: 1px solid var(--color-gray5);
+    border-radius: 8px;
+    color: var(--color-gray5);
+    font-size: 14px;
+    cursor: pointer;
 }
 
 .fa_password_content_btn {
     height: 36px;
+    margin: 16px 0 0 0;
     border: none;
     border-radius: 8px;
-    background-color: #72C85A;
-    font-family: "nanumgothic";
+    background-color: var(--color-green);
     font-size: 16px;
-    color: #FFFFFF;
+    font-weight: bold;
+    color: var(--color-white);
     cursor: pointer;
 }
 
 .fa_finish_password {
+    position: absolute;
+    top: 167px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: absolute;
-    top: 167px;
 }
 
 .fa_finish_password_img {
@@ -203,24 +192,38 @@
 }
 
 .fa_finish_password_box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     width: 272px;
     height: 129px;
-    border: 1px solid #72C85A;
+    margin: 17px 0 0 0;
+    border: 2px solid var(--color-green);
     border-radius: 4px;
-    margin-top: 17px;
 }
 
 .fa_finish_password_box > p {
-    font-family: "nanumgothic";
     font-size: 13px;
+    font-weight: bold;
     text-align: center;
-    color: #5D5D5D;
+    color: var(--color-gray1);
+}
+
+.fa_finish_margin {
+    margin: 6px 0 0 0;
 }
 
 .fa_finish_password_text {
-    font-family: "nanumgothic";
+    margin: 18px 0 0 0;
     font-size: 14px;
-    color: #8C8C8C;
+    font-weight: bold;
+    color: var(--color-gray2);
+}
+
+.fa_id_contnet_req_tel::placeholder,
+.fa_id_content_verify_input::placeholder,
+.fa_password_content_email::placeholder {
+    color: var(--color-gray5);
 }
 
 .fa_id_contnet_req_tel:focus,

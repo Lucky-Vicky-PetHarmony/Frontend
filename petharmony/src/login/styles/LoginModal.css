@@ -1,6 +1,8 @@
-@import url('http://fonts.googleapis.com/earlyaccess/nanumgothic.css');
-
 .login_modal {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 465px;
     height: 500px;
     border-radius: 32px;
@@ -13,50 +15,57 @@
         4px 4px 4px 0px rgba(255, 255, 255, 0.1) inset;
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
 }
 
 .lm_logo {
+    position: absolute;
+    top: 60px;
     width: 190px;
     height: 95px;
 }
 
-.lm_form {
+.lm_login {
+    position: absolute;
+    top: 179px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 25px;
 }
 
 .lm_self {
-    margin-top: 20px;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    margin-top: 15px;
+}
+
+.lm_find {
+    display: flex;
+    justify-content: space-between;
+    width: 118px;
+    height: 12px;
+    margin-top: 7px;
+    color: var(--color-gray5);
+    font-size: 10px;
 }
 
 .lm_find_btn {
     border: none;
     background: none;
-    font-family: "nanumgothic";
+    color: var(--color-gray5);
     font-size: 10px;
-    color: #BCBCBC;
     cursor: pointer;
 }
 
-.lm_find_btn:active {
-    transform: scale(1.05);
-}
-
-.lm_find_line {
-    font-family: "nanumgothic";
-    font-size: 10px;
-    color: #BCBCBC;
-}
-
 .lm_social {
-    margin-top: 15px;
+    position: absolute;
+    top: 392px;
+    display: flex;
+    justify-content: space-between;
+    width: 163px;
+    height: 57px;
+}
+
+.lm_find_btn:active {
+    transform: scale(0.97);
 }

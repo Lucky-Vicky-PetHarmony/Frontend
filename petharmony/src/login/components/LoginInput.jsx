@@ -1,4 +1,5 @@
 import React from "react";
+import "../../common.css";
 import "../styles/LoginInput.css";
 
 const LoginInput = ({ setEmail, setPassword }) => {

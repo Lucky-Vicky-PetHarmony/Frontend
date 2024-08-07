@@ -1,11 +1,11 @@
 import React, { useState } from "react";
+import "../../common.css";
 import "../styles/JoinModal.css";
 import logo from "../../common/logo/assets/logo.png";
 import JoinInput from "./JoinInput";
 import LoginJoinButton from "../../common/button/components/LoginJoinButton";
 
 const JoinModal = () => {
-
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -15,7 +15,7 @@ const JoinModal = () => {
     const emailRegEx = /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/;
     const passwordRegEx = /^[a-zA-Z0-9!@#$%^&*(),.?":{}|<>]{8,20}$/;
 
-    const handleJoinSubmit = (e) => {
+    const handleSubmitJoin = (e) => {
         e.preventDefault();
 
         if (!name || !email || !password || !passwordCheck || !phone) {
@@ -37,7 +37,7 @@ const JoinModal = () => {
             alert("비밀번호가 일치하지 않습니다.");
             return;
         }
-        
+
         console.log(
             "Name: ", name,
             "Email: ", email,
@@ -45,6 +45,8 @@ const JoinModal = () => {
             "PasswordCheck", passwordCheck,
             "Phone", phone
         );
+
+        // TODO: 서버로 전송하는 로직 추가 예정
     };
 
     return (
@@ -54,20 +56,22 @@ const JoinModal = () => {
                 <p className="jm_msg">
                     PetHarmony에 오신걸 환영합니다
                 </p>
-                <JoinInput
-                    setName={setName}
-                    setEmail={setEmail}
-                    setPassword={setPassword}
-                    setPasswordCheck={setPasswordCheck}
-                    setPhone={setPhone}
-                />
+                <div className="jm_form">
+                    <JoinInput
+                        setName={setName}
+                        setEmail={setEmail}
+                        setPassword={setPassword}
+                        setPasswordCheck={setPasswordCheck}
+                        setPhone={setPhone}
+                    />
+                </div>
                 <p className="jm_phone_msg">
                     * 아이디, 비밀번호 찾기에 사용됩니다. 정확히 작성해주세요.
                 </p>
                 <div className="jm_button">
                     <LoginJoinButton
                         mode="join"
-                        onClick={handleJoinSubmit}
+                        onClick={handleSubmitJoin}
                     />
                 </div>
             </div>
