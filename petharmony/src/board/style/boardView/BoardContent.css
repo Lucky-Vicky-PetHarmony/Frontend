@@ -1,0 +1,130 @@
+.board_content{
+    width: 960px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+}
+
+.board_content>*{
+    width: 100%;
+}
+
+.bc_1,
+.bc_2,
+.bc_3,
+.bc_3_left{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.bc_1{
+    padding: 0px 8px 0px 4px;
+    margin-bottom: 16px;
+}
+
+.bc_1_category{
+    border: 2px solid var(--color-green);
+    border-radius: 32px;
+    background-color: white;
+    color: var(--color-green);
+    font-size: 20px;
+    font-weight: 600;
+    padding: 6px 18px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 15%);
+}
+
+.bc_1>img{
+    width: 40px;
+    cursor: pointer;
+}
+
+.bc_1>img:active{
+    transform: scale(0.97);
+}
+
+.bc_2_title{
+    font-size: 26px;
+    font-weight: 600;
+}
+
+.bc_2_writer{
+    font-size: 16px;
+    color: var(--color-gray2);
+    padding-right: 4px;
+}
+
+.bc_3_left{
+    gap: 12px;
+    align-items: center;
+}
+
+.bc_3_left_elem{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 4px;
+}
+
+.bc_3_left_elem>img{
+    width: 16px;
+}
+
+.bc_3_left_elem:nth-child(2)>img{
+    width: 14px;
+}
+
+.bc_3_left_elem>p{
+    color: var(--color-gray3);
+    font-size: 12px;
+}
+
+.bc_3_right{
+    font-size: 14px;
+    color: var(--color-gray3);
+    padding-right: 4px;
+}
+
+.bc_4{
+    margin-top: 18px;
+    margin-bottom: 12px;
+    font-size: 16px;
+    color: var(--color-gray1);
+    line-height: 24px;
+}
+
+.bc_5{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 12px;
+}
+
+.bc_5>img{
+    width: 150px;
+}
+
+.bc_6{
+    width: fit-content;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+}
+
+.bc_6>img{
+    width: 16px;
+    height: 16px;
+}
+
+.bc_6>p{
+    padding-bottom: 1px;
+    font-size: 13px;
+    color: var(--color-gray3);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
