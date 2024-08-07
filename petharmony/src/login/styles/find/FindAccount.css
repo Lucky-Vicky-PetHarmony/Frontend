@@ -219,6 +219,23 @@
     color: var(--color-gray2);
 }
 
+.fa_finish_move {
+    display: flex;
+    justify-content: space-between;
+    width: 134px;
+    margin: 23px 0 0 0;
+    color: var(--color-gray2);
+    font-size: 14px;
+}
+
+.fa_finish_move_btn {
+    border: none;
+    background-color: transparent;
+    color: var(--color-gray2);
+    font-size: 14px;
+    cursor: pointer;
+}
+
 .fa_id_contnet_req_tel::placeholder,
 .fa_id_content_verify_input::placeholder,
 .fa_password_content_email::placeholder {
@@ -233,6 +250,7 @@
 
 .fa_id_content_req_btn:active,
 .fa_password_content_btn:active,
-.fa_id_content_verify_btn:active {
+.fa_id_content_verify_btn:active,
+.fa_finish_move_btn:active {
     transform: scale(0.97);
 }
