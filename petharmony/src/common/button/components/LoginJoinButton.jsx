@@ -8,7 +8,7 @@ const LoginJoinButton = ({ mode, onClick }) => {
     const isGoJoinMode = mode === "goJoin";
     const isKakaoMode = mode === "kakao";
     const isGoogleMode = mode === "google";
-    const isJoinMode = mode === "join"; 
+    const isJoinMode = mode === "join";
 
     const getButtonClass = () => {
         let classes = "login_button";
@@ -26,9 +26,15 @@ const LoginJoinButton = ({ mode, onClick }) => {
             ) : isGoJoinMode ? (
                 <p>간 편 회 원 가 입</p>
             ) : isKakaoMode ? (
-                <img src={kakao} alt="카카오톡 로그인" />
+                <div className="ljb_text">
+                    <img src={kakao} alt="카카오톡 로그인" />
+                    <span>카카오톡 로그인</span>
+                </div>
             ) : isGoogleMode ? (
-                <img src={google} alt="구글 로그인" />
+                <div className="ljb_text">
+                    <img src={google} alt="구글 로그인" />
+                    <span>구글 로그인</span>
+                </div>
             ) : isJoinMode ? (
                 <p>회 원 가 입</p>
             ) : <></>

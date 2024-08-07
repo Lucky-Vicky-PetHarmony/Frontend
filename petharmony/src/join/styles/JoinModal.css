@@ -31,3 +31,10 @@
     margin-top: 10px;
     margin-bottom: 27px;
 }
+
+.jm_phone_msg {
+    font-family: "nanumgothic";
+    font-size: 8px;
+    color: #BCBCBC;
+    padding: 6px 0 10px 0;
+}

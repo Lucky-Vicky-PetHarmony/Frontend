@@ -29,7 +29,7 @@ const JoinModal = () => {
         }
 
         if (!passwordRegEx.test(password)) {
-            alert("비밀번호는 8-20자의 영문자와 숫자로만 구성되어야 합니다.");
+            alert("비밀번호는 8-20자로 구성되어야 합니다.");
             return;
         }
 
@@ -61,6 +61,9 @@ const JoinModal = () => {
                     setPasswordCheck={setPasswordCheck}
                     setPhone={setPhone}
                 />
+                <p className="jm_phone_msg">
+                    * 아이디, 비밀번호 찾기에 사용됩니다. 정확히 작성해주세요.
+                </p>
                 <div className="jm_button">
                     <LoginJoinButton
                         mode="join"
