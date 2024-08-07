@@ -5,11 +5,14 @@ import "../../styles/find/FindAccount.css";
 import logo from "../../../common/logo/assets/logo.png";
 import findId from "../../assets/find/find_id.png";
 import findPassword from "../../assets/find/find_password.png";
+import CancleButton from "../../../common/button/components/CancelButton";
 
 const FindAccount = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const mode = location.state?.mode;
+
+    const [isOpen, setIsOpen] = useState(true);
 
     const isFindIdMode = mode === 'id';
     const isFindPasswordMode = mode === 'password';
@@ -25,6 +28,10 @@ const FindAccount = () => {
     const [failMsg, setFailMsg] = useState("");
     const [isFinishPassword, setIsFinishPassword] = useState(false);
     const [count, setCount] = useState(3);
+
+    const handleClose = () => {
+        setIsOpen(false);
+    };
 
     useEffect(() => {
         let timer;
@@ -198,14 +205,19 @@ const FindAccount = () => {
 
     return (
         <>
-            <div className="find_account">
-                <img className="fa_logo" src={logo} alt="로고" />
-                {!isFinishId && !isFinishPassword &&
-                    <div className="fa_title">{title}</div>
-                }
-                {isFindIdMode && idContent}
-                {isFindPasswordMode && passwordContent}
-            </div>
+            {isOpen && (
+                <div className="find_account">
+                    <div className="find_account_exit" onClick={handleClose}>
+                        <CancleButton />
+                    </div>
+                    <img className="fa_logo" src={logo} alt="로고" />
+                    {!isFinishId && !isFinishPassword &&
+                        <div className="fa_title">{title}</div>
+                    }
+                    {isFindIdMode && idContent}
+                    {isFindPasswordMode && passwordContent}
+                </div>
+            )}
         </>
     );
 };

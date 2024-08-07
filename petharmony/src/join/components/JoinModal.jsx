@@ -6,9 +6,12 @@ import logo from "../../common/logo/assets/logo.png";
 import join_success from "../assets/join_success.png";
 import JoinInput from "./JoinInput";
 import LoginJoinButton from "../../common/button/components/LoginJoinButton";
+import CancleButton from "../../common/button/components/CancelButton";
 
-const JoinModal = ({ onClose = () => {} }) => {
+const JoinModal = ({ onClose = () => { } }) => {
     const navigate = useNavigate();
+
+    const [isOpen, setIsOpen] = useState(true);
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -34,6 +37,10 @@ const JoinModal = ({ onClose = () => {} }) => {
         }
         return () => clearTimeout(timer);
     }, [joinSuccess, count, onClose, navigate]);
+
+    const handleClose = () => {
+        setIsOpen(false);
+    };
 
     const handleSubmitJoin = (e) => {
         e.preventDefault();
@@ -73,41 +80,46 @@ const JoinModal = ({ onClose = () => {} }) => {
 
     return (
         <>
-            <div className="join_modal">
-                {!joinSuccess ? (
-                    <>
-                        <img className="jm_logo" src={logo} alt="로고" />
-                        <p className="jm_msg">
-                            PetHarmony에 오신걸 환영합니다
-                        </p>
-                        <div className="jm_form">
-                            <JoinInput
-                                setName={setName}
-                                setEmail={setEmail}
-                                setPassword={setPassword}
-                                setPasswordCheck={setPasswordCheck}
-                                setPhone={setPhone}
-                            />
-                        </div>
-                        <p className="jm_phone_msg">
-                            * 아이디, 비밀번호 찾기에 사용됩니다. 정확히 작성해주세요.
-                        </p>
-                        <div className="jm_button">
-                            <LoginJoinButton
-                                mode="join"
-                                onClick={handleSubmitJoin}
-                            />
-                        </div>
-                    </>
-                ) :
-                    <>
-                        <img className="jm_success_logo" src={join_success} alt="" />
-                        <p className="jm_success_text">
-                            {count}초 후 메인페이지로 이동합니다
-                        </p>
-                    </>
-                }
-            </div>
+            {isOpen && (
+                <div className="join_modal">
+                    {!joinSuccess ? (
+                        <>
+                            <div className="join_exit" onClick={handleClose}>
+                                <CancleButton />
+                            </div>
+                            <img className="jm_logo" src={logo} alt="로고" />
+                            <p className="jm_msg">
+                                PetHarmony에 오신걸 환영합니다
+                            </p>
+                            <div className="jm_form">
+                                <JoinInput
+                                    setName={setName}
+                                    setEmail={setEmail}
+                                    setPassword={setPassword}
+                                    setPasswordCheck={setPasswordCheck}
+                                    setPhone={setPhone}
+                                />
+                            </div>
+                            <p className="jm_phone_msg">
+                                * 아이디, 비밀번호 찾기에 사용됩니다. 정확히 작성해주세요.
+                            </p>
+                            <div className="jm_button">
+                                <LoginJoinButton
+                                    mode="join"
+                                    onClick={handleSubmitJoin}
+                                />
+                            </div>
+                        </>
+                    ) :
+                        <>
+                            <img className="jm_success_logo" src={join_success} alt="" />
+                            <p className="jm_success_text">
+                                {count}초 후 메인페이지로 이동합니다
+                            </p>
+                        </>
+                    }
+                </div>
+            )}
         </>
     );
 };
