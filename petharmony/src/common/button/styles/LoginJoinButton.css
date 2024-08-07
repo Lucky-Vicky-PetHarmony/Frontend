@@ -26,7 +26,6 @@
 .login_button.join_mode {
     background-color: #72C85A;
     color: #FFFFFF;
-    margin-top: 31px;
 }
 
 .social_button {
@@ -46,4 +45,17 @@
 .login_button:active,
 .social_button:active {
     transform: scale(0.97);
+}
+
+.ljb_text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.ljb_text span{
+    font-family: "nanumgothic";
+    font-size: 10px;
+    color: #5D5D5D;
 }
