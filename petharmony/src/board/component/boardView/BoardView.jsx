@@ -1,5 +1,5 @@
 import React from "react";
-import '../../style/boardView/BoardContent.css';
+import '../../style/boardView/BoardView.css';
 import BoardContent from "./BoardContent";
 import BoardCommentInput from './BoardCommentInput';
 import BoardComment from './BoardComment';
@@ -8,7 +8,7 @@ import BoardComment from './BoardComment';
 const BoardView = () => {
 
     return (
-        <div className="">
+        <div className="BoardView">
             <BoardContent />
             <BoardCommentInput/>
             <BoardComment/>
@@ -16,6 +16,7 @@ const BoardView = () => {
             <BoardComment/>
             <BoardComment/>
             <BoardComment/>
+            <div className="BoardView_backbtn">목록</div>
         </div> 
     );
 }
