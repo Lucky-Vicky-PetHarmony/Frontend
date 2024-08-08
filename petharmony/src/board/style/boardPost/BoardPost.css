@@ -1,0 +1,45 @@
+.BP{
+    width: 960px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 40px;
+
+    margin-bottom: 100px;
+}
+
+.BP_WarningMsg{
+    width: 960px;
+    margin-bottom: 20px;
+}
+
+.BP_buttons{
+    margin-right: 8px;
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+}
+
+.BP_buttons>*{
+    display: flex;
+    align-items: center;
+    padding: 8px 32px;
+    border-radius: 32px;
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+    background-color: var(--color-blue);
+    cursor: pointer;
+}
+
+.BP_buttons>*:active{
+    transform: scale(0.97);
+}
+
+.BP_buttons>.BP_buttons_cancle{
+    box-sizing: border-box;
+    border: 2px solid var(--color-gray1);
+    background-color: transparent;
+    color: var(--color-gray1);
+}
+
