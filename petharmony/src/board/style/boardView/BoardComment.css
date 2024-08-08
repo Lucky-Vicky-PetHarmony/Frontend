@@ -84,6 +84,7 @@
     height: 54px;
     padding: 10px 12px;
     font-size: 14px;
+    resize: none;
 }
 
 .BC_bottom_update>img{
