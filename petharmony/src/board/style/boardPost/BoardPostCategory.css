@@ -1,0 +1,22 @@
+.BPCategory{
+    width: 100%;
+    padding-left: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+}
+
+.BPCategory>p{
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.BPCategory>p>span{
+    font-size: 10px;
+    color: var(--color-red);
+}
+
+.BPCategory>.board_select_btn_group{
+    margin-left: 12px;
+}

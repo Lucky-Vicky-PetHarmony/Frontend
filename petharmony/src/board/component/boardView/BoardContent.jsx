@@ -74,10 +74,17 @@ const BoardContent = () => {
                 <img src={dogImg} alt="게시물첨부파일" />
             </div>
 
-            {/* 신고 */}
-            <div className="bc_6">
+            {/* 타인 게시물일때(신고) */}
+            {/* <div className="bc_6">
                 <img src={sosImg} alt="" />
                 <p>신고</p>
+            </div> */}
+
+            {/* 내 게시물일때(수정삭제) */}
+            <div className="bc_7">
+                <p>수정</p>
+                | 
+                <p>삭제</p>
             </div>
 
         </div>

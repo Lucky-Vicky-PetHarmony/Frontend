@@ -1,4 +1,5 @@
 .board_content{
+    margin-top: 200px;
     width: 960px;
     display: flex;
     flex-direction: column;
@@ -36,6 +37,7 @@
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 15%);
 }
 
+/* pin */
 .bc_1>img{
     width: 40px;
     cursor: pointer;
@@ -107,6 +109,7 @@
     width: 150px;
 }
 
+/* 신고 */
 .bc_6{
     width: fit-content;
     display: flex;
@@ -128,3 +131,20 @@
     text-decoration: underline;
     text-underline-offset: 2px;
 }
+
+/* 수정삭제 */
+.bc_7{
+    width: fit-content;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+    color: var(--color-gray3);
+}
+
+.bc_7>*{
+    color: var(--color-gray3);
+    cursor: pointer;
+    font-size: 14px;
+}
+
