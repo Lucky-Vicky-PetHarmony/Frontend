@@ -1,0 +1,53 @@
+.BPF{
+    padding: 9px 8px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.BPF>p{
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.BPF>p>span{
+    font-size: 10px;
+    color: var(--color-gray3);
+}
+
+.BPF_files{
+    width: 960px;
+    padding: 24px 8px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 16px;
+}
+
+.BPF_files>img{
+    cursor: pointer;
+    width: 25px;
+}
+
+.BPF_Files_file{
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    border-radius: 32px;
+    background-color: rgba(58, 112, 223, 8%);
+}
+
+.BPF_Files_file>p{
+    font-size: 14px;
+    color: var(--color-gray2);
+}
+
+.BPF_Files_file>img{
+    width: 20px;
+    cursor: pointer;
+}
