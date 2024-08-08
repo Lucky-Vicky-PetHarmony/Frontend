@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "../../common.css";
 import "../styles/JoinInput.css";
 import nameIcon from "../assets/join_name.png";
 import emailIcon from "../assets/join_email.png";
@@ -58,7 +59,6 @@ const JoinInput = ({ setName, setEmail, setPassword, setPasswordCheck, setPhone 
                 <div className="ji_container">
                     <img src={nameIcon} alt="이름 아이콘" className="ji_icon" />
                     <input
-                        className="ji_name"
                         placeholder="이름"
                         type="text"
                         maxLength={10}
@@ -68,7 +68,6 @@ const JoinInput = ({ setName, setEmail, setPassword, setPasswordCheck, setPhone 
                 <div className="ji_container">
                     <img src={emailIcon} alt="이메일 아이콘" className="ji_icon" />
                     <input
-                        className="ji_email"
                         placeholder="이메일"
                         type="email"
                         onChange={handleEmailChange}
@@ -77,7 +76,6 @@ const JoinInput = ({ setName, setEmail, setPassword, setPasswordCheck, setPhone 
                 <div className="ji_container">
                     <img src={passwordIcon} alt="비밀번호 아이콘" className="ji_icon" />
                     <input
-                        className="ji_password"
                         placeholder="비밀번호"
                         type="password"
                         onChange={handlePasswordChange}
@@ -96,7 +94,6 @@ const JoinInput = ({ setName, setEmail, setPassword, setPasswordCheck, setPhone 
                 <div className="ji_container">
                     <img src={phoneIcon} alt="전화번호 아이콘" className="ji_icon" />
                     <input
-                        className="ji_phone"
                         placeholder="전화번호"
                         type="text"
                         maxLength={13}

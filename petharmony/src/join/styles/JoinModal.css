@@ -1,6 +1,9 @@
-@import url('http://fonts.googleapis.com/earlyaccess/nanumgothic.css');
-
 .join_modal {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 465px;
     height: 500px;
     border-radius: 32px;
@@ -13,28 +16,56 @@
         4px 4px 4px 0px rgba(255, 255, 255, 0.1) inset;
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+}
+
+.join_exit {
+    position: absolute;
+    top: 21px;
+    right: 24px;
 }
 
 .jm_logo {
+    position: absolute;
+    top: 39px;
     width: 126px;
     height: 63px;
 }
 
 .jm_msg {
-    font-family: "nanumgothic";
+    position: absolute;
+    top: 112px;
     font-size: 14px;
-    color: #8C8C8C;
-    margin-top: 10px;
-    margin-bottom: 27px;
+    color: var(--color-gray2);
+}
+
+.jm_form {
+    position: absolute;
+    top: 153px;
 }
 
 .jm_phone_msg {
-    font-family: "nanumgothic";
+    position: absolute;
+    top: 385px;
     font-size: 8px;
-    color: #BCBCBC;
-    padding: 6px 0 10px 0;
+    color: var(--color-gray5);
+}
+
+.jm_button {
+    position: absolute;
+    top: 412px;
+}
+
+.jm_success_logo {
+    position: absolute;
+    top: 149px;
+    width: 190px;
+    height: 140px;
+}
+
+.jm_success_text {
+    position: absolute;
+    top: 324px;
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--color-gray2);
 }
