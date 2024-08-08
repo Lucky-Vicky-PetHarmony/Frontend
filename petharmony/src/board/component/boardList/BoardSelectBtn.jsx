@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import '../../style/boardList/BoardSelectBtn.css'
 
-const BoardSelectBtn = () => {
-    const [activeBtn, setActiveBtn] = useState("all");
+const BoardSelectBtn = ({post}) => {
+    const [activeBtn, setActiveBtn] = useState(post ? post :"all");
 
     const handleButtonClick = (buttonName) => {
         setActiveBtn(buttonName);
@@ -10,9 +10,9 @@ const BoardSelectBtn = () => {
 
     return (
         <div className="board_select_btn_group">
-            <button 
+            {!post && (<button 
                 className={`board_select_btn ${activeBtn === 'all' ? 'active all' : ''}`}
-                onClick={() => handleButtonClick("all")}>전체</button>
+                onClick={() => handleButtonClick("all")}>전체</button>)}
             <button 
                 className={`board_select_btn ${activeBtn === 'free' ? 'active free' : ''}`}
                 onClick={() => handleButtonClick("free")}>자유</button>
