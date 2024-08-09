@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import "../../common.css";
 import "../styles/JoinModal.css";
 import logo from "../../common/logo/assets/logo.png";
@@ -42,7 +43,7 @@ const JoinModal = ({ onClose = () => { } }) => {
         setIsOpen(false);
     };
 
-    const handleSubmitJoin = (e) => {
+    const handleSubmitJoin = async (e) => {
         e.preventDefault();
 
         if (!name || !email || !password || !passwordCheck || !phone) {
@@ -65,17 +66,31 @@ const JoinModal = ({ onClose = () => { } }) => {
             return;
         }
 
-        console.log(
-            "Name: ", name,
-            "Email: ", email,
-            "Password: ", password,
-            "PasswordCheck", passwordCheck,
-            "Phone", phone
-        );
+        const signUpData = {
+            userName: name,
+            email: email,
+            password: password,
+            phone: phone
+        };
 
-        // TODO: 서버로 전송하는 로직 추가 예정
-        setJoinSuccess(true);
-        setCount(3);
+        try {
+            const response = await axios.post('http://localhost:8080/api/public/signUp', signUpData);
+
+            if (response.status === 200) {
+                alert(response.data);
+                setJoinSuccess(true);
+                setCount(3);
+            } else {
+                alert("회원가입 실패");
+            }
+        } catch (error) {
+            if (error.response) {
+                alert("회원가입 실패");
+            } else if (error.requset) {
+                alert("서버와의 통신 중 오류가 발생했습니다.");
+            }
+            console.error("Error: ", error);
+        }
     };
 
     return (
