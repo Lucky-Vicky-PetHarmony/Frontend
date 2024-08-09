@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import "../../common.css";
 import "../styles/LoginModal.css";
 import logo from "../../common/logo/assets/logo.png";
@@ -19,13 +20,34 @@ const LoginModal = () => {
         setIsOpen(false);
     };
 
-    const handleSubmitLogin = (e) => {
+    const handleSubmitLogin = async (e) => {
         e.preventDefault();
-        console.log(
-            "Email: ", email,
-            "Password: ", password
-        );
-        // TODO: 서버로 전송하는 로직 추가 예정
+
+        const loginData = {
+            email: email,
+            password: password
+        };
+    
+        try {
+            const response = await axios.post('http://localhost:8080/api/public/login', loginData, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+    
+            if (response.status === 200) {
+                alert("로그인 성공");
+            } else {
+                alert("로그인 실패");
+            }
+        } catch (error) {
+            if (error.response) {
+                alert("로그인 실패: " + error.response.data);
+            } else if (error.request) {
+                alert("서버와의 통신 중 오류가 발생했습니다.");
+            }
+            console.error("Error: ", error);
+        }
     };
 
     const handleMoveJoin = (e) => {
