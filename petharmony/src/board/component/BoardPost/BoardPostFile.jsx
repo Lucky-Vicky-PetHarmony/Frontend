@@ -4,9 +4,13 @@ import plusImg from '../../asset/plus.png';
 import deleteImg from '../../asset/delete.png';
 
 
-const BoardPostFile = () => {
+const BoardPostFile = ({setFiles}) => {
     const [selectedFiles, setSelectedFiles] = useState([]); //선택한 파일 저장
     const fileInputRef = useRef(null); //파일추가하는 input요소를 가리킴
+
+    useEffect(()=> {
+        setFiles(selectedFiles);
+    }, [selectedFiles]);
 
     const handleFileChange = (event) => {
         const files = Array.from(event.target.files);
