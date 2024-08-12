@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import axios from "axios";
 import "../../../common.css";
 import "../../styles/find/FindAccount.css";
 import logo from "../../../common/logo/assets/logo.png";
@@ -19,6 +20,8 @@ const FindAccount = () => {
 
     // 아이디 찾기
     const [phone, setPhone] = useState("");
+    const [localPhone, setLocalPhone] = useState("");
+    const [isClick, setIsClick] = useState(false);
     const [verificationMsg, setVerifivationMsg] = useState("");
     const [verificationInput, setVerifivationInput] = useState("");
     const [isFinishId, setIsFinishId] = useState(false);
@@ -46,30 +49,51 @@ const FindAccount = () => {
     }, [isFinishPassword, count, navigate]);
 
     const handlePhoneChange = (e) => {
-        setPhone(e.target.value);
+        const phoneValue = e.target.value.replace(/[^0-9]/g, '');
+        setLocalPhone(phoneValue);
     };
 
-    const handleRequestNumber = () => {
-        // TODO: 인증번호 전송 로직 추가 예정
-        const success = true; // 하드코딩
-        const isExistPhone = true; // 하드코딩
+    useEffect(() => {
+        let formattedPhone = localPhone;
+        if (localPhone.length === 11) {
+            formattedPhone = localPhone.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
+        }
+        setPhone(formattedPhone);
+    }, [localPhone, setPhone]);
 
-        if (success) {
-            if (isExistPhone) {
-                setVerifivationMsg("인증번호가 전송되었습니다.");
-                setVerifivationInput(true);
+    const handleRequestNumber = async () => {
+        const phoneData = {
+            phone: phone.replace(/-/g, '')
+        };
+
+        setIsClick(true);
+
+        try {
+            const response = await axios.post('http://localhost:8080/api/public/send-certification', phoneData);
+
+            const message = response.data;
+
+            if (response.status === 200) {
+                setVerifivationMsg(message);
+                if (message === "인증번호가 전송되었습니다.") {
+                    setVerifivationInput(true);
+                } else {
+                    setIsClick(false);
+                }
             } else {
-                setVerifivationMsg("가입되지 않은 번호입니다.");
+                setVerifivationMsg(message);
+                setIsClick(false);
             }
-        } else {
-            setVerifivationMsg("인증번호 전송에 실패하였습니다.");
+        } catch (error) {
+            setVerifivationMsg("서버와의 통신에 실패했습니다.");
+            setIsClick(false);
+            console.error(error);
         }
     };
 
     const messageStyle = {
         color: verificationMsg === "인증번호가 전송되었습니다." ? "var(--color-blue)" : "var(--color-red)",
     };
-
 
     const handleCommitNumber = () => {
         // TODO: 인증번호 확인 로직 추가 예정
@@ -132,10 +156,11 @@ const FindAccount = () => {
                         className="fa_id_contnet_req_tel"
                         type="text"
                         placeholder="전화번호 입력"
+                        maxLength={13}
+                        value={localPhone.replace(/(\d{3})(\d{3,4})(\d{4})/, '$1-$2-$3')}
                         onChange={handlePhoneChange}
-                        value={phone}
                     />
-                    <button className="fa_id_content_req_btn" onClick={handleRequestNumber}>
+                    <button className="fa_id_content_req_btn" onClick={handleRequestNumber} disabled={isClick}>
                         인증번호 요청
                     </button>
                 </div>
