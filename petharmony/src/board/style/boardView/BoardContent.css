@@ -27,7 +27,7 @@
 }
 
 .bc_1_category{
-    border: 2px solid var(--color-green);
+    border: 2px solid;
     border-radius: 32px;
     background-color: white;
     color: var(--color-green);
@@ -35,6 +35,21 @@
     font-weight: 600;
     padding: 6px 18px;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 15%);
+}
+
+.bc_1_category.ADOPT{
+    color: var(--color-green);
+    border-color: var(--color-green);
+}
+
+.bc_1_category.INFORMATION{
+    color: var(--color-blue);
+    border-color: var(--color-blue);
+}
+
+.bc_1_category.FREE{
+    color: var(--color-red);
+    border-color: var(--color-red);
 }
 
 /* pin */

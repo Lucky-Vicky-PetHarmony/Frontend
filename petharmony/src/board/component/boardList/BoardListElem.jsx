@@ -3,9 +3,16 @@ import '../../style/boardList/BoardListElem.css';
 import viewimg from '../../asset/view.png';
 import commentimg from '../../asset/comment.png';
 import pictureimg from '../../asset/picture.png';
+import { useNavigate } from 'react-router-dom';
 
 
 const BoardListElem = ({board}) => {
+    const nav = useNavigate(); //페이지 이동을 위한 navigate
+    const YOUR_USER_ID = 28; //로그인한 사용자 아이디
+
+    const handleClick = () => {
+        nav(`/board/view/${board.boardId}`, { state: { userId: YOUR_USER_ID } });
+    };
 
     const categotyFormat = (category) => {
         switch(category) {
@@ -21,7 +28,7 @@ const BoardListElem = ({board}) => {
     }
 
     return (
-        <div className="boardcontent">
+        <div className="boardcontent" onClick={handleClick}>
             <div className="boardcontent_left">
                 <div 
                     className={`boardcontent_left_category ${board.category}`}
