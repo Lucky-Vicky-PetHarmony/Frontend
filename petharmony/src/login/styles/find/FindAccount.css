@@ -113,6 +113,12 @@
     cursor: pointer;
 }
 
+.fa_id_content_verify_msg {
+    margin: 6px 0 0 7px;
+    font-size: 10px;
+    color: var(--color-red);
+}
+
 .fa_finish {
     position: absolute;
     top: 176px;

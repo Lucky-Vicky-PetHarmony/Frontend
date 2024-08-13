@@ -70,7 +70,7 @@ const JoinModal = ({ onClose = () => { } }) => {
             userName: name,
             email: email,
             password: password,
-            phone: phone
+            phone: phone.replace(/-/g, '')
         };
 
         try {
