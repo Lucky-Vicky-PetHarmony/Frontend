@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import '../../style/boardList/BoardFilter.css'
 import dropdownimg from "../../asset/dropdown.png"
 
-const BoardFilter = () => {
+const BoardFilter = ({setFilter}) => {
     const [filterStatus, setFilterStatus] = useState("최신순");
     const [filterDropdown, setFilterDropdown] = useState(false);
     const dropdownRef = useRef(null);  // 드롭다운 영역을 참조하기 위한 ref
@@ -15,6 +15,25 @@ const BoardFilter = () => {
     const handleFilter = (filtername) => {
         setFilterStatus(filtername);
         setFilterDropdown(false);
+
+        // 부모 컴포넌트의 setFilter 함수 호출
+        switch (filtername) {
+            case "최신순":
+                setFilter("date"); // 최신순
+                break;
+            case "조회순":
+                setFilter("views"); // 조회수순
+                break;
+            case "댓글순":
+                setFilter("comments"); // 댓글순
+                break;
+            // case "스크랩순": // 부기능
+            //     setFilter("scrap"); // 스크랩순 정렬 기준 (예시로 추가)
+            //     break;
+            default:
+                setFilter("date");
+                break;
+        }
     }
 
     // 드롭다운 이외의 영역을 클릭했을 때 드롭다운 닫기

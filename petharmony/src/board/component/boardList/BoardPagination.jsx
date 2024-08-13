@@ -1,26 +1,54 @@
-import React from "react";
+import React, {useState} from "react";
 import '../../style/boardList/BoardPagination.css';
 import arrowimg from '../../asset/arrow.png';
 
 
-const BoardPagination = () => {
+const BoardPagination = ({setPage, totalPages}) => {
+    const [currentPage, setCurrentPage] = useState(1); //현재 페이지
+
+    const handlePageClick = (page) => {
+        setCurrentPage(page);
+        setPage(page - 1);  // 백엔드에서 사용하는 페이지 번호는 0부터 시작하므로 -1을 해줍니다.
+    }
+
+    const handlePrevClick = () => {
+        if (currentPage > 1) {
+            handlePageClick(currentPage - 1);
+        }
+    }
+
+    const handleNextClick = () => {
+        if (currentPage < totalPages) {
+            handlePageClick(currentPage + 1);
+        }
+    }
 
     return (
         <div className="boardpagination">
-            <img className="boardpagination_arrow_left" src={arrowimg} alt="" />
+            <img 
+                className="boardpagination_arrow_left" 
+                src={arrowimg} 
+                alt=""
+                onClick={handlePrevClick} 
+                style={{ cursor: currentPage > 1 ? 'pointer' : 'not-allowed' }}  
+            />
             <div className="boardpagination_pagenumber">
-                <p className="active">1</p>
-                <p>2</p>
-                <p>3</p>
-                <p>4</p>
-                <p>5</p>
-                <p>6</p>
-                <p>7</p>
-                <p>8</p>
-                <p>9</p>
-                <p>10</p>
+                {[...Array(totalPages).keys()].map(page => (
+                    <p 
+                        key={page + 1} 
+                        className={currentPage === page + 1 ? 'active' : ''}
+                        onClick={() => handlePageClick(page + 1)}
+                    >
+                        {page + 1}
+                    </p>
+                ))}
             </div>
-            <img className="boardpagination_arrow_right" src={arrowimg} alt="" />
+            <img 
+                className="boardpagination_arrow_right" 
+                src={arrowimg} 
+                alt=""
+                onClick={handleNextClick} 
+                style={{ cursor: currentPage < totalPages ? 'pointer' : 'not-allowed' }}  />
         </div>
     );
 }

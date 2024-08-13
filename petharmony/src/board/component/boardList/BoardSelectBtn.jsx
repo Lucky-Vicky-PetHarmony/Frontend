@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import '../../style/boardList/BoardSelectBtn.css'
 
-const BoardSelectBtn = ({post, setCategory}) => {
-    const [activeBtn, setActiveBtn] = useState(post ? post :"all");
+const BoardSelectBtn = ({mode, setCategory}) => {
+    const [activeBtn, setActiveBtn] = useState( mode === "post" ? "FREE" : "ALL");
 
     useEffect(() => {
         if(setCategory) {
@@ -16,9 +16,9 @@ const BoardSelectBtn = ({post, setCategory}) => {
 
     return (
         <div className="board_select_btn_group">
-            {!post && (<button 
-                className={`board_select_btn ${activeBtn === 'all' ? 'active all' : ''}`}
-                onClick={() => handleButtonClick("all")}>전체</button>)}
+            {mode!=="post" && (<button 
+                className={`board_select_btn ${activeBtn === 'ALL' ? 'active all' : ''}`}
+                onClick={() => handleButtonClick("ALL")}>전체</button>)}
             <button 
                 className={`board_select_btn ${activeBtn === 'FREE' ? 'active FREE' : ''}`}
                 onClick={() => handleButtonClick("FREE")}>자유</button>
