@@ -10,9 +10,9 @@ import sosImg from '../../asset/sos.png'
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const BoardContent = ({board}) => {
+const BoardContent = ({board, commCount}) => {
     const nav = useNavigate();
-    const loggedInUserId = 28; // 로그인한 사용자 ID
+    const loggedInUserId = 31; // 로그인한 사용자 ID
 
     const [pin, setPin] = useState(false);
 
@@ -89,7 +89,7 @@ const BoardContent = ({board}) => {
                     </div>
                     <div className="bc_3_left_elem">
                         <img src={commImg} alt="댓글" />
-                        <p>{board.commentCount}</p>
+                        <p>{commCount}</p>
                     </div>
                     <div className="bc_3_left_elem">
                         <img src={pinGrayImg} alt="핀" />

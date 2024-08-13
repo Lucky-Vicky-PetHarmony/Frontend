@@ -5,7 +5,7 @@ import commpostImg from '../../asset/commpost.png';
 import axios from "axios";
 
 const BoardComment = ({comment, masterId, updateComment}) => {
-    const loggedInUserId = 28; // 로그인한 사용자 ID
+    const loggedInUserId = 31; // 로그인한 사용자 ID
 
     const [updateForm, setUpdateForm] = useState(false);
     const [updatedContent, setUpdatedContent] = useState(comment.content);
