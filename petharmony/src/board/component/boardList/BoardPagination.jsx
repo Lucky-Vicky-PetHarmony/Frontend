@@ -3,12 +3,10 @@ import '../../style/boardList/BoardPagination.css';
 import arrowimg from '../../asset/arrow.png';
 
 
-const BoardPagination = ({setPage, totalPages}) => {
-    const [currentPage, setCurrentPage] = useState(1); //현재 페이지
+const BoardPagination = ({setPage, totalPages, currentPage}) => {
 
     const handlePageClick = (page) => {
-        setCurrentPage(page);
-        setPage(page - 1);  // 백엔드에서 사용하는 페이지 번호는 0부터 시작하므로 -1을 해줍니다.
+        setPage(page - 1);  // 백엔드에서 사용하는 페이지 번호는 0부터 시작
     }
 
     const handlePrevClick = () => {

@@ -48,15 +48,27 @@ const BoardList = () => {
         }
     };
 
+    // 카테고리 변경 시 페이지를 0번으로 초기화
+    const handleCategoryChange = (newCategory) => {
+        setCategory(newCategory);
+        setPage(0); // 페이지를 초기화
+    };
+
+    // 필터 변경 시 페이지를 0번으로 초기화
+    const handleFilterChange = (newFilter) => {
+        setFilter(newFilter);
+        setPage(0); // 페이지를 초기화
+    };
+
     return (
         <div className="boardlist">
             <img src={boardbannerimg} alt="" />
             <div className="boardlist_top_top">
-                <BoardSelectBtn mode={"list"} setCategory={setCategory} />
+                <BoardSelectBtn mode={"list"} setCategory={handleCategoryChange} />
                 <BoardWriteBtn/>
             </div>
             <div className="boardlist_top_bottom">
-                <BoardFilter setFilter={setFilter}/>
+                <BoardFilter setFilter={handleFilterChange} />
                 <BoardSearch/>
             </div>
             <div className="boardlist_middle">
@@ -64,7 +76,7 @@ const BoardList = () => {
                     <BoardListElem key={board.boardId} board={board} />
                 ))}
             </div>
-            <BoardPagination setPage={setPage} totalPages={totalPages} />
+            <BoardPagination setPage={setPage} totalPages={totalPages} currentPage={page + 1} />
         </div>
     );
 }
