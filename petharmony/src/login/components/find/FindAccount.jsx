@@ -127,7 +127,7 @@ const FindAccount = () => {
                     const date = new Date(responseData.createDate);
                     setFormattedDate(date.toISOString().slice(0, 10).replace(/-/g, '.'));
                 }
-                
+
                 if (responseData.email) {
                     setIsFinishId(true);
                 } else {
@@ -155,7 +155,11 @@ const FindAccount = () => {
             const response = await axios.post('http://localhost:8080/api/public/send-email', emailData);
 
             if (response.status === 200) {
-                setIsFinishPassword(true);
+                if (response.data === "임시 비밀번호가 이메일로 발송되었습니다.") {
+                    setIsFinishPassword(true);
+                } else {
+                    setFailMsg(response.data);
+                }
             } else {
                 setFailMsg(response.data);
             }
