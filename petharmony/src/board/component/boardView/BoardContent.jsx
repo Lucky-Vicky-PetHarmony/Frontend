@@ -7,10 +7,11 @@ import commImg from '../../asset/comment.png'
 import viewImg from '../../asset/view.png'
 import dogImg from '../../asset/dog.png'
 import sosImg from '../../asset/sos.png'
-
-
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const BoardContent = ({board}) => {
+    const nav = useNavigate();
     const loggedInUserId = 28; // 로그인한 사용자 ID
 
     const [pin, setPin] = useState(false);
@@ -31,6 +32,35 @@ const BoardContent = ({board}) => {
                 return ""; // 추가적인 케이스가 없을 때 반환될 기본 값
         }
     }
+
+    // 게시물 삭제
+    const boardDelete = async () => {
+        try {
+            const response = await 
+                axios.delete(`http://localhost:8080/api/public/board/delete`,
+                    {
+                        params: {
+                            boardId: board.boardId,
+                            userId: loggedInUserId
+                        }
+                    });
+
+                    if (response.status === 200){
+                        alert(`[ ${board.title} ] 게시물이 삭제되었습니다.`);
+                        nav("/board/list");
+                    } else{
+                        alert("게시물 삭제에 실패했습니다.");
+                    }
+        } catch (error) {
+            console.error("게시물 삭제 중 오류 발생: ", error);
+            alert("게시물 삭제 중 오류가 발생했습니다.");
+        }
+    }
+
+    //게시글 수정 페이지로 이동
+    const handleEditClick = () => {
+        nav('/board/edit-post', { state: { isEdit: true, boardData: board } });
+    };
 
     return (
         <div className="board_content">
@@ -86,9 +116,9 @@ const BoardContent = ({board}) => {
                 타인 게시물 : 신고버튼 */}
             {board.userId === loggedInUserId ? (
                 <div className="bc_7">
-                    <p>수정</p>
+                    <p onClick={handleEditClick}>수정</p>
                     | 
-                    <p>삭제</p>
+                    <p onClick={boardDelete}>삭제</p>
                 </div>
             ) : (
                 <div className="bc_6">

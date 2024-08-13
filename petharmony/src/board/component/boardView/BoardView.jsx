@@ -38,7 +38,7 @@ const BoardView = () => {
     return (
         <div className="BoardView">
             {boardData ? (<>
-                <BoardContent board={boardData} />
+                <BoardContent board={boardData} updateBoard={fetchBoardData}/>
                 <BoardCommentInput boardId={boardId} userId={userId}  onCommentSubmit={fetchBoardData} />
                 {boardData.commentList.map(comment => (
                     <BoardComment 

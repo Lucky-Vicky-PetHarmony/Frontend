@@ -16,8 +16,9 @@ function App() {
         <Route path="/join" element={<JoinModal />} />
         <Route path="/find-account" element={<FindAccount />} />
         <Route path="/board/list" element={<BoardList />} />
-        <Route path="/Board/view/:boardId" element={<BoardView />} />
-        <Route path="/Board/post" element={<BoardPost />} />
+        <Route path="/board/view/:boardId" element={<BoardView />} />
+        <Route path="/board/post" element={<BoardPost />} />
+        <Route path="/board/edit-post" element={<BoardPost />} />
       </Routes>
     </Router>
   );

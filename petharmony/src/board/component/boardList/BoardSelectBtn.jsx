@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import '../../style/boardList/BoardSelectBtn.css'
 
-const BoardSelectBtn = ({mode, setCategory}) => {
-    const [activeBtn, setActiveBtn] = useState( mode === "post" ? "FREE" : "ALL");
-
+const BoardSelectBtn = ({mode, setCategory, category}) => {
+    const initialCategory = mode === "edit" && category ? category : (mode === "post" ? "FREE" : "ALL");
+    const [activeBtn, setActiveBtn] = useState(initialCategory);
+    
     useEffect(() => {
         if(setCategory) {
             setCategory(activeBtn);
         }
-    }, [activeBtn]);
+    }, [activeBtn, setCategory, category]);
 
     const handleButtonClick = (buttonName) => {
         setActiveBtn(buttonName);
@@ -16,7 +17,8 @@ const BoardSelectBtn = ({mode, setCategory}) => {
 
     return (
         <div className="board_select_btn_group">
-            {mode!=="post" && (<button 
+            {(mode!=="post" && mode!=="edit") && (
+            <button 
                 className={`board_select_btn ${activeBtn === 'ALL' ? 'active all' : ''}`}
                 onClick={() => handleButtonClick("ALL")}>전체</button>)}
             <button 

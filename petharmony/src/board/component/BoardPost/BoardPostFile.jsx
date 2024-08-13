@@ -4,13 +4,19 @@ import plusImg from '../../asset/plus.png';
 import deleteImg from '../../asset/delete.png';
 
 
-const BoardPostFile = ({setFiles}) => {
+const BoardPostFile = ({setFiles, setDeleteImages, existingImages}) => {
     const [selectedFiles, setSelectedFiles] = useState([]); //선택한 파일 저장
+    const [displayImages, setDisplayImages] = useState(existingImages || []); // 기존 이미지와 선택한 파일을 함께 관리
     const fileInputRef = useRef(null); //파일추가하는 input요소를 가리킴
 
     useEffect(()=> {
         setFiles(selectedFiles);
     }, [selectedFiles]);
+
+    useEffect(() => {
+        //초기 렌더링시에 기존 이미지 표시
+        setDisplayImages(existingImages);
+    }, [existingImages])
 
     const handleFileChange = (event) => {
         const files = Array.from(event.target.files);
@@ -24,10 +30,22 @@ const BoardPostFile = ({setFiles}) => {
         }
 
         setSelectedFiles(prevFiles => [...prevFiles, ...files]);
+        setDisplayImages(prevImages => [...prevImages, ...files]);//추가된 파일도 화면에 표시
     };
 
     const handleFileDelete = (index) => {
-        setSelectedFiles(prevFiles => prevFiles.filter((_, i) => i !== index));
+        const fileToDelete = displayImages[index];
+
+        //기존 이미지에서 삭제되는 경우 삭제된 이미지 ID를 저장
+        if(fileToDelete.imageId){
+            setDeleteImages(prev => [...prev, fileToDelete.imageId]);
+        }
+
+        if(index < selectedFiles.length) {
+            setSelectedFiles(prevFiles => prevFiles.filter((_, i) => i !== index));
+        }
+
+        setDisplayImages(prevImages => prevImages.filter((_, i) => i !== index));
     };
 
     const handlePlusClick = () => {
@@ -47,9 +65,9 @@ const BoardPostFile = ({setFiles}) => {
                 첨부파일(최대 6장)<span> * png, jpg, jpeg만 첨부가능합니다.</span>
             </p>
             <div className="BPF_files">
-                {selectedFiles.map((file, index) => (
+                {displayImages.map((file, index) => (
                     <div key={index} className="BPF_Files_file">
-                        <p>{file.name}</p>
+                        <p>{file.name || file.imageName}</p>
                         <img 
                             src={deleteImg} 
                             alt=""
@@ -57,10 +75,12 @@ const BoardPostFile = ({setFiles}) => {
                     </div>
                 ))}
                 {/* 6개 이하일때만 */}
-                {selectedFiles.length<6 &&(<img 
-                    src={plusImg} 
-                    alt="" 
-                    onClick={() => handlePlusClick()}/>)}
+                {selectedFiles.length<6 &&(
+                    <img 
+                        src={plusImg} 
+                        alt="" 
+                        onClick={() => handlePlusClick()}/>
+                )}
             </div>
 
             {/* 이미지추가 */}
@@ -72,7 +92,6 @@ const BoardPostFile = ({setFiles}) => {
                 multiple 
                 accept=".png, .jpg, .jpeg"
             />
-
         </div>
     );
 }
