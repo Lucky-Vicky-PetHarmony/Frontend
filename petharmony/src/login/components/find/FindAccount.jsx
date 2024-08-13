@@ -23,8 +23,15 @@ const FindAccount = () => {
     const [localPhone, setLocalPhone] = useState("");
     const [isClick, setIsClick] = useState(false);
     const [verificationMsg, setVerifivationMsg] = useState("");
-    const [verificationInput, setVerifivationInput] = useState("");
+    const [certificationNumber, setCertificationNumber] = useState("");
+    const [checkMsg, setCheckMsg] = useState("");
     const [isFinishId, setIsFinishId] = useState(false);
+
+    // API 응답 데이터 저장을 위한 상태
+    const [userEmail, setUserEmail] = useState("");
+    const [userCreateDate, setUserCreateDate] = useState("");
+    const [responseMessage, setResponseMessage] = useState("");
+    const [formattedDate, setFormattedDate] = useState("");
 
     // 비밀번호 찾기
     const [email, setEmail] = useState("");
@@ -59,7 +66,7 @@ const FindAccount = () => {
             formattedPhone = localPhone.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
         }
         setPhone(formattedPhone);
-    }, [localPhone, setPhone]);
+    }, [localPhone]);
 
     const handleRequestNumber = async () => {
         const phoneData = {
@@ -76,7 +83,7 @@ const FindAccount = () => {
             if (response.status === 200) {
                 setVerifivationMsg(message);
                 if (message === "인증번호가 전송되었습니다.") {
-                    setVerifivationInput(true);
+                    setCertificationNumber("");
                 } else {
                     setIsClick(false);
                 }
@@ -95,21 +102,51 @@ const FindAccount = () => {
         color: verificationMsg === "인증번호가 전송되었습니다." ? "var(--color-blue)" : "var(--color-red)",
     };
 
-    const handleCommitNumber = () => {
-        // TODO: 인증번호 확인 로직 추가 예정
-        const success = true; // 하드 코딩
+    const handleCertificationNumberChange = (e) => {
+        const value = e.target.value.replace(/[^0-9]/g, '').slice(0, 4);
+        setCertificationNumber(value);
+    };
 
-        if (success) {
-            setIsFinishId(true);
+    const handleCommitNumber = async () => {
+        const certificationData = {
+            phone: phone.replace(/-/g, ''),
+            certificationNumber: certificationNumber
+        };
+
+        try {
+            const response = await axios.post('http://localhost:8080/api/public/check-certification', certificationData);
+
+            if (response.status === 200) {
+                const responseData = response.data;
+
+                setUserEmail(responseData.email || "");
+                setUserCreateDate(responseData.createDate || "");
+                setResponseMessage(responseData.responseMsg || "");
+
+                if (responseData.createDate) {
+                    const date = new Date(responseData.createDate);
+                    setFormattedDate(date.toISOString().slice(0, 10).replace(/-/g, '.'));
+                }
+                
+                if (responseData.email) {
+                    setIsFinishId(true);
+                } else {
+                    setCheckMsg(responseMessage);
+                }
+            } else {
+                setCheckMsg("인증에 실패했습니다.");
+            }
+        } catch (error) {
+            setCheckMsg("서버와의 통신에 실패했습니다.");
+            console.error(error);
         }
     };
 
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
-    }
+    };
 
     const hanldeSendEmail = () => {
-        // TODO: 이메일 보내는 로직 추가 예정
         const success = true; // 하드코딩
         const isExistEmail = true; // 하드코딩
 
@@ -165,16 +202,22 @@ const FindAccount = () => {
                     </button>
                 </div>
                 {verificationMsg && <p className="fa_content_msg" style={messageStyle}>{verificationMsg}</p>}
-                {verificationInput && (
-                    <div className="fa_id_content_verify">
-                        <input
-                            className="fa_id_content_verify_input"
-                            type="text"
-                            placeholder="인증번호"
-                        />
-                        <button className="fa_id_content_verify_btn" onClick={handleCommitNumber}>
-                            인증
-                        </button>
+                {verificationMsg === "인증번호가 전송되었습니다." && (
+                    <div>
+                        <div className="fa_id_content_verify">
+                            <input
+                                className="fa_id_content_verify_input"
+                                type="text"
+                                placeholder="인증번호"
+                                value={certificationNumber}
+                                onChange={handleCertificationNumberChange}
+                                maxLength={4}
+                            />
+                            <button className="fa_id_content_verify_btn" onClick={handleCommitNumber}>
+                                인증
+                            </button>
+                        </div>
+                        {checkMsg && <p className="fa_id_content_verify_msg">{checkMsg}</p>}
                     </div>
                 )}
             </div>
@@ -184,10 +227,10 @@ const FindAccount = () => {
                 <p className="fa_finish_text">회원님의 휴대전화 정보와 일치하는 아이디입니다</p>
                 <div className="fa_finish_box">
                     <p className="fa_finish_box_text">
-                        아이디 :
+                        아이디: {userEmail}
                     </p>
                     <p className="fa_finish_box_text margin">
-                        가입일 :
+                        가입일: {formattedDate}
                     </p>
                 </div>
                 <div className="fa_finish_move">
