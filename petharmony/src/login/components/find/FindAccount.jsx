@@ -127,7 +127,7 @@ const FindAccount = () => {
                     const date = new Date(responseData.createDate);
                     setFormattedDate(date.toISOString().slice(0, 10).replace(/-/g, '.'));
                 }
-                
+
                 if (responseData.email) {
                     setIsFinishId(true);
                 } else {
@@ -146,17 +146,24 @@ const FindAccount = () => {
         setEmail(e.target.value);
     };
 
-    const hanldeSendEmail = () => {
-        const success = true; // 하드코딩
-        const isExistEmail = true; // 하드코딩
+    const hanldeSendEmail = async () => {
+        const emailData = {
+            email: email
+        };
 
-        if (success) {
-            if (isExistEmail) {
-                setIsFinishPassword(true);
+        try {
+            const response = await axios.post('http://localhost:8080/api/public/send-email', emailData);
+
+            if (response.status === 200) {
+                if (response.data === "임시 비밀번호가 이메일로 발송되었습니다.") {
+                    setIsFinishPassword(true);
+                } else {
+                    setFailMsg(response.data);
+                }
             } else {
-                setFailMsg("가입되지 않은 이메일입니다.");
+                setFailMsg(response.data);
             }
-        } else {
+        } catch {
             setFailMsg("이메일 전송에 실패하였습니다.")
         }
     };
