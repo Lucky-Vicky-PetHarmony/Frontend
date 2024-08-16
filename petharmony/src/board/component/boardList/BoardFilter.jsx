@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import '../../style/boardList/BoardFilter.css'
 import dropdownimg from "../../asset/dropdown.png"
 
-const BoardFilter = ({setFilter}) => {
+const BoardFilter = ({setFilter, setPage}) => {
     const [filterStatus, setFilterStatus] = useState("최신순");
     const [filterDropdown, setFilterDropdown] = useState(false);
     const dropdownRef = useRef(null);  // 드롭다운 영역을 참조하기 위한 ref
@@ -15,6 +15,7 @@ const BoardFilter = ({setFilter}) => {
     const handleFilter = (filtername) => {
         setFilterStatus(filtername);
         setFilterDropdown(false);
+        setPage(1);
 
         // 부모 컴포넌트의 setFilter 함수 호출
         switch (filtername) {

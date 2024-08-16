@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import '../../style/boardList/BoardPagination.css';
 import arrowimg from '../../asset/arrow.png';
 
@@ -6,7 +6,10 @@ import arrowimg from '../../asset/arrow.png';
 const BoardPagination = ({setPage, totalPages, currentPage}) => {
 
     const handlePageClick = (page) => {
-        setPage(page - 1);  // 백엔드에서 사용하는 페이지 번호는 0부터 시작
+        setPage(prevPage => {
+            console.log("페이지 변경:", prevPage, "->", page);
+            return page;
+          });
     }
 
     const handlePrevClick = () => {

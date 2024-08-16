@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import '../../style/boardList/BoardList.css';
 import boardbannerimg from "../../asset/boardbanner.png"
 import BoardPagination from "./BoardPagination";
@@ -13,20 +13,21 @@ import axios from "axios";
 const BoardList = () => {
     const [category, setCategory] = useState('ALL');
     const [filter, setFilter] = useState("date");
-    const [page, setPage] = useState(0);
+    const [page, setPage] = useState(1);
     const [boardData, setBoardData] = useState([]);
     const [totalPages, setTotalPages] = useState(0);
 
     useEffect(() => {
+        console.log("useEffect 실행, 현재 페이지:", page);
         axiosBoardList();
     }, [category, filter, page]);
 
-    const axiosBoardList = async () => {
+    const axiosBoardList = useCallback(async () => {
         // 서버에 보낼 데이터를 객체 형식으로 작성합니다.
         const params = {
             category: category,
             sortBy: filter,
-            page: page,
+            page: page-1,
             size: 10
         };
         try {
@@ -41,34 +42,22 @@ const BoardList = () => {
         } catch (error) {
             if (error.response) {
                 alert("게시글 불러오기 실패");
-            } else if (error.requset) {
+            } else if (error.request) {
                 alert("서버와의 통신 중 오류가 발생했습니다.");
             }
             console.error("Error: ", error);
         }
-    };
-
-    // 카테고리 변경 시 페이지를 0번으로 초기화
-    const handleCategoryChange = (newCategory) => {
-        setCategory(newCategory);
-        setPage(0); // 페이지를 초기화
-    };
-
-    // 필터 변경 시 페이지를 0번으로 초기화
-    const handleFilterChange = (newFilter) => {
-        setFilter(newFilter);
-        setPage(0); // 페이지를 초기화
-    };
+    });
 
     return (
         <div className="boardlist">
             <img src={boardbannerimg} alt="" />
             <div className="boardlist_top_top">
-                <BoardSelectBtn mode={"list"} setCategory={handleCategoryChange} />
+                <BoardSelectBtn mode={"list"} setCategory={setCategory} setPage={setPage}/>
                 <BoardWriteBtn/>
             </div>
             <div className="boardlist_top_bottom">
-                <BoardFilter setFilter={handleFilterChange} />
+                <BoardFilter setFilter={setFilter} setPage={setPage}/>
                 <BoardSearch/>
             </div>
             <div className="boardlist_middle">
@@ -76,7 +65,7 @@ const BoardList = () => {
                     <BoardListElem key={board.boardId} board={board} />
                 ))}
             </div>
-            <BoardPagination setPage={setPage} totalPages={totalPages} currentPage={page + 1} />
+            <BoardPagination setPage={setPage} totalPages={totalPages} currentPage={page} />
         </div>
     );
 }

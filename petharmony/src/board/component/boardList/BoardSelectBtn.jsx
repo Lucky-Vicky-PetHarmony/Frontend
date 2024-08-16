@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import '../../style/boardList/BoardSelectBtn.css'
 
-const BoardSelectBtn = ({mode, setCategory, category}) => {
+const BoardSelectBtn = ({mode, setCategory, category, setPage}) => {
     const initialCategory = mode === "edit" && category ? category : (mode === "post" ? "FREE" : "ALL");
     const [activeBtn, setActiveBtn] = useState(initialCategory);
     
     useEffect(() => {
         if(setCategory) {
             setCategory(activeBtn);
+            setPage(1);
         }
     }, [activeBtn, setCategory, category]);
 
