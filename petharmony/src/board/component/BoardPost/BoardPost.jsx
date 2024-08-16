@@ -18,6 +18,9 @@ const BoardPost = () => {
     const [category, setCategory] = useState(isEdit ? board.category : "");
     const [title, setTitle] = useState(isEdit ? board.title : "");
     const [content, setContent] = useState(isEdit ? board.content : "");
+
+    //post모드: 첨부한 모든 이미지
+    //edit모드: 새롭게 추가한 이미지
     const [files, setFiles] = useState([]);
 
     // 게시글 수정에서 필요한 삭제할 이미지번호 배열
@@ -38,7 +41,8 @@ const BoardPost = () => {
     //     console.log("title: ", title);
     //     console.log("content: ", content);
     //     console.log("files: ", files);
-    // }, [category, title, content, files])
+    //     console.log("deletes: ", deleteImages)
+    // }, [category, title, content, files, deleteImages])
 
     const handleBoardPostBtn = async () => {
 
@@ -49,13 +53,15 @@ const BoardPost = () => {
 
         // 여러 개의 파일 추가
         files.forEach((file, index) => {
-            formData.append('images', file);
+            if(file!== undefined)
+                formData.append('images', file);
         });
         try {
             const response = await axios.post('http://localhost:8080/api/public/board/post', formData);
 
             if (response.status === 200) {
-                alert(response.data);
+                alert(`[${response.data.title}] 작성완료`);
+                nav(`/board/view/${response.data.boardId}`);
             } else {
                 alert("게시글 작성 실패");
             }
@@ -110,7 +116,7 @@ const BoardPost = () => {
             <img className="BP_WarningMsg" src={BoardPostWarningMsg} alt="" />
             <BoardPostCategory setCategory={setCategory} category={category} isEdit={isEdit}/>
             <BoardPostContent setTitle={setTitle} setContent={setContent} title={title} content={content}/>
-            <BoardPostFile setFiles = {setFiles} setDeleteImages={setDeleteImages} existingImages={board.images || []}/>
+            <BoardPostFile setFiles = {setFiles} isEdit={isEdit} setDeleteImages={setDeleteImages} existingImages={board.images || []}/>
             <div className="BP_buttons">
                 <div className="BP_buttons_cancle" onClick={() => nav('/boardList')}>취소</div>
                 <div 
