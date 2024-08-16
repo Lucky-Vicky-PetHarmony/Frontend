@@ -7,7 +7,6 @@ const BoardPagination = ({setPage, totalPages, currentPage}) => {
 
     const handlePageClick = (page) => {
         setPage(prevPage => {
-            console.log("페이지 변경:", prevPage, "->", page);
             return page;
           });
     }

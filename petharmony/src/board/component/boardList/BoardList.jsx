@@ -18,11 +18,10 @@ const BoardList = () => {
     const [totalPages, setTotalPages] = useState(0);
 
     useEffect(() => {
-        console.log("useEffect 실행, 현재 페이지:", page);
         axiosBoardList();
     }, [category, filter, page]);
 
-    const axiosBoardList = useCallback(async () => {
+    const axiosBoardList = async () => {
         // 서버에 보낼 데이터를 객체 형식으로 작성합니다.
         const params = {
             category: category,
@@ -47,7 +46,7 @@ const BoardList = () => {
             }
             console.error("Error: ", error);
         }
-    });
+    };
 
     return (
         <div className="boardlist">
