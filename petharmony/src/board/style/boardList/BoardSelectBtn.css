@@ -29,12 +29,12 @@
 .board_select_btn.active.all{
     background-color: #C1460D;
 }
-.board_select_btn.active.free{
+.board_select_btn.active.FREE{
     background-color: #FC363E;
 }
-.board_select_btn.active.information{
+.board_select_btn.active.INFORMATION{
     background-color: #3A70DF;
 }
-.board_select_btn.active.adoption{
+.board_select_btn.active.ADOPT{
     background-color: #72C85A;
 }
