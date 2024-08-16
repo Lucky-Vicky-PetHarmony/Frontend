@@ -6,9 +6,11 @@ const BoardSelectBtn = ({mode, setCategory, category, setPage}) => {
     const [activeBtn, setActiveBtn] = useState(initialCategory);
     
     useEffect(() => {
-        if(setCategory) {
+        if (setCategory) {
             setCategory(activeBtn);
-            setPage(1);
+        }
+        if (setPage) {
+            setPage(1); // 페이지 번호는 1번부터 시작하도록 설정
         }
     }, [activeBtn, setCategory, category]);
 
