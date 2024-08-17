@@ -19,9 +19,24 @@
     padding: 4px 16px;
     font-size: 14px;
     font-weight: 700;
-    border: 1px solid var(--color-green);
-    color: var(--color-green);
+    border: 1px solid;
     border-radius: 32px;
+}
+
+/* 입양, 정보, 자유 색 */
+.boardcontent_left_category.ADOPT{
+    border-color: var(--color-green);
+    color: var(--color-green);
+}
+
+.boardcontent_left_category.FREE{
+    border-color: var(--color-red);
+    color: var(--color-red);
+}
+
+.boardcontent_left_category.INFORMATION{
+    border-color: var(--color-blue);
+    color: var(--color-blue);
 }
 
 .boardcontent_left_title{

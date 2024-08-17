@@ -1,8 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import '../../style/boardList/BoardSelectBtn.css'
 
-const BoardSelectBtn = ({post}) => {
-    const [activeBtn, setActiveBtn] = useState(post ? post :"all");
+const BoardSelectBtn = ({mode, setCategory, category, setPage}) => {
+    const initialCategory = mode === "edit" && category ? category : (mode === "post" ? "FREE" : "ALL");
+    const [activeBtn, setActiveBtn] = useState(initialCategory);
+    
+    useEffect(() => {
+        if(setCategory) {
+            setCategory(activeBtn);
+        }if(setPage){
+            setPage(1);
+        }
+    }, [activeBtn, setCategory, setPage]);
 
     const handleButtonClick = (buttonName) => {
         setActiveBtn(buttonName);
@@ -10,18 +19,19 @@ const BoardSelectBtn = ({post}) => {
 
     return (
         <div className="board_select_btn_group">
-            {!post && (<button 
-                className={`board_select_btn ${activeBtn === 'all' ? 'active all' : ''}`}
-                onClick={() => handleButtonClick("all")}>전체</button>)}
+            {(mode!=="post" && mode!=="edit") && (
             <button 
-                className={`board_select_btn ${activeBtn === 'free' ? 'active free' : ''}`}
-                onClick={() => handleButtonClick("free")}>자유</button>
+                className={`board_select_btn ${activeBtn === 'ALL' ? 'active all' : ''}`}
+                onClick={() => handleButtonClick("ALL")}>전체</button>)}
             <button 
-                className={`board_select_btn ${activeBtn === 'adoption' ? 'active adoption' : ''}`}
-                onClick={() => handleButtonClick("adoption")}>입양</button>
+                className={`board_select_btn ${activeBtn === 'FREE' ? 'active FREE' : ''}`}
+                onClick={() => handleButtonClick("FREE")}>자유</button>
             <button 
-                className={`board_select_btn ${activeBtn === 'information' ? 'active information' : ''}`}
-                onClick={() => handleButtonClick("information")}>정보</button>
+                className={`board_select_btn ${activeBtn === 'ADOPT' ? 'active ADOPT' : ''}`}
+                onClick={() => handleButtonClick("ADOPT")}>입양</button>
+            <button 
+                className={`board_select_btn ${activeBtn === 'INFORMATION' ? 'active INFORMATION' : ''}`}
+                onClick={() => handleButtonClick("INFORMATION")}>정보</button>
         </div>
     );
 }

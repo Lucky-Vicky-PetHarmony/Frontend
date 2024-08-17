@@ -8,7 +8,7 @@ const BoardWriteBtn = () => {
     return (
         <button 
             className="board_write_btn" 
-            onClick={() => nav('/boardPost')}>글쓰기</button>  
+            onClick={() => nav('/board/post')}>글쓰기</button>  
     );
 }
 

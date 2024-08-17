@@ -18,9 +18,10 @@ function App() {
         <Route path="/join" element={<JoinModal />} />
         <Route path="/find-account" element={<FindAccount />} />
         <Route path="/oauth" element={<Oauth />} />
-        <Route path="/boardList" element={<BoardList />} />
-        <Route path="/BoardView" element={<BoardView />} />
-        <Route path="/BoardPost" element={<BoardPost />} />
+        <Route path="/board/list" element={<BoardList />} />
+        <Route path="/board/view/:boardId" element={<BoardView />} />
+        <Route path="/board/post" element={<BoardPost />} />
+        <Route path="/board/edit-post" element={<BoardPost />} />
       </Routes>
     </Router>
   );
