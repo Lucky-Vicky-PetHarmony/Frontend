@@ -5,6 +5,10 @@ import kakao from "../../../login/assets/kakaoLogo.png";
 import google from "../../../login/assets/googleLogo.png";
 
 const LoginJoinButton = ({ mode, onClick }) => {
+    const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
+    const REDIRECT_URI = `http://localhost:3000/oauth`;
+    const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+
     const isLoginMode = mode === "login";
     const isJoinFormMode = mode === "joinForm";
     const isKakaoMode = mode === "kakao";
@@ -28,7 +32,9 @@ const LoginJoinButton = ({ mode, onClick }) => {
                 <p>간 편 회 원 가 입</p>
             ) : isKakaoMode ? (
                 <div className="ljb_set">
-                    <img src={kakao} alt="카카오톡 로그인" />
+                    <div onClick={() => window.location.href = kakaoURL}>
+                        <img src={kakao} alt="카카오톡 로그인" />
+                    </div>
                     <span>카카오톡 로그인</span>
                 </div>
             ) : isGoogleMode ? (
