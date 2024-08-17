@@ -52,6 +52,6 @@
 }
 
 .login_button:active,
-.social_button:active {
+.social_button img:active {
     transform: scale(0.97);
 }
