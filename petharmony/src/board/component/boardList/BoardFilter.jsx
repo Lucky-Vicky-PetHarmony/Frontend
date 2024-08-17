@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import '../../style/boardList/BoardFilter.css'
 import dropdownimg from "../../asset/dropdown.png"
+import refreshImg from "../../asset/refresh.png"
 
-const BoardFilter = ({setFilter, setPage}) => {
-    const [filterStatus, setFilterStatus] = useState("최신순");
+const BoardFilter = ({setFilter, setPage, resetAll}) => {
+    const [filterStatus, setFilterStatus] = useState("date");
     const [filterDropdown, setFilterDropdown] = useState(false);
     const dropdownRef = useRef(null);  // 드롭다운 영역을 참조하기 위한 ref
-
 
     const handleDropdown = () => {
         setFilterDropdown(prevState => !prevState);
@@ -16,25 +16,7 @@ const BoardFilter = ({setFilter, setPage}) => {
         setFilterStatus(filtername);
         setFilterDropdown(false);
         setPage(1);
-
-        // 부모 컴포넌트의 setFilter 함수 호출
-        switch (filtername) {
-            case "최신순":
-                setFilter("date"); // 최신순
-                break;
-            case "조회순":
-                setFilter("views"); // 조회수순
-                break;
-            case "댓글순":
-                setFilter("comments"); // 댓글순
-                break;
-            // case "스크랩순": // 부기능
-            //     setFilter("scrap"); // 스크랩순 정렬 기준 (예시로 추가)
-            //     break;
-            default:
-                setFilter("date");
-                break;
-        }
+        setFilter(filtername);
     }
 
     // 드롭다운 이외의 영역을 클릭했을 때 드롭다운 닫기
@@ -52,27 +34,39 @@ const BoardFilter = ({setFilter, setPage}) => {
     }, []);
 
     return (
-        <div className="board_filter" ref={dropdownRef}>
-            <div 
-                className="board_filter_btn"
-                onClick={() => handleDropdown()}>
-                <p>{filterStatus}</p>
-                <img src={dropdownimg} alt="" />
+        <div className="BF">
+            <div className="BF_board_filter" ref={dropdownRef}>
+                <div
+                    className="BF_board_filter_btn"
+                    onClick={() => handleDropdown()}>
+                    <p>
+                    {filterStatus === "date" ? "최신순"
+                    : filterStatus === "views" ? "조회순"
+                    : filterStatus === "comments" ? "댓글순"
+                    : "기타"}
+                    </p>
+                    <img src={dropdownimg} alt="" />
+                </div>
+                {filterDropdown && (<div className="BF_board_filter_dropdown">
+                    <div
+                        className="BF_board_filter_dropdown_btn"
+                        onClick={() => handleFilter("date")}>최신순</div>
+                    <div
+                        className="BF_board_filter_dropdown_btn"
+                        onClick={() => handleFilter("views")}>조회순</div>
+                    <div
+                        className="BF_board_filter_dropdown_btn"
+                        onClick={() => handleFilter("comments")}>댓글순</div>
+                    <div
+                        className="BF_board_filter_dropdown_btn"
+                        onClick={() => handleFilter("scraps")}>스크랩순</div>
+                </div>)}
             </div>
-            {filterDropdown && (<div className="board_filter_dropdown">
-                <div 
-                    className="board_filter_dropdown_btn"
-                    onClick={() => handleFilter("최신순")}>최신순</div>
-                <div 
-                    className="board_filter_dropdown_btn"
-                    onClick={() => handleFilter("조회순")}>조회순</div>
-                <div 
-                    className="board_filter_dropdown_btn"
-                    onClick={() => handleFilter("댓글순")}>댓글순</div>
-                <div 
-                    className="board_filter_dropdown_btn"
-                    onClick={() => handleFilter("스크랩순")}>스크랩순</div>
-            </div>)}
+            <img 
+                className="BF_reset" 
+                src={refreshImg} 
+                alt="초기화"
+                onClick={resetAll}/>
         </div>
     );
 }

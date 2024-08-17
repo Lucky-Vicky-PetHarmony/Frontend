@@ -17,33 +17,44 @@ const BoardList = () => {
     const [boardData, setBoardData] = useState([]);
     const [totalPages, setTotalPages] = useState(0);
 
+    // 검색기능
+    const [searchFilter, setSearchFilter] = useState('title');
+    const [searchText, setSearchText] = useState('');
+
+    //검색 초기화
+    const resetAll = () => {
+        window.location.reload();
+    }
+
+    // 카테고리, 필터, 페이지 변경시마다 서버 요청
     useEffect(() => {
         axiosBoardList();
     }, [category, filter, page]);
 
+    //리스트
     const axiosBoardList = async () => {
-        // 서버에 보낼 데이터를 객체 형식으로 작성합니다.
-        const params = {
-            category: category,
-            sortBy: filter,
-            page: page-1,
-            size: 10
-        };
+        
+        const params = searchText.trim() === "" 
+            ? { category, sortBy: filter, page: page - 1, size: 10 } 
+            : { category, sortBy: filter, keyword: searchText, searchType: searchFilter, page: page - 1, size: 10 };
+
+        //검색어가 없으면 /list 요청, 검색어가 있으면 /search 요청
+        const url = searchText.trim() === "" 
+            ? 'http://localhost:8080/api/public/board/list' 
+            : 'http://localhost:8080/api/public/board/search';
+
+
         try {
-            const response = await axios.get('http://localhost:8080/api/public/board/list', {params});
+            const response = await axios.get(url, {params});
 
             if (response.status === 200) {
                 setBoardData(response.data.content); // 서버로부터 받은 데이터를 상태로 저장
                 setTotalPages(response.data.totalPages); // 총 페이지 수 상태로 저장
             } else {
-                alert("게시글 불러오기 실패");
+                alert("데이터 불러오기 실패");
             }
         } catch (error) {
-            if (error.response) {
-                alert("게시글 불러오기 실패");
-            } else if (error.request) {
-                alert("서버와의 통신 중 오류가 발생했습니다.");
-            }
+            alert("서버와의 통신 중 오류가 발생했습니다.");
             console.error("Error: ", error);
         }
     };
@@ -52,12 +63,16 @@ const BoardList = () => {
         <div className="boardlist">
             <img src={boardbannerimg} alt="" />
             <div className="boardlist_top_top">
-                <BoardSelectBtn mode={"list"} setCategory={setCategory} setPage={setPage}/>
+                <BoardSelectBtn mode={"list"} category={category} setCategory={setCategory} setPage={setPage}/>
                 <BoardWriteBtn/>
             </div>
             <div className="boardlist_top_bottom">
-                <BoardFilter setFilter={setFilter} setPage={setPage}/>
-                <BoardSearch/>
+                <BoardFilter setFilter={setFilter} setPage={setPage} resetAll={resetAll}/>
+                <BoardSearch 
+                    setSearchFilter={setSearchFilter} 
+                    setSearchText={setSearchText} 
+                    axiosBoardList={axiosBoardList}
+                    setPage={setPage}/>
             </div>
             <div className="boardlist_middle">
                 {boardData.map(board => (
