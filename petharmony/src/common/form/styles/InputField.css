@@ -1,0 +1,26 @@
+.input_field {
+    display: flex;
+    gap: 16px;
+    padding: 10px 20px;
+    width: 498px;
+    height: 40px;
+    border: 1px solid var(--color-blue);
+    border-radius: 20px;
+}
+
+.input_field img {
+    width: 20px;
+    height: 20px;
+}
+
+.input_field input {
+    width: 423px;
+    border: none;
+    outline: none;
+    color: var(--color-gray1);
+    font-size: 14px;
+}
+
+.input_field input::placeholder {
+    color: var(--color-gray3);
+}

@@ -1,0 +1,14 @@
+.my_page {
+    display: flex;
+    width: 1025px;
+}
+
+.mp_left {
+    display: flex;
+    flex-direction: column;
+    gap: 29px;
+}
+
+.mp_right {
+    margin: 11px 0 0 77px;
+}

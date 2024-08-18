@@ -1,0 +1,9 @@
+.my_comments {
+    width: 703px;
+}
+
+.mc_title {
+    color: var(--color-gray1);
+    font-size: 24px;
+    font-weight: bolder;
+}

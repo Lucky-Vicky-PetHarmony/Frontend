@@ -1,0 +1,40 @@
+.side_bar {
+    width: 246px;
+    height: 500px;
+    border-left: 2px solid var(--color-gray4);
+}
+
+.side_bar > ul {
+    padding-top: 28px;
+}
+
+.side_bar li {
+    padding: 0 0 50px 32px;
+    list-style: none; 
+}
+
+.side_bar a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.side_bar li.active a {
+    font-weight: bolder;
+    transform: scale(0.99);
+}
+
+.side_bar li:nth-child(1).active a,
+.side_bar li:nth-child(2).active a {
+    color: var(--color-blue);
+}
+
+.side_bar li:nth-child(3).active a,
+.side_bar li:nth-child(4).active a,
+.side_bar li:nth-child(5).active a,
+.side_bar li:nth-child(6).active a {
+    color: var(--color-green);
+}
+
+.side_bar li:nth-child(7).active a {
+    color: var(--color-red);
+}
