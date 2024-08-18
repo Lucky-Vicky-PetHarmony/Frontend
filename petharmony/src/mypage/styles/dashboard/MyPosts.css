@@ -1,0 +1,9 @@
+.my_posts {
+    width: 703px;
+}
+
+.mps_title {
+    color: var(--color-gray1);
+    font-size: 24px;
+    font-weight: bolder;
+}
