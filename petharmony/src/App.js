@@ -8,6 +8,7 @@ import BoardList from './board/component/boardList/BoardList';
 import BoardView from './board/component/boardView/BoardView';
 import BoardPost from "./board/component/BoardPost/BoardPost";
 import Oauth from "./login/components/Oauth";
+import MyPage from "./mypage/components/MyPage";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/board/view/:boardId" element={<BoardView />} />
         <Route path="/board/post" element={<BoardPost />} />
         <Route path="/board/edit-post" element={<BoardPost />} />
+        <Route path="/mypage/*" element={<MyPage />} />
       </Routes>
     </Router>
   );
