@@ -1,0 +1,13 @@
+.interested_pets {
+    width: 703px;
+}
+
+.ip_title {
+    color: var(--color-gray1);
+    font-size: 24px;
+    font-weight: bolder;
+}
+
+.ip_content {
+    margin: 59px 0 0 0;
+}

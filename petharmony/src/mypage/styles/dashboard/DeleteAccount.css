@@ -1,0 +1,33 @@
+.delete_account {
+    width: 703px;
+}
+
+.da_title {
+    color: var(--color-gray1);
+    font-size: 24px;
+    font-weight: bolder;
+}
+
+.da_content {
+    margin: 41px 0 0 0;
+    color: var(--color-gray2);
+    font-size: 22px;
+}
+
+.da_btn {
+    margin: 98px 0 0 573px;
+    width: 130px;
+    height: 40px;
+    border: 1px solid var(--color-red);
+    border-radius: 4px;
+    background-color: var(--color-white);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 25%);
+    color: var(--color-red);
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.da_btn:active {
+    transform: scale(0.97);
+}
