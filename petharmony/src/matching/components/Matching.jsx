@@ -1,11 +1,11 @@
 import React from "react";
-import "../../common.css";
+import "../styles/Matching.css";
 
 const Matching = () => {
     return (
-        <>
-            매칭페이지
-        </>
+        <div className="matching">
+            매칭 페이지
+        </div>
     );
 }
 

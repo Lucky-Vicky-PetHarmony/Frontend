@@ -1,5 +1,4 @@
 import React from "react";
-import "../../common.css";
 import "../styles/LoginInput.css";
 
 const LoginInput = ({ setEmail, setPassword }) => {
@@ -13,22 +12,20 @@ const LoginInput = ({ setEmail, setPassword }) => {
     };
 
     return (
-        <>
-            <div className="login_input">
-                <input
-                    className="li_email"
-                    placeholder="Email"
-                    type="email"
-                    onChange={handleEmailChage}
-                />
-                <input
-                    className="li_password"
-                    placeholder="Password"
-                    type="password"
-                    onChange={handlePasswordChage}
-                />
-            </div>
-        </>
+        <div className="login_input">
+            <input
+                className="li_email"
+                placeholder="Email"
+                type="email"
+                onChange={handleEmailChage}
+            />
+            <input
+                className="li_password"
+                placeholder="Password"
+                type="password"
+                onChange={handlePasswordChage}
+            />
+        </div>
     );
 };
 

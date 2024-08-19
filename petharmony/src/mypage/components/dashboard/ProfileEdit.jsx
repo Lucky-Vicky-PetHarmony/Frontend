@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "../../../common.css";
 import "../../styles/dashboard/MyEdit.css";
 import editNameIcon from "../../assets/edit_nameIcon.png";
 import editEmailIcon from "../../assets/edit_emailIcon.png";

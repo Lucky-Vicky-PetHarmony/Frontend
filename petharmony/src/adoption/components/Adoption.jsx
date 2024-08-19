@@ -1,11 +1,11 @@
 import React from "react";
-import "../../common.css";
+import "../styles/Adoption.css";
 
 const Adoption = () => {
     return (
-        <>
+        <div className="adoption">
             입양공고페이지
-        </>
+        </div>
     );
 }
 

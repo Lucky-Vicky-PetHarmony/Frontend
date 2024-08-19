@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "../../common.css";
 import "../styles/JoinModal.css";
 import logo from "../../common/logo/assets/logo.png";
 import join_success from "../assets/join_success.png";
@@ -34,7 +33,7 @@ const JoinModal = ({ onClose = () => { } }) => {
             }, 1000);
         } else if (joinSuccess && count === 0) {
             onClose();
-            navigate('/login');   // 메인페이지로 이동(임시로 로그인 폼으로 이동)
+            navigate('/');
         }
         return () => clearTimeout(timer);
     }, [joinSuccess, count, onClose, navigate]);
