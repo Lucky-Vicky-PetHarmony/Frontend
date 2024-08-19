@@ -14,10 +14,11 @@ const BoardView = () => {
     const { boardId } = useParams(); //URL파라미터를 가져옴. 여기서는 게시물 번호를 가져옴
     // const location = useLocation(); //페이지 이동시 전달된 상태를 가져옴. 여기서는 로그인한 유저의 아이디를 기져옴
     // const userId = location.state?.userId; //userId가 없을경우 undefined를 반환
-    const userId = 31;
+    const userId = 27;
 
     const [boardData, setBoardData] = useState(null); //서버로부터 받아올 게시물 내용 데이터를 저장 
     const [commentData, setCommentData] = useState([]);
+    
 
     // 서버에 게시글내용 상세 요청
     const fetchBoardData = async () => {

@@ -2,6 +2,7 @@ import React from "react";
 import '../../style/boardList/BoardListElem.css';
 import viewimg from '../../asset/view.png';
 import commentimg from '../../asset/comment.png';
+import pinimg from '../../asset/pin_gray.png';
 import pictureimg from '../../asset/picture.png';
 import { useNavigate } from 'react-router-dom';
 
@@ -44,10 +45,15 @@ const BoardListElem = ({board}) => {
                         <img src={viewimg} alt=""/>
                         <p>{board.viewCount}</p>
                     </div>
-                    <div className="boardcontent_right_top_child comment">
+                    <div className="boardcontent_right_top_child">
                         <img src={commentimg} alt="" style={{padding: '1.5px'}}/>
                         <p>{board.commentCount}</p>
                     </div>
+                    <div className="boardcontent_right_top_child pin">
+                        <img src={pinimg} alt="" style={{padding: '1.5px'}}/>
+                        <p>{board.pinCount}</p>
+                    </div>
+                    
                 </div>
                 <p className="boardcontent_right_bottom">{board.boardUpdate}</p>
             </div>

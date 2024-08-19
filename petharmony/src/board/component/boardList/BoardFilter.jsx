@@ -43,7 +43,8 @@ const BoardFilter = ({setFilter, setPage, resetAll}) => {
                     {filterStatus === "date" ? "최신순"
                     : filterStatus === "views" ? "조회순"
                     : filterStatus === "comments" ? "댓글순"
-                    : "기타"}
+                    : filterStatus === "pin" ? "PIN순"
+                    : "최신순"}
                     </p>
                     <img src={dropdownimg} alt="" />
                 </div>
@@ -59,7 +60,7 @@ const BoardFilter = ({setFilter, setPage, resetAll}) => {
                         onClick={() => handleFilter("comments")}>댓글순</div>
                     <div
                         className="BF_board_filter_dropdown_btn"
-                        onClick={() => handleFilter("scraps")}>스크랩순</div>
+                        onClick={() => handleFilter("pin")}>PIN순</div>
                 </div>)}
             </div>
             <img 
