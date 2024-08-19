@@ -28,6 +28,16 @@ const LoginModal = () => {
     const handleSubmitLogin = async (e) => {
         e.preventDefault();
 
+        if (!email) {
+            alert("이메일을 입력해주세요.");
+            return;
+        }
+
+        if (!password) {
+            alert("비밀번호를 입력해주세요.");
+            return;
+        }
+
         const loginData = {
             email: email,
             password: password
@@ -53,11 +63,12 @@ const LoginModal = () => {
                 login(token, email, name, role);
                 alert("로그인 성공");
             } else {
-                alert("로그인 실패");
+                alert("로그인 실패oo");
             }
         } catch (error) {
             if (error.response) {
-                alert("로그인 실패: " + error.response.data);
+                console.log(error.response);
+                alert("잘못된 계정입니다.");
             } else if (error.request) {
                 alert("서버와의 통신 중 오류가 발생했습니다.");
             }
