@@ -12,12 +12,31 @@ import { useNavigate } from "react-router-dom";
 
 const BoardContent = ({board, commCount}) => {
     const nav = useNavigate();
-    const loggedInUserId = 31; // 로그인한 사용자 ID
+    const loggedInUserId = 27; // 로그인한 사용자 ID
 
-    const [pin, setPin] = useState(false);
+    const [pin, setPin] = useState(board.pinStatus);
+    const [pinCount, setPinCount] = useState(board.pinCount);
 
-    const pinToggle = () => {
-        setPin(prevState => !prevState);
+    const pinToggle = async() => {
+        try {
+            const response = await
+                axios.post(`http://localhost:8080/api/public/board/pinned`,
+                    {
+                        userId: loggedInUserId,
+                        boardId: board.boardId,
+                        pinAction: pin ? "unlike" : "like"
+                    }
+                );
+                if(response.status === 200 && response.data.boardId === board.boardId){
+                    setPin(response.data.pinStatus); // pin상태
+                    setPinCount(response.data.pinCount); // pin숫자 
+                }else{
+                    alert("게시물 pin실패. 다시 시도해주세요.")
+                }
+        } catch (error) {
+            console.error("서버 오류 발생 : ", error);
+            alert("서버 오류. 잠시후 다시 시도해주세요.")
+        }
     }
 
     const categotyFormat = (category) => {
@@ -93,7 +112,7 @@ const BoardContent = ({board, commCount}) => {
                     </div>
                     <div className="bc_3_left_elem">
                         <img src={pinGrayImg} alt="핀" />
-                        <p>{board.pinCount || 0}</p>
+                        <p>{pinCount}</p>
                     </div>
                 </div>
                 <div className="bc_3_right">{board.updateTime}</div>
