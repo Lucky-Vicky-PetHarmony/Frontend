@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import useAuthStore from "../../store/useAuthStore";
+import useModalStore from "../../store/useModalStore";
 import axios from "axios";
 import "../styles/LoginModal.css";
 import logo from "../../common/logo/assets/logo.png";
@@ -9,20 +9,14 @@ import LoginJoinButton from "../../common/button/components/LoginJoinButton";
 import CancleButton from "../../common/button/components/CancelButton";
 
 const LoginModal = () => {
-    const navigate = useNavigate();
     // store에서 login 함수 가져옴
     const login = useAuthStore((state) => state.login);
-    // 모달 우측상단에 X 버튼
-    const [isOpen, setIsOpen] = useState(true);
+    // Zustand의 useModalStore 훅을 사용하여 가져옴
+    const { closeModal, openJoinModal, openFindAccountModal } = useModalStore();
     // 이메일
     const [email, setEmail] = useState("");
     // 비밀번호
     const [password, setPassword] = useState("");
-
-    // X 버튼
-    const handleClose = () => {
-        setIsOpen(false);
-    };
 
     // 로그인
     const handleSubmitLogin = async (e) => {
@@ -42,14 +36,13 @@ const LoginModal = () => {
             email: email,
             password: password
         };
-    
+
         try {
             const response = await axios.post('http://localhost:8080/api/public/login', loginData, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
             });
-    
             if (response.status === 200) {
                 const token = response.data.jwtToken;  // JWT 토큰
                 const email = response.data.email;     // 이메일
@@ -62,13 +55,14 @@ const LoginModal = () => {
                 localStorage.setItem('role', role);
                 login(token, email, name, role);
                 alert("로그인 성공");
+                closeModal();
             } else {
                 alert("로그인 실패oo");
             }
         } catch (error) {
             if (error.response) {
                 console.log(error.response);
-                alert("잘못된 계정입니다.");
+                alert("존재하지 않는 계정입니다.");
             } else if (error.request) {
                 alert("서버와의 통신 중 오류가 발생했습니다.");
             }
@@ -76,65 +70,43 @@ const LoginModal = () => {
         }
     };
 
-    // 간편 회원가입으로 이동
-    const handleMoveJoin = (e) => {
-        e.preventDefault();
-        navigate('/join');
-    };
-
-    // 아이디 찾기로 이동
-    const handleMoveFindId = (e) => {
-        e.preventDefault();
-        navigate('/find-account', { state: { mode: 'id' } });
-    };
-
-    // 비밀번호 찾기로 이동
-    const handleMoveFindPassword = (e) => {
-        e.preventDefault();
-        navigate('/find-account', { state: { mode: 'password' } });
-    };
-
     return (
-        <>
-            {isOpen && (
-                <div className="login_modal">
-                    <div className="login_exit" onClick={handleClose}>
-                        <CancleButton />
-                    </div>
-                    <img className="lm_logo" src={logo} alt="로고" />
-                    <div className="lm_login">
-                        <LoginInput
-                            setEmail={setEmail}
-                            setPassword={setPassword}
-                        />
-                        <div className="lm_self">
-                            <LoginJoinButton
-                                mode="login"
-                                type="submit"
-                                onClick={handleSubmitLogin}
-                            />
-                            <LoginJoinButton
-                                mode="joinForm"
-                                onClick={handleMoveJoin}
-                            />
-                            <div className="lm_find">
-                                <button className="lm_find_btn" onClick={handleMoveFindId}>이메일 찾기</button>
-                                <span className="lm_find_line">|</span>
-                                <button className="lm_find_btn" onClick={handleMoveFindPassword}>비밀번호 찾기</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="lm_social">
-                        <LoginJoinButton
-                            mode="kakao"
-                        />
-                        <LoginJoinButton
-                            mode="google"
-                        />
+        <div className="login_modal">
+            <div className="login_exit" onClick={closeModal}>
+                <CancleButton />
+            </div>
+            <img className="lm_logo" src={logo} alt="로고" />
+            <div className="lm_login">
+                <LoginInput
+                    setEmail={setEmail}
+                    setPassword={setPassword}
+                />
+                <div className="lm_self">
+                    <LoginJoinButton
+                        mode="login"
+                        type="submit"
+                        onClick={handleSubmitLogin}
+                    />
+                    <LoginJoinButton
+                        mode="joinForm"
+                        onClick={openJoinModal}
+                    />
+                    <div className="lm_find">
+                        <button className="lm_find_btn" onClick={() => openFindAccountModal('id')}>이메일 찾기</button>
+                        <span className="lm_find_line">|</span>
+                        <button className="lm_find_btn" onClick={() => openFindAccountModal('password')}>비밀번호 찾기</button>
                     </div>
                 </div>
-            )}
-        </>
+            </div>
+            <div className="lm_social">
+                <LoginJoinButton
+                    mode="kakao"
+                />
+                <LoginJoinButton
+                    mode="google"
+                />
+            </div>
+        </div>
     )
 };
 

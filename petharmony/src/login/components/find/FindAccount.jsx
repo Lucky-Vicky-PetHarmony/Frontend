@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
+import useModalStore from "../../../store/useModalStore";
 import "../../styles/find/FindAccount.css";
 import logo from "../../../common/logo/assets/logo.png";
 import findId from "../../assets/find/find_id.png";
@@ -8,57 +8,58 @@ import findPassword from "../../assets/find/find_password.png";
 import CancleButton from "../../../common/button/components/CancelButton";
 
 const FindAccount = () => {
-    const navigate = useNavigate();
-    const location = useLocation();
-    const mode = location.state?.mode;
+    // Zustand의 useModalStore 훅을 사용하여 가져옴
+    const { closeModal, openLoginModal, findAccountMode } = useModalStore();
+    // 현재 모달이 아이디 찾기 모달인지 확인
+    const isFindIdMode = findAccountMode === 'id';
+    // 현재 모달이 비밀번호 찾기 모달인지 확인
+    const isFindPasswordMode = findAccountMode === 'password';
 
-    const [isOpen, setIsOpen] = useState(true);
-
-    const isFindIdMode = mode === 'id';
-    const isFindPasswordMode = mode === 'password';
-
-    // 아이디 찾기
+    /* 아이디 찾기 관련 상태 */
+    // 사용자가 입력한 전화번호
     const [phone, setPhone] = useState("");
+    // 포맷되지 않은 원본 전화번호
     const [localPhone, setLocalPhone] = useState("");
+    // 인증번호 요청 버튼 클릭
     const [isClick, setIsClick] = useState(false);
+    // 서버로 부터 받은 인증 메시지
     const [verificationMsg, setVerifivationMsg] = useState("");
+    // 사용자가 입력한 인증번호
     const [certificationNumber, setCertificationNumber] = useState("");
+    // 인증 확인 메시지
     const [checkMsg, setCheckMsg] = useState("");
+    // 아이디 찾기 성공 여부
     const [isFinishId, setIsFinishId] = useState(false);
-
-    // API 응답 데이터 저장을 위한 상태
+    // 찾은 사용자 아이디
     const [userEmail, setUserEmail] = useState("");
+    // 사용자 가입 날짜
     const [userCreateDate, setUserCreateDate] = useState("");
+    // 서버 응답 메시지
     const [responseMessage, setResponseMessage] = useState("");
+    // 포맷된 가입 날짜
     const [formattedDate, setFormattedDate] = useState("");
-
-    // 비밀번호 찾기
-    const [email, setEmail] = useState("");
-    const [failMsg, setFailMsg] = useState("");
-    const [isFinishPassword, setIsFinishPassword] = useState(false);
-    const [count, setCount] = useState(3);
-
-    const handleClose = () => {
-        setIsOpen(false);
+    // 인증 메시지 스타일 설정
+    const messageStyle = {
+        color: verificationMsg === "인증번호가 전송되었습니다." ? "var(--color-blue)" : "var(--color-red)",
     };
 
-    useEffect(() => {
-        let timer;
-        if (isFinishPassword && count > 0) {
-            timer = setTimeout(() => {
-                setCount(count - 1);
-            }, 1000);
-        } else if (isFinishPassword && count === 0) {
-            navigate('/login');
-        }
-        return () => clearTimeout(timer);
-    }, [isFinishPassword, count, navigate]);
+    /* 비밀번호 찾기 관련 상태 */
+    // 사용자가 입력한 이메일
+    const [email, setEmail] = useState("");
+    // 이메일 전송 실패 메시지
+    const [failMsg, setFailMsg] = useState("");
+    // 비밀번호 찾기 성공 여부
+    const [isFinishPassword, setIsFinishPassword] = useState(false);
+    // 모달 닫기 전 카운트
+    const [count, setCount] = useState(3);
 
+    // 전화번호 입력 시 숫자만 허용
     const handlePhoneChange = (e) => {
         const phoneValue = e.target.value.replace(/[^0-9]/g, '');
         setLocalPhone(phoneValue);
     };
 
+    // 입력된 전화번호를 포맷
     useEffect(() => {
         let formattedPhone = localPhone;
         if (localPhone.length === 11) {
@@ -67,6 +68,7 @@ const FindAccount = () => {
         setPhone(formattedPhone);
     }, [localPhone]);
 
+    // 인증번호 요청
     const handleRequestNumber = async () => {
         const phoneData = {
             phone: phone.replace(/-/g, '')
@@ -76,9 +78,7 @@ const FindAccount = () => {
 
         try {
             const response = await axios.post('http://localhost:8080/api/public/send-certification', phoneData);
-
             const message = response.data;
-
             if (response.status === 200) {
                 setVerifivationMsg(message);
                 if (message === "인증번호가 전송되었습니다.") {
@@ -97,15 +97,13 @@ const FindAccount = () => {
         }
     };
 
-    const messageStyle = {
-        color: verificationMsg === "인증번호가 전송되었습니다." ? "var(--color-blue)" : "var(--color-red)",
-    };
-
+    // 인증번호 입력시 숫자만 허용
     const handleCertificationNumberChange = (e) => {
         const value = e.target.value.replace(/[^0-9]/g, '').slice(0, 4);
         setCertificationNumber(value);
     };
 
+    // 인증번호 확인
     const handleCommitNumber = async () => {
         const certificationData = {
             phone: phone.replace(/-/g, ''),
@@ -114,19 +112,15 @@ const FindAccount = () => {
 
         try {
             const response = await axios.post('http://localhost:8080/api/public/check-certification', certificationData);
-
             if (response.status === 200) {
                 const responseData = response.data;
-
                 setUserEmail(responseData.email || "");
                 setUserCreateDate(responseData.createDate || "");
                 setResponseMessage(responseData.responseMsg || "");
-
                 if (responseData.createDate) {
-                    const date = new Date(responseData.createDate);
-                    setFormattedDate(date.toISOString().slice(0, 10).replace(/-/g, '.'));
+                    const userCreateDate = new Date(responseData.createDate);
+                    setFormattedDate(userCreateDate.toISOString().slice(0, 10).replace(/-/g, '.'));
                 }
-
                 if (responseData.email) {
                     setIsFinishId(true);
                 } else {
@@ -141,10 +135,26 @@ const FindAccount = () => {
         }
     };
 
+    // 비밀번호 찾기 완료 후 3초 후 로그인 모달로 전환
+    useEffect(() => {
+        let timer;
+        if ((isFinishPassword) && count > 0) {
+            timer = setTimeout(() => {
+                setCount(count - 1);
+            }, 1000);
+        } else if (isFinishPassword && count === 0) {
+            closeModal();      // 모달 닫기
+            openLoginModal();  // 로그인창 열기
+        }
+        return () => clearTimeout(timer);
+    }, [isFinishPassword, count, closeModal, openLoginModal]);
+
+    // 비밀번호 찾기를 위한 이메일 입력
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
     };
 
+    // 임시 비밀번호 이메일 전송
     const hanldeSendEmail = async () => {
         const emailData = {
             email: email
@@ -152,7 +162,6 @@ const FindAccount = () => {
 
         try {
             const response = await axios.post('http://localhost:8080/api/public/send-email', emailData);
-
             if (response.status === 200) {
                 if (response.data === "임시 비밀번호가 이메일로 발송되었습니다.") {
                     setIsFinishPassword(true);
@@ -167,16 +176,14 @@ const FindAccount = () => {
         }
     };
 
-    const handleMoveLogin = () => {
-        navigate("/login");
-    };
-
+    // 비밀번호 찾기 모드로 전환
     const handleMoveFindPassword = () => {
         setIsFinishId(false);
         setIsFinishPassword(false);
-        navigate("/find-account", { state: { mode: 'password' } });
+        useModalStore.getState().openFindAccountModal('password');
     };
 
+    // 모달 제목
     const title = isFindIdMode
         ? (
             <>
@@ -191,6 +198,7 @@ const FindAccount = () => {
             </>
         );
 
+    // 아이디 찾기 모달 내용    
     const idContent = (
         !isFinishId ? (
             <div className="fa_id_content">
@@ -240,7 +248,7 @@ const FindAccount = () => {
                     </p>
                 </div>
                 <div className="fa_finish_move">
-                    <button className="fa_finish_move_btn" onClick={handleMoveLogin}>로그인</button>
+                    <button className="fa_finish_move_btn" onClick={openLoginModal}>로그인</button>
                     <span>|</span>
                     <button className="fa_finish_move_btn" onClick={handleMoveFindPassword}>비밀번호 찾기</button>
                 </div>
@@ -248,6 +256,7 @@ const FindAccount = () => {
         )
     );
 
+    // 비밀번호 찾기 모달 내용
     const passwordContent = (
         !isFinishPassword ? (
             <div className="fa_password_content">
@@ -278,21 +287,19 @@ const FindAccount = () => {
     );
 
     return (
-        <>
-            {isOpen && (
-                <div className="find_account">
-                    <div className="find_account_exit" onClick={handleClose}>
-                        <CancleButton />
-                    </div>
-                    <img className="fa_logo" src={logo} alt="로고" />
-                    {!isFinishId && !isFinishPassword &&
-                        <div className="fa_title">{title}</div>
-                    }
-                    {isFindIdMode && idContent}
-                    {isFindPasswordMode && passwordContent}
+        <div className="find_account_overlay">
+            <div className="find_account">
+                <div className="find_account_exit" onClick={closeModal}>
+                    <CancleButton />
                 </div>
-            )}
-        </>
+                <img className="fa_logo" src={logo} alt="로고" />
+                {!isFinishId && !isFinishPassword &&
+                    <div className="fa_title">{title}</div>
+                }
+                {isFindIdMode && idContent}
+                {isFindPasswordMode && passwordContent}
+            </div>
+        </div>
     );
 };
 

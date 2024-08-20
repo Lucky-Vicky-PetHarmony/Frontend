@@ -3,13 +3,11 @@ import "../../../common.css";
 import "../styles/CancelButton.css";
 import cancelIcon from "../assets/exit.png";
 
-const CancleButton = ({ onClose }) => {
+const CancleButton = () => {
     return (
-        <>
-            <button className="cancel_button" onClick={onClose}>
-                <img src={cancelIcon} alt="" />
-            </button>
-        </>
+        <button className="cancel_button">
+            <img src={cancelIcon} alt="" />
+        </button>
     );
 };
 
