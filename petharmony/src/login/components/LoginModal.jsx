@@ -57,7 +57,7 @@ const LoginModal = () => {
                 alert("로그인 성공");
                 closeModal();
             } else {
-                alert("로그인 실패oo");
+                alert("로그인 실패");
             }
         } catch (error) {
             if (error.response) {
