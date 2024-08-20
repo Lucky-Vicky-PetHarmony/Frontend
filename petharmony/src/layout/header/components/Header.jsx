@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 import useAuthStore from "../../../store/useAuthStore";
+import useModalStore from "../../../store/useModalStore";
 import "../styles/Header.css";
 import logo from "../assets/headerLogo.png";
 import arrow from "../assets/arrow.png";
 
 const Header = () => {
+    // Zustand의 useModalStore 훅을 사용하여 가져옴
+    const openLoginModal = useModalStore((state) => state.openLoginModal);
     // Zustand의 useAuthStore 훅을 사용하여 가져옴
     const { isLogin, name, role, logout } = useAuthStore((state) => ({
         isLogin: state.isLogin,
@@ -43,9 +46,9 @@ const Header = () => {
                 </ul>
                 <div className="header_my">
                     {!isLogin ? (
-                        <Link to="/login" className="header_login_btn">
+                        <button className="header_login_btn" onClick={openLoginModal}>
                             로그인
-                        </Link>
+                        </button>
                     ) : (
                         <div className="header_user" onClick={handleShowDropDownMenu}>
                             <span>{name}님</span>
