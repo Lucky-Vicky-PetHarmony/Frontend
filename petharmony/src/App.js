@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import './common.css';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import useAuthStore from "./store/useAuthStore";
+import useModalStore from "./store/useModalStore";
 import Main from "./main/components/Main";
 import LoginModal from "./login/components/LoginModal";
 import JoinModal from "./join/components/JoinModal";
@@ -17,6 +18,8 @@ import Matching from "./matching/components/Matching";
 
 function App() {
   const login = useAuthStore((state) => state.login);
+  const activeModal = useModalStore((state) => state.activeModal);
+  const findAccountMode = useModalStore((state) => state.findAccountMode);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -31,11 +34,11 @@ function App() {
   return (
     <Router>
       <Layout>
+        {activeModal === 'login' && <LoginModal />}
+        {activeModal === 'join' && <JoinModal />}
+        {activeModal === 'findAccount' && <FindAccount mode={findAccountMode} />}
         <Routes>
           <Route path="/" element={<Main />} />
-          <Route path="/login" element={<LoginModal />} />
-          <Route path="/join" element={<JoinModal />} />
-          <Route path="/find-account" element={<FindAccount />} />
           <Route path="/oauth" element={<Oauth />} />
           <Route path="/board/list" element={<BoardList />} />
           <Route path="/board/view/:boardId" element={<BoardView />} />
