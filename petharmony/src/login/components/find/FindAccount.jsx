@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
-import "../../../common.css";
 import "../../styles/find/FindAccount.css";
 import logo from "../../../common/logo/assets/logo.png";
 import findId from "../../assets/find/find_id.png";

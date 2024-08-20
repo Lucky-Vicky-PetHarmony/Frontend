@@ -1,17 +1,33 @@
 import React, { useState } from "react";
 import { Link } from 'react-router-dom';
-import "../../../common.css";
+import useAuthStore from "../../../store/useAuthStore";
 import "../styles/Header.css";
 import logo from "../assets/headerLogo.png";
 import arrow from "../assets/arrow.png";
 
 const Header = () => {
-    // 하드코딩
-    const [isLogin, setIsLogin] = useState(true);
-    const [showMenu, setShowMenu] = useState(false);
+    // Zustand의 useAuthStore 훅을 사용하여 가져옴
+    const { isLogin, name, role, logout } = useAuthStore((state) => ({
+        isLogin: state.isLogin,
+        name: state.name,
+        role: state.role,
+        logout: state.logout
+    }));
+    // 드롭다운 메뉴
+    const [showDropDownMenu, setShowDropDownMenu] = useState(false);
 
-    const handleShowMenu = () => {
-        setShowMenu(!showMenu);
+    // 로그인을 했을 때 드롭다운 메뉴 : USER(마에페이지, 로그아웃) || ADMIN(신고목록, 로그아웃)
+    const handleShowDropDownMenu = () => {
+        setShowDropDownMenu(!showDropDownMenu);
+    };
+
+    // 로그아웃
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('email');
+        localStorage.removeItem('name');
+        localStorage.removeItem('role');
+        logout();
     };
 
     return (
@@ -31,13 +47,22 @@ const Header = () => {
                             로그인
                         </Link>
                     ) : (
-                        <div className="header_user" onClick={handleShowMenu}>
-                            <span>이백억님</span>
+                        <div className="header_user" onClick={handleShowDropDownMenu}>
+                            <span>{name}님</span>
                             <img className="header_arrow" src={arrow} alt="" />
-                            {showMenu && (
-                                <div className="header_menu">
-                                    <Link to="/mypage">마이페이지</Link>
-                                    <Link to="/logout">로그아웃</Link>
+                            {showDropDownMenu && (
+                                <div className="header_dropdown_menu">
+                                    {role === '[ROLE_USER]' ? (
+                                        <Link to="/mypage">마이페이지</Link>
+                                    ) : (
+                                        /*
+                                            임시로 메인페이지로 이동(수정 예정)
+                                            role이 '[ROLE_USER]'여도 URL로 접근 가능
+                                            --> 접근 제어 하는 라우트 보호 적용 예정
+                                        */
+                                        <Link to="/">신고목록</Link>
+                                    )}
+                                    <Link to="/" onClick={handleLogout}>로그아웃</Link>
                                 </div>
                             )}
                         </div>

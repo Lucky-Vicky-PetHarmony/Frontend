@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useAuthStore from "../../store/useAuthStore";
 import axios from "axios";
-import "../../common.css";
 import "../styles/LoginModal.css";
 import logo from "../../common/logo/assets/logo.png";
 import LoginInput from "./LoginInput";
@@ -10,18 +10,33 @@ import CancleButton from "../../common/button/components/CancelButton";
 
 const LoginModal = () => {
     const navigate = useNavigate();
-
+    // store에서 login 함수 가져옴
+    const login = useAuthStore((state) => state.login);
+    // 모달 우측상단에 X 버튼
     const [isOpen, setIsOpen] = useState(true);
-
+    // 이메일
     const [email, setEmail] = useState("");
+    // 비밀번호
     const [password, setPassword] = useState("");
 
+    // X 버튼
     const handleClose = () => {
         setIsOpen(false);
     };
 
+    // 로그인
     const handleSubmitLogin = async (e) => {
         e.preventDefault();
+
+        if (!email) {
+            alert("이메일을 입력해주세요.");
+            return;
+        }
+
+        if (!password) {
+            alert("비밀번호를 입력해주세요.");
+            return;
+        }
 
         const loginData = {
             email: email,
@@ -36,13 +51,24 @@ const LoginModal = () => {
             });
     
             if (response.status === 200) {
+                const token = response.data.jwtToken;  // JWT 토큰
+                const email = response.data.email;     // 이메일
+                const name = response.data.userName;   // 회원 이름
+                const role = response.data.role;       // 권한
+                // localStorage에 저장 후 로그인
+                localStorage.setItem('token', token);
+                localStorage.setItem('email', email);
+                localStorage.setItem('name', name);
+                localStorage.setItem('role', role);
+                login(token, email, name, role);
                 alert("로그인 성공");
             } else {
-                alert("로그인 실패");
+                alert("로그인 실패oo");
             }
         } catch (error) {
             if (error.response) {
-                alert("로그인 실패: " + error.response.data);
+                console.log(error.response);
+                alert("잘못된 계정입니다.");
             } else if (error.request) {
                 alert("서버와의 통신 중 오류가 발생했습니다.");
             }
@@ -50,16 +76,19 @@ const LoginModal = () => {
         }
     };
 
+    // 간편 회원가입으로 이동
     const handleMoveJoin = (e) => {
         e.preventDefault();
         navigate('/join');
     };
 
+    // 아이디 찾기로 이동
     const handleMoveFindId = (e) => {
         e.preventDefault();
         navigate('/find-account', { state: { mode: 'id' } });
     };
 
+    // 비밀번호 찾기로 이동
     const handleMoveFindPassword = (e) => {
         e.preventDefault();
         navigate('/find-account', { state: { mode: 'password' } });

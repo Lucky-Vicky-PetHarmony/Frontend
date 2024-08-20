@@ -1,5 +1,4 @@
 import React from "react";
-import "../../../common.css";
 import "../../styles/profile/MyProfile.css";
 import nameIcon from "../../assets/nameIcon.png";
 import emailIcon from "../../assets/emailIcon.png";

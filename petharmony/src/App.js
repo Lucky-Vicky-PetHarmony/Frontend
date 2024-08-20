@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import './common.css';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import useAuthStore from "./store/useAuthStore";
 import Main from "./main/components/Main";
 import LoginModal from "./login/components/LoginModal";
 import JoinModal from "./join/components/JoinModal";
@@ -11,10 +12,22 @@ import BoardPost from "./board/component/BoardPost/BoardPost";
 import Oauth from "./login/components/Oauth";
 import MyPage from "./mypage/components/MyPage";
 import Layout from "./layout/Layout";
-import Adoption from "./ adoption/components/Adoption";
+import Adoption from "./adoption/components/Adoption";
 import Matching from "./matching/components/Matching";
 
 function App() {
+  const login = useAuthStore((state) => state.login);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const email = localStorage.getItem('email');
+    const name = localStorage.getItem('name');
+    const role = localStorage.getItem('role');
+    if (token && email && name && role) {
+      login(token, email, name, role);
+    }
+  }, [login]);
+
   return (
     <Router>
       <Layout>

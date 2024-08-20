@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "../../../common.css";
 import "../../styles/dashboard/MyEdit.css";
 import prePasswordIcon from "../../assets/prePasswordIcon.png";
 import newPasswordIcon from "../../assets/newPasswordIcon.png";

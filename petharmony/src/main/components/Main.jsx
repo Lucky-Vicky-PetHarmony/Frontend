@@ -1,11 +1,11 @@
 import React from "react";
-import "../../common.css"
+import "../styles/Main.css";
 
 const Main = () => {
     return (
-        <>
+        <div className="main">
             메인페이지
-        </>
+        </div>
     );
 }
 

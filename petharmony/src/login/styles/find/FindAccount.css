@@ -1,5 +1,8 @@
 .find_account {
     position: relative;
+    position: fixed;
+    top: 90px;
+    left: 61%;
     display: flex;
     flex-direction: column;
     align-items: center;

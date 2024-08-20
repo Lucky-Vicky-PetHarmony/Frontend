@@ -1,5 +1,4 @@
 import React from "react";
-import "../../../common.css";
 import "../../styles/dashboard/InterestedPets.css";
 import PetCard from "../../../common/pet/components/PetCard";
 
