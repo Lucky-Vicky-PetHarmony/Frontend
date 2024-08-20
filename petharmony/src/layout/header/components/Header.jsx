@@ -55,7 +55,7 @@ const Header = () => {
                             <img className="header_arrow" src={arrow} alt="" />
                             {showDropDownMenu && (
                                 <div className="header_dropdown_menu">
-                                    {role === '[ROLE_USER]' ? (
+                                    {role !== '[ROLE_ADMIN]' ? (
                                         <Link to="/mypage">마이페이지</Link>
                                     ) : (
                                         /*
