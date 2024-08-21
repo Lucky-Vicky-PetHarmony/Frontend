@@ -5,6 +5,7 @@ import BoardCommentInput from './BoardCommentInput';
 import BoardComment from './BoardComment';
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import ReportPostModal from "../ReportPostModal";
 
 
 
@@ -18,6 +19,12 @@ const BoardView = () => {
 
     const [boardData, setBoardData] = useState(null); //서버로부터 받아올 게시물 내용 데이터를 저장 
     const [commentData, setCommentData] = useState([]);
+
+    // 신고
+    const [reportModal, setReportModal] = useState(false);
+    const [reportMode, setReportMode] = useState("");
+    const [reportData, setReportData] = useState({});
+
     
 
     // 서버에 게시글내용 상세 요청
@@ -54,18 +61,32 @@ const BoardView = () => {
     return (
         <div className="BoardView">
             {boardData ? (<>
-                <BoardContent board={boardData} commCount={commentData.length}/>
+                <BoardContent 
+                    board={boardData} 
+                    commCount={commentData.length} 
+                    setReportModal={setReportModal}
+                    setReportMode={setReportMode}
+                    setReportData={setReportData}/>
                 <BoardCommentInput boardId={boardId} userId={userId} onCommentSubmit={fetchCommentData} />
                 {commentData.map(comment => (
                     <BoardComment 
                         key={comment.commId} 
                         comment={comment}
                         masterId={boardData.userId}
-                        updateComment={fetchCommentData}/>
+                        updateComment={fetchCommentData}
+                        setReportModal={setReportModal}
+                        setReportMode={setReportMode}
+                        setReportData={setReportData}/>
                 ))}
             </>) :
             (<p>Loading...</p>)}
             <div className="BoardView_backbtn" onClick={() => nav('/board/list')}>목록</div>
+            {reportModal && (
+                <ReportPostModal 
+                setReportModal={setReportModal}
+                mode={reportMode}
+                reportData = {reportData}
+                />)}
         </div> 
     );
 }

@@ -10,12 +10,25 @@ import sosImg from '../../asset/sos.png'
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const BoardContent = ({board, commCount}) => {
+const BoardContent = ({board, commCount, setReportModal, setReportMode, setReportData}) => {
     const nav = useNavigate();
     const loggedInUserId = 27; // 로그인한 사용자 ID
 
     const [pin, setPin] = useState(board.pinStatus);
     const [pinCount, setPinCount] = useState(board.pinCount);
+
+    const reportBtnClick = (userId, userName, boardId) => {
+        setReportMode("board");
+        setReportModal(true);
+        // 피신고자id, 피신고자 이름, boardId(commmId)
+        setReportData(
+            {
+                reportedId: userId,
+                reportedName: userName,
+                boardOrCommentId: boardId,
+            }
+        );
+    }
 
     const pinToggle = async() => {
         try {
@@ -140,7 +153,7 @@ const BoardContent = ({board, commCount}) => {
                     <p onClick={boardDelete}>삭제</p>
                 </div>
             ) : (
-                <div className="bc_6">
+                <div className="bc_6" onClick={() => reportBtnClick(board.userId, board.userName, board.boardId)}>
                     <img src={sosImg} alt="신고" />
                     <p>신고</p>
                 </div>

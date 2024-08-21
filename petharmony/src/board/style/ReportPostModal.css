@@ -1,0 +1,97 @@
+
+.RPM{
+    margin: auto;
+    width: fit-content;
+    padding: 40px;
+    padding-right: 44px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 20px;
+    border-radius: 32px;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 15%);
+
+    position: fixed; /* 화면 전체를 기준으로 위치 설정 */
+    top: 52%; /* 세로 중앙 정렬 */
+    left: 50%; /* 가로 중앙 정렬 */
+    transform: translate(-50%, -50%); /* 중앙으로 이동 */
+    background-color: white; /* 모달 배경 색상 */
+    z-index: 1000; /* 다른 요소보다 앞에 배치되도록 z-index 설정 */
+}
+
+.RPM>*{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+/* input label */
+.RPM>*>p{
+    margin-right: 28px;
+    width: 56px;
+    font-size: 13px;
+    color: var(--color-gray2);
+}
+
+/* 피신고자 이름 */
+.RPM>*>.report_name{
+    font-size: 13px;
+    color: var(--color-gray1);
+}
+
+/* 제목 */
+.RPM>.RPM_title>img{
+    width: 24px;
+}
+
+.RPM>.RPM_title>p{
+    color: black;
+    width: 100%;
+    margin: 4px 8px;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.RPM_content>textarea{
+    font-size: 12px;
+    padding: 6px;
+    width: 300px;
+    height: 200px;
+    resize: none;
+    outline: none;
+    border: 0.5px solid var(--color-gray2);
+    color: var(--color-gray1);
+}
+
+.RPM_type>select{
+    font-size: 12px;
+    padding: 4px;
+    color: var(--color-gray1);
+    border: 0.5px solid var(--color-gray2);
+    outline: none;
+    cursor: pointer;
+}
+
+.RPM>.RPM_submit{
+    width: 100%;
+    padding: 12px 4px 0px 0px;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.RPM>.RPM_submit>*{
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-gray1);
+    border-radius: 10px;
+    padding: 6px 20px;
+    border: 1.5px solid var(--color-gray2);
+    cursor: pointer;
+}
+
+.RPM>.RPM_submit>.RPM_submit_report{
+    background-color: var(--color-gray2);
+    color: white;
+}
