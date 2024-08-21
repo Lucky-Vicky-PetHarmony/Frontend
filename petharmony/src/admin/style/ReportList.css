@@ -1,0 +1,84 @@
+.ARP{
+    width: 1080px;
+    margin-top: 110px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 28px;
+}
+
+.ARP>p{
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.ARP_filter_group{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+}
+
+/* 초기화 */
+.ARP_filter_group>img{
+    width: 20px;
+    cursor: pointer;
+}
+
+.ARP_filter_group_check{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+}
+.ARP_filter_group_check>label{
+    font-size: 12px;
+    color: var(--color-gray1);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+}
+
+.ARP_filter_group_check>label>input{
+    color: var(--color-gray1);
+}
+
+.ARP_filter_group>p{
+    font-size: 10px;
+    color: var(--color-gray2);
+}
+
+table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+td{
+    text-align: center;
+    padding: 16px 15px;
+}
+
+.ARP_list_group>thead>tr>td{
+    font-size: 14px;
+    color: var(--color-gray1);
+}
+
+tbody>tr>td{
+    font-size: 12px;
+    color: var(--color-gray1);
+    line-height: 16px;
+}
+
+tr{
+    height: 50px;
+    border-bottom: 1px solid var(--color-gray4);
+}
+
+td:first-child{
+    padding-left: 4px;
+}
+td:last-child{
+    padding-right: 4px;
+}

@@ -1,0 +1,105 @@
+
+.RDM{
+    margin: auto;
+    width: 700px;
+    padding: 40px 56px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 16px;
+    border-radius:16px;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 15%);
+
+    position: fixed; /* 화면 전체를 기준으로 위치 설정 */
+    top: 52%; /* 세로 중앙 정렬 */
+    left: 50%; /* 가로 중앙 정렬 */
+    transform: translate(-50%, -50%); /* 중앙으로 이동 */
+    background-color: white; /* 모달 배경 색상 */
+    z-index: 1000; /* 다른 요소보다 앞에 배치되도록 z-index 설정 */
+}
+
+.RDM>p{
+    font-weight: 700;
+}
+
+.RDM>*>p{
+    color: var(--color-gray1);
+    font-size: 13px;
+    line-height: 22px;
+}
+span{
+    padding-left: 4px;
+    font-size: 11px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.RDM>*>p:first-child{
+    color: var(--color-gray2);
+    font-size: 12px;
+}
+
+.RDM_row{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+}
+
+.RDM_row>p:first-child{
+    width: 120px;
+}
+
+.RDM_column{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.RDM_column_listgroups{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    height: 300px;
+    overflow: scroll;
+}
+
+.RDM_row_select{
+    padding: 4px 8px;
+    font-size: 12px;
+    color: var(--color-gray1);
+    border: 0.3px solid var(--color-gray3);
+    outline: none;
+    cursor: pointer;
+}
+
+.RDM_btn{
+    width: 100%;
+    display: flex;
+    flex-flow: row;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.RDM_btn>*{
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-gray1);
+    border: 1px solid var(--color-gray2);
+    border-radius: 8px;
+    padding: 4px 18px;
+    cursor: pointer;
+}
+
+.RDM_btn>*:active{
+    transform: scale(0.97);
+}
+
+.RDM_btn>.RDM_btn_submit{
+    background-color: var(--color-gray2);
+    color: white;
+}

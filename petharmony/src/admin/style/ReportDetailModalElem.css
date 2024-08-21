@@ -1,0 +1,15 @@
+.RDM_bottom_listgroup{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.RDM_bottom_listgroup>p{
+    color: var(--color-gray1);
+    line-height: 20px;
+    font-size: 13px;
+}
+
+.RDM_bottom_listgroup_reporter{
+    font-weight: 600;
+}

@@ -1,0 +1,9 @@
+.report_listElem_content{
+    width: 450px;
+}
+
+.report_listElem_detail{
+    color: var(--color-gray1);
+    text-decoration-line: underline;
+    cursor: pointer;
+}
