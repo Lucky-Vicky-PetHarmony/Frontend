@@ -19,7 +19,7 @@ export function Oauth() {
     // Kakao에서 제공하는 인가 코드
     const code = new URL(window.location.href).searchParams.get("code");
 
-    // Kakao로부터 액세스 토큰을 받기 위한 함수
+    // 인가 코드를 사용하여 엑세스 토큰을 요청
     const getCode = async () => {
         try {
             // Kakao의 토큰 발급 API에 POST 요청
@@ -40,13 +40,19 @@ export function Oauth() {
         }
     };
 
-    // 인가코드(code)가 존재하는 경우 Kakao에서 엑세스 토큰을 가져오는 작업
+    /*
+      인가 코드가 존재하면, getCode()를 호출하여 kakao 서버로부터 엑세스 토큰 받아옴
+      응답 받은 엑세스 토큰을 서버로 전달
+      (서버에서는 kakao 인증 정보를 바탕으로 추가적인 사용자 정보를 얻음)
+      서버의 응답(토큰, 이름, 이메일, 역할)을 추출하여 localStorage에 저장 (이 정보를 통해 로그인 유지)
+      useAuthStore 흑의 login 메소드 호출하여 로그인 처리 -> 메인 페이지 리다이렉트
+    */
     useEffect(() => {
         if (code) {
             getCode()    // 액세스 토큰 받기
                 .then(response => {
                     if (response && response.data.access_token) {
-                        // 액세스 토큰을 얻으면 이를 서버에 전달하여 JWT 토큰을 받는다.
+                        // 액세스 토큰을 얻으면 이를 서버에 전달
                         return axios.post("http://localhost:8080/api/public/kakao", {
                             accessToken: response.data.access_token
                         });
