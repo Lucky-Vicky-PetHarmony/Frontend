@@ -4,13 +4,24 @@ import sosImg from '../../asset/sos.png'
 import commpostImg from '../../asset/commpost.png';
 import axios from "axios";
 
-const BoardComment = ({comment, masterId, updateComment}) => {
+const BoardComment = ({comment, masterId, updateComment, setReportModal, setReportMode, setReportData}) => {
     const loggedInUserId = 27; // 로그인한 사용자 ID
 
     const [updateForm, setUpdateForm] = useState(false);
     const [updatedContent, setUpdatedContent] = useState(comment.content);
 
-
+    const reportBtnClick = (userId, userName, commId) => {
+        setReportMode("comment");
+        setReportModal(true);
+        // 피신고자id, 피신고자 이름, boardId(commmId)
+        setReportData(
+            {
+                reportedId: userId,
+                reportedName: userName,
+                boardOrCommentId: commId,
+            }
+        );
+    }
 
     const updateFormtoggle = () => {
         setUpdateForm(prevState => !prevState);
@@ -74,10 +85,11 @@ const BoardComment = ({comment, masterId, updateComment}) => {
                 </div>
 
                 {/* 신고 */}
-                {loggedInUserId !== comment.userId && (<div className="BC_top_report">
-                    <img src={sosImg} alt="" />
-                    <p>신고</p>
-                </div>)}
+                {loggedInUserId !== comment.userId && (
+                    <div className="BC_top_report" onClick={() => reportBtnClick(comment.userId, comment.userName, comment.commId)}>
+                        <img src={sosImg} alt="" />
+                        <p>신고</p>
+                    </div>)}
 
                 {/* 댓글작성자일때 수정, 삭제*/}
                 {loggedInUserId === comment.userId && !updateForm &&(<div className="BC_top_update">
