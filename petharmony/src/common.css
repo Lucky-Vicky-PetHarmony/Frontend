@@ -20,3 +20,8 @@
     box-sizing: border-box;
     font-family: 'nanumgothic';
 }
+div#root {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
