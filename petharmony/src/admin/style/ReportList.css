@@ -4,10 +4,11 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 28px;
+    gap: 12px;
 }
 
 .ARP>p{
+    margin-bottom: 12px;
     font-size: 20px;
     font-weight: 700;
 }
@@ -50,35 +51,66 @@
     color: var(--color-gray2);
 }
 
-table{
+.ARP_list_group{
+    height: 540px;
+}
+
+.ARP_list_group>table{
     width: 100%;
     border-collapse: collapse;
 }
 
-td{
+.ARP_list_group>table>*>*>td{
     text-align: center;
-    padding: 16px 15px;
-}
-
-.ARP_list_group>thead>tr>td{
+    height: 60px;
+    color: var(--color-gray1);
     font-size: 14px;
-    color: var(--color-gray1);
 }
 
-tbody>tr>td{
+.ARP_list_group>table>tbody>tr>td{
     font-size: 12px;
-    color: var(--color-gray1);
     line-height: 16px;
 }
 
-tr{
+.ARP_list_group>table>*>tr{
     height: 50px;
     border-bottom: 1px solid var(--color-gray4);
 }
 
-td:first-child{
-    padding-left: 4px;
+/* 데이터가 변해도 크기 고정 */
+.ARP_list_group>table>*>*>td:first-child{
+    width: 65px;
 }
-td:last-child{
-    padding-right: 4px;
+.ARP_list_group>table>*>*>td:nth-child(2){
+    width: 100px;
+}
+.ARP_list_group>table>*>*>td:nth-child(3){
+    width: 70px;
+}
+.ARP_list_group>table>*>*>td:nth-child(4){
+    width: 85px;
+}
+.ARP_list_group>table>*>*>td:nth-child(5){
+    width: 190px;
+}
+.ARP_list_group>table>*>*>td:nth-child(6){
+    padding: 0px 8px;
+    width: 256px;
+}
+.ARP_list_group>table>*>*>td:nth-child(7){
+    width: 100px;
+}
+.ARP_list_group>table>*>*>td:nth-child(8){
+    width: 105px;
+}
+.ARP_list_group>table>*>*>td:last-child{
+    width: 105px;
+}
+/* 여기까지 */
+
+.ARP>.ARP_pagenation{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
