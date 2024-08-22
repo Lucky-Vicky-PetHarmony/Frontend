@@ -100,7 +100,7 @@ const ReportList = () => {
                         처리 완료
                     </label>
                 </div>
-                <img src={refresh} alt="새로고침" />
+                <img src={refresh} alt="새로고침" onClick={() => window.location.reload()}/>
                 <p>* 신고 상세 클릭시 신고 처리 가능</p>
             </div>
             <div className="ARP_list_group">

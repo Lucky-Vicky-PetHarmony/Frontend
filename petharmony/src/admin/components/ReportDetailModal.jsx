@@ -8,9 +8,15 @@ import { useNavigate } from 'react-router-dom';
 const ReportDetailModal = ({setModal, reportDetailId, setReportDetailId}) => {
     const nav = useNavigate();
 
-    const [reportDetailData, setReportDetailData] = useState();
+    const [reportDetailData, setReportDetailData] = useState(null);
     const [loading, setLoading] = useState(true); // 로딩 상태 추가
 
+    const [reportProcessing, setReportProcessing] = useState("UNPROCESSED");
+
+    // 요청하는 reportid가 바뀔때마다
+    useEffect(() => {
+        axiosReportDetail();
+    }, [reportDetailId]);
 
     // 서버에 신고 리스트 요청
     const axiosReportDetail = async () => {
@@ -19,8 +25,9 @@ const ReportDetailModal = ({setModal, reportDetailId, setReportDetailId}) => {
             const response = await axios.get(`http://localhost:8080/api/public/report/detail/${reportDetailId}`);
 
             if (response.status === 200) {
-                setReportDetailData(response.data)
-                console.log(response.data)
+                setReportDetailData(response.data);
+                setReportProcessing(response.data.reportProcess);
+                // console.log(response.data);
             } else {
                 alert("신고 상세데이터 불러오기 실패");
             }
@@ -32,9 +39,34 @@ const ReportDetailModal = ({setModal, reportDetailId, setReportDetailId}) => {
         }
     };
 
-    useEffect(() => {
-        axiosReportDetail();
-    }, [reportDetailId]);
+    // 서버에 신고 처리 요청
+    const axiosReportProcessing = async () => {
+        try {
+            const response = await axios.put(`http://localhost:8080/api/public/report/processing/${reportDetailId}`, null,{
+                params: {
+                    processing: reportProcessing
+                }
+            });
+
+            if (response.status === 200) {
+            } else {
+                alert("신고 처리 실패");
+            }
+        } catch (error) {
+            alert("서버와의 통신 중 오류가 발생했습니다.");
+            console.error("Error: ", error);
+        }
+    };
+
+    // 신고처리 저장
+    const saveProcessing = () => {
+        const confirmed = window.confirm(`[${reportProcessConversion(reportProcessing)}] 처리 하시겠습니까?`);
+
+        if (confirmed) {
+            axiosReportProcessing();
+            window.location.reload();
+        }
+    }
 
     // 날짜 형식
     const formatDate = (date) => {
@@ -138,7 +170,7 @@ const ReportDetailModal = ({setModal, reportDetailId, setReportDetailId}) => {
              {/* 피신고자, 처리상태 */}
              <div className="RDM_top">
                 <div className="RDM_top_E">
-                    <p>피신고자</p>
+                    <p>신고자</p>
                     <p>{reportDetailData.reporterName}</p>
                 </div>
                 <div className="RDM_top_E">
@@ -183,7 +215,11 @@ const ReportDetailModal = ({setModal, reportDetailId, setReportDetailId}) => {
             <div className="RDM_precess">
                 <p>🚨 신고 처리하기 <span>(* 처리시 해당 게시물을 신고한 모든 신고내역이 일괄처리됩니다.)</span></p>
                 <select
-                    className="RDM_row_select">
+                    className="RDM_row_select"
+                    value={reportProcessing}
+                    onChange={(e) => setReportProcessing(e.target.value)}
+                    >
+                    <option value="UNPROCESSED">미처리</option>
                     <option value="PENDING">신고 보류</option>
                     <option value="THREE_DAY_SUSPENSION">회원 3일 정지</option>
                     <option value="DELETE_POST">삭제 처리</option>
@@ -195,7 +231,7 @@ const ReportDetailModal = ({setModal, reportDetailId, setReportDetailId}) => {
             {/* 취소, 저장 버튼 */}
             <div className="RDM_btn">
                 <div className="RDM_btn_cancel" onClick={() => setModal(false)}>취소</div>
-                <div className="RDM_btn_submit" onClick={() => {}}>저장</div>
+                <div className="RDM_btn_submit" onClick={() => saveProcessing()}>저장</div>
             </div>
 
        </div>
