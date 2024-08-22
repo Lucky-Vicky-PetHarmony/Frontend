@@ -3,8 +3,9 @@ import "../../styles/dashboard/MyEdit.css";
 import prePasswordIcon from "../../assets/prePasswordIcon.png";
 import newPasswordIcon from "../../assets/newPasswordIcon.png";
 import InputField from "../../../common/form/components/InputField";
+import axios from "axios";
 
-const PasswordEdit = () => {
+const PasswordEdit = ({ token }) => {
     const [prePassword, setPrePassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
     const [passwordCheck, setPasswordCheck] = useState("");
@@ -21,8 +22,30 @@ const PasswordEdit = () => {
         setPasswordCheck(e.target.value);
     };
 
-    const handlePasswordEditSubmit = () => {
+    const handlePasswordEditSubmit = async () => {
+        const passwordEditData = {
+            prePassword: prePassword,
+            newPassword: newPassword
+        };
 
+        try {
+            const response = await axios.put('http://localhost:8080/api/user/password',
+                passwordEditData,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+
+            if (response.status === 200) {
+                alert('비밀번호 변경이 완료되었습니다.');
+                setPrePassword("");
+                setNewPassword("");
+                setPasswordCheck("");
+            }
+        } catch (error) {
+            console.error('비밀번호 수정을 실패했습니다.');
+        }
     };
 
     return (
@@ -51,7 +74,7 @@ const PasswordEdit = () => {
                     onChange={handleCheckPasswordChange}
                 />
             </div>
-            <button className="me_btn" onSubmit={handlePasswordEditSubmit}>비밀번호 변경</button>
+            <button className="me_btn" onClick={handlePasswordEditSubmit}>비밀번호 변경</button>
         </div>
     )
 }

@@ -17,15 +17,19 @@ const SideBar = () => {
 
     return (
         <div className="side_bar">
-            <ul>
-                {menuItems.map((item, index) => (
-                    <li
-                        key={index}
-                        className={location.pathname === item.path ? 'active' : ''}
-                    >
-                        <Link to={item.path}>{item.name} </Link>
-                    </li>
-                ))}
+           <ul>
+                {menuItems.map((item, index) => {
+                    const isActive = location.pathname === item.path || 
+                                     (item.path === '/mypage/profile-edit' && location.pathname === '/mypage');
+                    return (
+                        <li
+                            key={index}
+                            className={isActive ? 'active' : ''}
+                        >
+                            <Link to={item.path}>{item.name}</Link>
+                        </li>
+                    );
+                })}
             </ul>
         </div>
     );
