@@ -11,7 +11,7 @@ const ReportPostModal = ({setReportModal, mode, reportData}) => {
     //서버에 보낼거 : 신고자 id, 피신고자 id, 신고유형, 신고내용, 댓글인지 게시물인지, boardId(commmId)
 
     // State to manage report type and content
-    const [reportType, setReportType] = useState("");
+    const [reportType, setReportType] = useState("PROFANITY_ABUSE");
     const [reportContent, setReportContent] = useState("");
 
     // axios
