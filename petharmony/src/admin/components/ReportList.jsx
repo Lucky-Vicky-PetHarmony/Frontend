@@ -18,6 +18,7 @@ const ReportList = () => {
 
     // 신고상세 모달
     const [modal, setModal] = useState(false);
+    const [reportDetailId, setReportDetailId] = useState();
 
     // 페이지
     const [page, setPage] = useState(1);
@@ -122,7 +123,8 @@ const ReportList = () => {
                             <ReportListElem 
                                 key={report.reportId} 
                                 report={report} 
-                                setModal={setModal}/>
+                                setModal={setModal}
+                                setReportDetailId={setReportDetailId}/>
                         ))}
                     </tbody>
                 </table>
@@ -134,7 +136,12 @@ const ReportList = () => {
                     currentPage = {page}/>
             </div>
 
-            {modal&&(<ReportDetailModal setModal={setModal}/>)}
+            {modal&&(
+                <ReportDetailModal 
+                    setModal={setModal}
+                    reportDetailId={reportDetailId}
+                    setReportDetailId={setReportDetailId}/>
+            )}
             
         </div>
     );

@@ -63,6 +63,7 @@
 }
 
 .RDM_content>p>span{
+    margin-left: 4px;
     font-size: 10px;
     text-decoration: underline;
     cursor: pointer;

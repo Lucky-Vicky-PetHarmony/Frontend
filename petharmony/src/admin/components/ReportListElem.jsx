@@ -2,7 +2,7 @@ import React from "react";
 import '../style/ReportListElem.css';
 
 
-const ReportListElem = ({setModal, report}) => {
+const ReportListElem = ({setModal, report, setReportDetailId}) => {
 
     // 날짜 형식
     const formatDate = (date) => {
@@ -64,7 +64,7 @@ const ReportListElem = ({setModal, report}) => {
         return typeName;
     }
 
-     //신고유형
+     //처리상태
      const reportProcessConversion = (process) => {
         let processName = "";
         switch (process) {
@@ -90,6 +90,11 @@ const ReportListElem = ({setModal, report}) => {
         return processName;
     }
 
+    const detailClick = (id) => {
+        setModal(true);
+        setReportDetailId(id);
+    }
+
     return (
         <tr>
             <td>{report.reportId}</td>
@@ -101,7 +106,7 @@ const ReportListElem = ({setModal, report}) => {
             <td>
                 <p 
                     className="report_listElem_detail"
-                    onClick={() => setModal(true)}>신고 상세</p>
+                    onClick={() => detailClick(report.reportId)}>신고 상세</p>
             </td>
             <td>{formatDate(report.processingDate) || "-"}</td>
             <td
