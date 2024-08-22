@@ -54,9 +54,9 @@ const MyPage = () => {
                     <Route index element={<ProfileEdit token={token} profile={profile} setProfile={setProfile} />} />
                     {/* 특정 경로에 대해 각 컴포넌트 렌더링 */}
                     <Route path="profile-edit" element={<ProfileEdit token={token} profile={profile} setProfile={setProfile} />} />
-                    <Route path="password-edit" element={<PasswordEdit />} />
+                    <Route path="password-edit" element={<PasswordEdit token={token} />} />
                     <Route path="interested-pets" element={<InterestedPets />} />
-                    <Route path="pin-posts" element={<PinPosts />} />
+                    <Route path="pin-posts" element={<PinPosts token={token} />} />
                     <Route path="my-comments" element={<MyComments />} />
                     <Route path="my-posts" element={<MyPosts />} />
                     <Route path="delete-account" element={<DeleteAccount />} />
