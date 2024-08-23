@@ -21,11 +21,6 @@ const BoardList = () => {
     const [searchFilter, setSearchFilter] = useState('title');
     const [searchText, setSearchText] = useState('');
 
-    //검색 초기화
-    const resetAll = () => {
-        window.location.reload();
-    }
-
     // 카테고리, 필터, 페이지 변경시마다 서버 요청
     useEffect(() => {
         axiosBoardList();
@@ -67,7 +62,10 @@ const BoardList = () => {
                 <BoardWriteBtn/>
             </div>
             <div className="boardlist_top_bottom">
-                <BoardFilter setFilter={setFilter} setPage={setPage} resetAll={resetAll}/>
+                <BoardFilter 
+                    mode={"board"}
+                    setFilter={setFilter} 
+                    setPage={setPage}/>
                 <BoardSearch 
                     setSearchFilter={setSearchFilter} 
                     setSearchText={setSearchText} 

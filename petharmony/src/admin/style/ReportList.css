@@ -1,0 +1,116 @@
+.ARP{
+    width: 1080px;
+    margin-top: 110px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.ARP>p{
+    margin-bottom: 12px;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.ARP_filter_group{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+}
+
+/* 초기화 */
+.ARP_filter_group>img{
+    width: 20px;
+    cursor: pointer;
+}
+
+.ARP_filter_group_check{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+}
+.ARP_filter_group_check>label{
+    font-size: 12px;
+    color: var(--color-gray1);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+}
+
+.ARP_filter_group_check>label>input{
+    color: var(--color-gray1);
+}
+
+.ARP_filter_group>p{
+    font-size: 10px;
+    color: var(--color-gray2);
+}
+
+.ARP_list_group{
+    height: 540px;
+}
+
+.ARP_list_group>table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.ARP_list_group>table>*>*>td{
+    text-align: center;
+    height: 60px;
+    color: var(--color-gray1);
+    font-size: 14px;
+}
+
+.ARP_list_group>table>tbody>tr>td{
+    font-size: 12px;
+    line-height: 16px;
+}
+
+.ARP_list_group>table>*>tr{
+    height: 50px;
+    border-bottom: 1px solid var(--color-gray4);
+}
+
+/* 데이터가 변해도 크기 고정 */
+.ARP_list_group>table>*>*>td:first-child{
+    width: 65px;
+}
+.ARP_list_group>table>*>*>td:nth-child(2){
+    width: 100px;
+}
+.ARP_list_group>table>*>*>td:nth-child(3){
+    width: 70px;
+}
+.ARP_list_group>table>*>*>td:nth-child(4){
+    width: 85px;
+}
+.ARP_list_group>table>*>*>td:nth-child(5){
+    width: 190px;
+}
+.ARP_list_group>table>*>*>td:nth-child(6){
+    padding: 0px 8px;
+    width: 256px;
+}
+.ARP_list_group>table>*>*>td:nth-child(7){
+    width: 100px;
+}
+.ARP_list_group>table>*>*>td:nth-child(8){
+    width: 105px;
+}
+.ARP_list_group>table>*>*>td:last-child{
+    width: 105px;
+}
+/* 여기까지 */
+
+.ARP>.ARP_pagenation{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}

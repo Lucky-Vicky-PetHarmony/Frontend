@@ -3,7 +3,7 @@ import '../../style/boardList/BoardFilter.css'
 import dropdownimg from "../../asset/dropdown.png"
 import refreshImg from "../../asset/refresh.png"
 
-const BoardFilter = ({setFilter, setPage, resetAll}) => {
+const BoardFilter = ({mode, setFilter, setPage}) => {
     const [filterStatus, setFilterStatus] = useState("date");
     const [filterDropdown, setFilterDropdown] = useState(false);
     const dropdownRef = useRef(null);  // 드롭다운 영역을 참조하기 위한 ref
@@ -44,30 +44,47 @@ const BoardFilter = ({setFilter, setPage, resetAll}) => {
                     : filterStatus === "views" ? "조회순"
                     : filterStatus === "comments" ? "댓글순"
                     : filterStatus === "pin" ? "PIN순"
+                    : filterStatus === "dateReverse" ? "과거순"
+                    : filterStatus === "mostReported" ? "신고 횟수"
                     : "최신순"}
                     </p>
                     <img src={dropdownimg} alt="" />
                 </div>
-                {filterDropdown && (<div className="BF_board_filter_dropdown">
-                    <div
-                        className="BF_board_filter_dropdown_btn"
-                        onClick={() => handleFilter("date")}>최신순</div>
-                    <div
-                        className="BF_board_filter_dropdown_btn"
-                        onClick={() => handleFilter("views")}>조회순</div>
-                    <div
-                        className="BF_board_filter_dropdown_btn"
-                        onClick={() => handleFilter("comments")}>댓글순</div>
-                    <div
-                        className="BF_board_filter_dropdown_btn"
-                        onClick={() => handleFilter("pin")}>PIN순</div>
-                </div>)}
+                {filterDropdown && mode==="board" && (
+                    <div className="BF_board_filter_dropdown">
+                        <div
+                            className="BF_board_filter_dropdown_btn"
+                            onClick={() => handleFilter("date")}>최신순</div>
+                        <div
+                            className="BF_board_filter_dropdown_btn"
+                            onClick={() => handleFilter("views")}>조회순</div>
+                        <div
+                            className="BF_board_filter_dropdown_btn"
+                            onClick={() => handleFilter("comments")}>댓글순</div>
+                        <div
+                            className="BF_board_filter_dropdown_btn"
+                            onClick={() => handleFilter("pin")}>PIN순</div>
+                    </div>
+                )}
+                {filterDropdown && mode==="report" && (
+                    <div className="BF_board_filter_dropdown">
+                        <div
+                            className="BF_board_filter_dropdown_btn"
+                            onClick={() => handleFilter("date")}>최신순</div>
+                        <div
+                            className="BF_board_filter_dropdown_btn"
+                            onClick={() => handleFilter("dateReverse")}>과거순</div>
+                        <div
+                            className="BF_board_filter_dropdown_btn"
+                            onClick={() => handleFilter("mostReported")}>신고 횟수</div>
+                    </div>
+                )}
             </div>
-            <img 
+            {mode==="board"&&(<img 
                 className="BF_reset" 
                 src={refreshImg} 
                 alt="초기화"
-                onClick={resetAll}/>
+                onClick={() => {window.location.reload()}}/>)}
         </div>
     );
 }

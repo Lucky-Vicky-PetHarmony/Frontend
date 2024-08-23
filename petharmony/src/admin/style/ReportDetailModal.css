@@ -1,0 +1,171 @@
+
+.RDM{
+    margin: auto;
+    width: 650px;
+    padding: 40px 56px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 24px;
+    border-radius:16px;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 15%);
+
+    position: fixed; /* 화면 전체를 기준으로 위치 설정 */
+    top: 52%; /* 세로 중앙 정렬 */
+    left: 50%; /* 가로 중앙 정렬 */
+    transform: translate(-50%, -50%); /* 중앙으로 이동 */
+    background-color: white; /* 모달 배경 색상 */
+    z-index: 1000; /* 다른 요소보다 앞에 배치되도록 z-index 설정 */
+}
+
+/* 제목 */
+.RDM>p{
+    font-weight: 700;
+}
+
+/* 라벨 */
+.RDM>div>p{
+    font-size: 12px;
+    color: var(--color-gray2);
+}
+
+/* 신고일자, 신고유형, 피신고자, 처리상태 */
+.RDM_top{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.RDM_top_E{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    width: 269px;
+    font-size: 12px;
+    color: var(--color-gray2);
+}
+
+.RDM_top>.RDM_top_E>p:nth-child(2),
+.RDM_content>p:nth-child(2){
+    font-size: 13px;
+    color: var(--color-gray1);
+    line-height: 18px;
+}
+
+/* 글내용, 신고 내용 */
+.RDM_content{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.RDM_content>p>span{
+    margin-left: 4px;
+    font-size: 10px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/* 해당 글을 신고한 다른 유저들의 신고 목록  */
+.RDM_other{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.RDM_other>p{
+    margin-bottom: 8px;
+}
+
+.RDM_other_group{
+    height: 145px;
+    overflow: scroll;
+    padding: 0px 4px;
+}
+
+.RDM_other_report{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 40px;
+    padding: 8px 16px;
+    border-bottom: 0.3px solid var(--color-gray3);
+}
+
+.RDM_other_report>p{
+    font-size: 11px;
+    color: var(--color-gray1);
+}
+.RDM_other_report>p:first-child{
+    width: 20px;
+}
+.RDM_other_report>p:nth-child(3){
+    width: 57px;
+}
+
+.RDM_other_report>p:nth-child(4){
+    width: 151px;
+}
+.RDM_other_report>p:last-child{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/* 신고처리 */
+.RDM_precess{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.RDM>.RDM_precess>p{
+    color: var(--color-red);
+}
+
+.RDM>.RDM_precess>p>span{
+    font-size: 10px;
+    color: var(--color-gray2);
+}
+
+.RDM_precess>select{
+    margin-left: 16px;
+    font-size: 12px;
+    border: 0.2px solid var(--color-gray3);
+    color: var(--color-gray1);
+    padding: 4px 10px;
+    outline: none;
+}
+
+/* 버튼 */
+.RDM_btn{
+    width: 100%;
+    display: flex;
+    flex-flow: row;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.RDM_btn>*{
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-gray1);
+    border: 1px solid var(--color-gray2);
+    border-radius: 8px;
+    padding: 4px 18px;
+    cursor: pointer;
+}
+
+.RDM_btn>*:active{
+    transform: scale(0.97);
+}
+
+.RDM_btn>.RDM_btn_submit{
+    background-color: var(--color-gray2);
+    color: white;
+}
