@@ -57,8 +57,8 @@ const MyPage = () => {
                     <Route path="password-edit" element={<PasswordEdit token={token} />} />
                     <Route path="interested-pets" element={<InterestedPets />} />
                     <Route path="pin-posts" element={<PinPosts token={token} />} />
-                    <Route path="my-comments" element={<MyComments />} />
-                    <Route path="my-posts" element={<MyPosts />} />
+                    <Route path="my-comments" element={<MyComments token={token} />} />
+                    <Route path="my-posts" element={<MyPosts token={token} />} />
                     <Route path="delete-account" element={<DeleteAccount />} />
                 </Routes>
             </div>
