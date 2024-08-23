@@ -85,11 +85,14 @@ const BoardComment = ({comment, masterId, updateComment, setReportModal, setRepo
                 </div>
 
                 {/* 신고 */}
-                {loggedInUserId !== comment.userId && (
+                {loggedInUserId !== comment.userId && 
+                 comment.userName !== "(알수없음)" && 
+                 comment.content !== "관리자에 의해 삭제된 댓글입니다." && (
                     <div className="BC_top_report" onClick={() => reportBtnClick(comment.userId, comment.userName, comment.commId)}>
                         <img src={sosImg} alt="" />
                         <p>신고</p>
-                    </div>)}
+                    </div>
+                )}
 
                 {/* 댓글작성자일때 수정, 삭제*/}
                 {loggedInUserId === comment.userId && !updateForm &&(<div className="BC_top_update">
