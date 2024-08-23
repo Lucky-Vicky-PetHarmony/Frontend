@@ -1,4 +1,5 @@
 .boardlist{
+    margin: 140px 0px 100px 0px;
     display: flex;
     flex-direction: column;
     align-items: center;
