@@ -152,12 +152,12 @@ const BoardContent = ({board, commCount, setReportModal, setReportMode, setRepor
                     | 
                     <p onClick={boardDelete}>삭제</p>
                 </div>
-            ) : (
+            ) : board.userName!=="(알수없음)" ? (
                 <div className="bc_6" onClick={() => reportBtnClick(board.userId, board.userName, board.boardId)}>
                     <img src={sosImg} alt="신고" />
                     <p>신고</p>
                 </div>
-            )}
+            ) : null}
 
         </div>
     );
