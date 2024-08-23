@@ -15,6 +15,7 @@ import MyPage from "./mypage/components/MyPage";
 import Layout from "./layout/Layout";
 import Adoption from "./adoption/components/Adoption";
 import Matching from "./matching/components/Matching";
+import ReportList from "./admin/components/ReportList";
 
 function App() {
   const login = useAuthStore((state) => state.login);
@@ -47,6 +48,7 @@ function App() {
           <Route path="/mypage/*" element={<MyPage />} />
           <Route path="/adoption" element={<Adoption />} />
           <Route path="/matching" element={<Matching />} />
+          <Route path="/admin/report" element={<ReportList />} />
         </Routes>
       </Layout>
     </Router>

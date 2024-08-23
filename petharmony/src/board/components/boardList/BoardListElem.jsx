@@ -6,7 +6,6 @@ import pinimg from '../../asset/pin_gray.png';
 import pictureimg from '../../asset/picture.png';
 import { useNavigate } from 'react-router-dom';
 
-
 const BoardListElem = ({ board, customClass }) => {
     const nav = useNavigate(); //페이지 이동을 위한 navigate
     const YOUR_USER_ID = 28; //로그인한 사용자 아이디
@@ -53,7 +52,6 @@ const BoardListElem = ({ board, customClass }) => {
                         <img src={pinimg} alt="" style={{padding: '1.5px'}}/>
                         <p>{board.pinCount}</p>
                     </div>
-
                 </div>
                 <p className="boardcontent_right_bottom">{board.boardUpdate}</p>
             </div>
