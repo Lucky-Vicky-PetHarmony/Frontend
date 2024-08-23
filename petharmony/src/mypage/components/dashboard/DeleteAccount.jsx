@@ -34,9 +34,10 @@ const DeleteAccount = ({ token }) => {
         <div className="delete_account">
             <p className="da_title">회원 탈퇴</p>
             <div className="da_content">
-                회원탈퇴하시겠습니까<br />
-                회원탈퇴시 작성한 게시물, 댓글, 좋아요 한 입양동물, 자신의 매칭기록 등<br />
-                활동기록이 사라집니다.
+                <p>정말 탈퇴하시겠습니까?</p>
+                <p>회원탈퇴시 작성한 게시물, 댓글, 좋아요 한 입양동물, 자신의 매칭기록 등</p>
+                <p>활동기록이 사라집니다.</p>
+                <p className="da_point">현재 이메일로 새로 회원가입이 불가합니다.</p>
             </div>
             <button className="da_btn" onClick={handleClick}>탈퇴하기</button>
         </div>
