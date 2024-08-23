@@ -5,7 +5,7 @@ import redlightImg from '../asset/redlight.png'
 import axios from "axios";
 
 
-const ReportPostModal = ({setReportModal, mode, reportData}) => {
+const ReportPostModal = ({setReportModal, mode, reportData, userId, token}) => {
     //mode: board이면 게시물 신고, comment이면 댓글신고
     //그 외: 신고자id, 신고자 이름, 피신고자id, 피신고자 이름, boardId(commmId) 부모로부터 받아야함
     //서버에 보낼거 : 신고자 id, 피신고자 id, 신고유형, 신고내용, 댓글인지 게시물인지, boardId(commmId)
@@ -16,18 +16,29 @@ const ReportPostModal = ({setReportModal, mode, reportData}) => {
 
     // axios
     const reportPost = async () => {
+        // 아무것도 입력안됐을 경우
+        if(!reportContent.trim()){
+            alert("신고내용을 입력해주세요.");
+            return;
+        }
         try {
             const response = await 
-                axios.post(`http://localhost:8080/api/public/report/post`,
+                axios.post(`http://localhost:8080/api/user/report/post`,
                     {
-                        reporterId: 32, //임시
+                        reporterId: userId,
                         reportedId: reportData.reportedId,
                         reportType: reportType,
                         reportContent: reportContent,
                         reportBoardOrComment: mode,
                         reportPostId: reportData.boardOrCommentId
 
-                    });
+                    },
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        },
+                    }
+                );
                     
                     if(response.status === 200){
                         alert(`${reportData.reportedName}님의 ${mode === "board" ? "게시물" : "댓글"} 신고 완료`);

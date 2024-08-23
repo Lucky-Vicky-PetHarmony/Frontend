@@ -23,7 +23,7 @@ const ReportDetailModal = ({setModal, reportDetailId, setReportDetailId}) => {
     const axiosReportDetail = async () => {
         try {
             setLoading(true);
-            const response = await axios.get(`http://localhost:8080/api/public/report/detail/${reportDetailId}`);
+            const response = await axios.get(`http://localhost:8080/api/user/report/detail/${reportDetailId}`);
 
             if (response.status === 200) {
                 setReportDetailData(response.data);
@@ -44,7 +44,7 @@ const ReportDetailModal = ({setModal, reportDetailId, setReportDetailId}) => {
     // 서버에 신고 처리 요청
     const axiosReportProcessing = async () => {
         try {
-            const response = await axios.put(`http://localhost:8080/api/public/report/processing/${reportDetailId}`, null,{
+            const response = await axios.put(`http://localhost:8080/api/user/report/processing/${reportDetailId}`, null,{
                 params: {
                     processing: reportProcessing
                 }

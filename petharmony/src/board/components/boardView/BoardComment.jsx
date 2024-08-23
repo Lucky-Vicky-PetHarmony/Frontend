@@ -4,12 +4,12 @@ import sosImg from '../../asset/sos.png'
 import commpostImg from '../../asset/commpost.png';
 import axios from "axios";
 
-const BoardComment = ({comment, masterId, updateComment, setReportModal, setReportMode, setReportData}) => {
-    const loggedInUserId = 27; // 로그인한 사용자 ID
+const BoardComment = ({comment, masterId, updateComment, setReportModal, setReportMode, setReportData, userId, token}) => {
 
     const [updateForm, setUpdateForm] = useState(false);
     const [updatedContent, setUpdatedContent] = useState(comment.content);
 
+    // 신고버튼 클릭 메소드
     const reportBtnClick = (userId, userName, commId) => {
         setReportMode("comment");
         setReportModal(true);
@@ -23,19 +23,27 @@ const BoardComment = ({comment, masterId, updateComment, setReportModal, setRepo
         );
     }
 
+    // 댓글 수정 폼 toggle
     const updateFormtoggle = () => {
         setUpdateForm(prevState => !prevState);
     }
 
+    // 댓글 수정
     const commentUpdate = async () => {
         try {
             const response = await 
-                axios.put(`http://localhost:8080/api/public/comment/update`,
+                axios.put(`http://localhost:8080/api/user/comment/update`,
                     {
                         commId: comment.commId,
                         commContent: updatedContent,
-                        userId: loggedInUserId
-                    });
+                        userId: userId
+                    },
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        },
+                    }
+                );
                     
                     if(response.status === 200){
                         setUpdateForm(false);
@@ -50,16 +58,21 @@ const BoardComment = ({comment, masterId, updateComment, setReportModal, setRepo
         }
     }
 
+    // 댓글 삭제
     const commentDelete = async () => {
         try {
             const response = await 
-                axios.delete(`http://localhost:8080/api/public/comment/delete`,
+                axios.delete(`http://localhost:8080/api/user/comment/delete`,
                     {
                         params: {
                             commId: comment.commId,
-                            userId: loggedInUserId
+                            userId: userId
+                        },
+                        headers: {
+                            Authorization: `Bearer ${token}`
                         }
-                    });
+                    }
+                );
 
                     if (response.status === 200){
                         updateComment(); //데이터 다시 요청
@@ -72,20 +85,35 @@ const BoardComment = ({comment, masterId, updateComment, setReportModal, setRepo
         }
     }
 
+    //이름 필터링
+    const nameFormat = (name) => {
+        if(name==="(알수없음)"){
+            return name
+        } else if(name.length <= 2) {
+            // 이름이 2글자 이하인 경우 첫 글자만 남기고 * 처리
+            return name[0] + '*';
+        } else {
+            // 첫 글자와 마지막 글자를 제외한 부분을 *로 처리
+            const middle = '*'.repeat(name.length - 2);
+            return name[0] + middle + name[name.length - 1];
+        }
+    }
+
     return (
-        <div className="BoardComment">
-            
+        <div className="BoardComment"> 
             <div className="BC_top">
                 {/* 댓글정보 */}
                 <div className="BC_top_left">
-                    <p className="BC_top_left_writer">{comment.userName}</p>
+                    <p className="BC_top_left_writer">
+                        {comment.userId === userId ? comment.userName : nameFormat(comment.userName)}
+                    </p>
                     <p className="BC_top_left_time">{comment.commCreate}</p>
                     {/* 게시글작성자일때 */}
                     {comment.userId === masterId && (<div className="BC_top_left_master">작성자</div>)}
                 </div>
 
                 {/* 신고 */}
-                {loggedInUserId !== comment.userId && 
+                {userId !== comment.userId && 
                  comment.userName !== "(알수없음)" && 
                  comment.content !== "관리자에 의해 삭제된 댓글입니다." && (
                     <div className="BC_top_report" onClick={() => reportBtnClick(comment.userId, comment.userName, comment.commId)}>
@@ -95,7 +123,7 @@ const BoardComment = ({comment, masterId, updateComment, setReportModal, setRepo
                 )}
 
                 {/* 댓글작성자일때 수정, 삭제*/}
-                {loggedInUserId === comment.userId && !updateForm &&(<div className="BC_top_update">
+                {userId === comment.userId && !updateForm &&(<div className="BC_top_update">
                     <p onClick={updateFormtoggle}>수정</p>
                      | 
                     <p onClick={commentDelete}>삭제</p>
