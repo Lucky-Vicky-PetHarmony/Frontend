@@ -35,8 +35,8 @@ const BoardList = () => {
 
         //검색어가 없으면 /list 요청, 검색어가 있으면 /search 요청
         const url = searchText.trim() === "" 
-            ? 'http://localhost:8080/api/public/board/list' 
-            : 'http://localhost:8080/api/public/board/search';
+            ? 'http://localhost:8080/api/user/board/list' 
+            : 'http://localhost:8080/api/user/board/search';
 
 
         try {

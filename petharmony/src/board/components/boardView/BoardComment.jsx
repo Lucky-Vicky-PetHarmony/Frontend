@@ -32,7 +32,7 @@ const BoardComment = ({comment, masterId, updateComment, setReportModal, setRepo
     const commentUpdate = async () => {
         try {
             const response = await 
-                axios.put(`http://localhost:8080/api/public/comment/update`,
+                axios.put(`http://localhost:8080/api/user/comment/update`,
                     {
                         commId: comment.commId,
                         commContent: updatedContent,
@@ -62,7 +62,7 @@ const BoardComment = ({comment, masterId, updateComment, setReportModal, setRepo
     const commentDelete = async () => {
         try {
             const response = await 
-                axios.delete(`http://localhost:8080/api/public/comment/delete`,
+                axios.delete(`http://localhost:8080/api/user/comment/delete`,
                     {
                         params: {
                             commId: comment.commId,

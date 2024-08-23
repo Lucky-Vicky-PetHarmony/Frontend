@@ -35,7 +35,7 @@ const BoardView = () => {
         try{
             const response = await 
                 axios
-                    .get(`http://localhost:8080/api/public/board/view`, {
+                    .get(`http://localhost:8080/api/user/board/view`, {
                         params: { userId, boardId },
                         headers: {
                             Authorization: `Bearer ${token}`
@@ -52,7 +52,7 @@ const BoardView = () => {
         try{
             const response = await 
                 axios
-                    .get(`http://localhost:8080/api/public/comment/list`,{
+                    .get(`http://localhost:8080/api/user/comment/list`,{
                         params: { boardId },
                         headers: {
                             Authorization: `Bearer ${token}`

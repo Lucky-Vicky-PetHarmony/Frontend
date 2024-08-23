@@ -23,7 +23,7 @@ const ReportPostModal = ({setReportModal, mode, reportData, userId, token}) => {
         }
         try {
             const response = await 
-                axios.post(`http://localhost:8080/api/public/report/post`,
+                axios.post(`http://localhost:8080/api/user/report/post`,
                     {
                         reporterId: userId,
                         reportedId: reportData.reportedId,

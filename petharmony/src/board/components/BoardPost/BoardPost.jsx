@@ -69,7 +69,7 @@ const BoardPost = () => {
         });
 
         try {
-            const response = await axios.post('http://localhost:8080/api/public/board/post', formData, {
+            const response = await axios.post('http://localhost:8080/api/user/board/post', formData, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 },
@@ -121,7 +121,7 @@ const BoardPost = () => {
         try {
             const response = await 
                 axios
-                    .put(`http://localhost:8080/api/public/board/update`,
+                    .put(`http://localhost:8080/api/user/board/update`,
                         formData,
                         {
                             headers: {

@@ -18,7 +18,7 @@ const BoardCommentInput = ({ boardId, userId, token, onCommentSubmit }) => {
 
         try {
             const response = await 
-                axios.post('http://localhost:8080/api/public/comment/post',
+                axios.post('http://localhost:8080/api/user/comment/post',
                     {
                         boardId: boardId,
                         userId: userId,

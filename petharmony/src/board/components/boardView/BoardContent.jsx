@@ -38,7 +38,7 @@ const BoardContent = ({board, commCount, setReportModal, setReportMode, setRepor
     const pinToggle = async() => {
         try {
             const response = await
-                axios.post(`http://localhost:8080/api/public/board/pinned`,
+                axios.post(`http://localhost:8080/api/user/board/pinned`,
                     {
                         userId: userId,
                         boardId: board.boardId,
@@ -94,7 +94,7 @@ const BoardContent = ({board, commCount, setReportModal, setReportMode, setRepor
     const boardDelete = async () => {
         try {
             const response = await 
-                axios.delete(`http://localhost:8080/api/public/board/delete`,
+                axios.delete(`http://localhost:8080/api/user/board/delete`,
                     {
                         params: {
                             boardId: board.boardId,
