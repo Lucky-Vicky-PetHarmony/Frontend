@@ -31,7 +31,7 @@ const MyComments = ({ token }) => {
             <p className="mc_title">내가 쓴 댓글</p>
             <div className="mc_content">
                 {commentData.map(comment => (
-                    <MyCommentList key={comment.commentId} comment={comment} />
+                    <MyCommentList key={comment.commId} comment={comment} />
                 ))}
             </div>
         </div>
