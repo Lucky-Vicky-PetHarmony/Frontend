@@ -8,7 +8,7 @@ const ReportListElem = ({setModal, report, setReportDetailId}) => {
     const formatDate = (date) => {
         if (!date) return "-";
         const redate = date.replace(/-/g, '.'); //전체 문자열 검사해서 치환
-        return redate;
+        return redate.slice(0, 10);
     }
 
     // 내용이 길때 말줄임표

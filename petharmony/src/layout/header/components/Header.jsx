@@ -63,7 +63,7 @@ const Header = () => {
                                             role이 '[ROLE_USER]'여도 URL로 접근 가능
                                             --> 접근 제어 하는 라우트 보호 적용 예정
                                         */
-                                        <Link to="/">신고목록</Link>
+                                        <Link to="/admin/report">신고목록</Link>
                                     )}
                                     <Link to="/" onClick={handleLogout}>로그아웃</Link>
                                 </div>
