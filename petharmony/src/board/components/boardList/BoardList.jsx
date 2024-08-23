@@ -73,9 +73,10 @@ const BoardList = () => {
                     setPage={setPage}/>
             </div>
             <div className="boardlist_middle">
-                {boardData.map(board => (
+                {boardData.length>0?boardData.map(board => (
                     <BoardListElem key={board.boardId} board={board} />
-                ))}
+                )):
+                <p>게시물이 없습니다.</p>}
             </div>
             <BoardPagination setPage={setPage} totalPages={totalPages} currentPage={page} />
         </div>

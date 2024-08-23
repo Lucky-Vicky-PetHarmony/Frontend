@@ -119,13 +119,20 @@ const ReportList = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {(reportListData || []).map(report => (
-                            <ReportListElem 
-                                key={report.reportId} 
-                                report={report} 
-                                setModal={setModal}
-                                setReportDetailId={setReportDetailId}/>
-                        ))}
+                        {(reportListData && reportListData.length > 0) ? (
+                            reportListData.map(report => (
+                                <ReportListElem 
+                                    key={report.reportId} 
+                                    report={report} 
+                                    setModal={setModal}
+                                    setReportDetailId={setReportDetailId}
+                                />
+                            ))
+                        ) : (
+                            <tr>
+                                <td colSpan="9" style={{ textAlign: 'center' }}>신고 목록이 없습니다.</td>
+                            </tr>
+                        )}
                     </tbody>
                 </table>
             </div>
