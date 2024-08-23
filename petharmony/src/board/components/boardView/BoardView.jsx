@@ -3,20 +3,23 @@ import '../../style/boardView/BoardView.css';
 import BoardContent from "./BoardContent";
 import BoardCommentInput from './BoardCommentInput';
 import BoardComment from './BoardComment';
-import { useParams, useLocation, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import ReportPostModal from "../ReportPostModal";
 
-
+import useAuthStore from "../../../store/useAuthStore";
 
 const BoardView = () => {
+    //로그인한 사용자의 token과 userId
+    const { token, userId } = useAuthStore();
+
+    // 페이지 이동시에 사용
     const nav = useNavigate();
 
+    // 보여줄 게시물의 boardId를 url에서 추출
     const { boardId } = useParams(); //URL파라미터를 가져옴. 여기서는 게시물 번호를 가져옴
-    // const location = useLocation(); //페이지 이동시 전달된 상태를 가져옴. 여기서는 로그인한 유저의 아이디를 기져옴
-    // const userId = location.state?.userId; //userId가 없을경우 undefined를 반환
-    const userId = 27;
 
+    // 게시물데이터, 댓글데이터
     const [boardData, setBoardData] = useState(null); //서버로부터 받아올 게시물 내용 데이터를 저장 
     const [commentData, setCommentData] = useState([]);
 
@@ -31,9 +34,13 @@ const BoardView = () => {
     const fetchBoardData = async () => {
         try{
             const response = await 
-                axios.get(`http://localhost:8080/api/public/board/view`,
-                    {params: { boardId, userId }}
-                );
+                axios
+                    .get(`http://localhost:8080/api/public/board/view`, {
+                        params: { userId, boardId },
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                            },
+                        });
                 setBoardData(response.data);
         }catch(error){
             console.error("게시물 내용을 불러오기 중 오류가 발생했습니다. error: ", error)
@@ -44,19 +51,25 @@ const BoardView = () => {
     const fetchCommentData = async () => {
         try{
             const response = await 
-                axios.get(`http://localhost:8080/api/public/comment/list`,
-                    {params: { boardId }}
-                );
+                axios
+                    .get(`http://localhost:8080/api/public/comment/list`,{
+                        params: { boardId },
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                            },
+                        });
                 setCommentData(response.data);
         }catch(error){
-            console.error("댓글 리스트를 불러오기 중 오류가 발생했습니다. error: ", error)
+            console.error("댓글 리스트를 불러오는 중 오류가 발생했습니다. error: ", error)
         }
     };
 
     useEffect(() => {
-        fetchBoardData();
-        fetchCommentData();
-    }, [])
+        if (userId && token) {  // userId와 token이 존재할 때만 요청 실행
+            fetchBoardData();
+            fetchCommentData();
+        }
+    }, [userId, token]);  // userId와 token이 변경될 때마다 실행
 
     return (
         <div className="BoardView">
@@ -66,8 +79,14 @@ const BoardView = () => {
                     commCount={commentData.length} 
                     setReportModal={setReportModal}
                     setReportMode={setReportMode}
-                    setReportData={setReportData}/>
-                <BoardCommentInput boardId={boardId} userId={userId} onCommentSubmit={fetchCommentData} />
+                    setReportData={setReportData}
+                    userId={userId}
+                    token={token}/>
+                <BoardCommentInput 
+                    boardId={boardId} 
+                    userId={userId} 
+                    token={token}
+                    onCommentSubmit={fetchCommentData} />
                 {commentData.map(comment => (
                     <BoardComment 
                         key={comment.commId} 
@@ -76,7 +95,9 @@ const BoardView = () => {
                         updateComment={fetchCommentData}
                         setReportModal={setReportModal}
                         setReportMode={setReportMode}
-                        setReportData={setReportData}/>
+                        setReportData={setReportData}
+                        userId={userId}
+                        token={token}/>
                 ))}
             </>) :
             (<p>Loading...</p>)}
@@ -86,7 +107,8 @@ const BoardView = () => {
                 setReportModal={setReportModal}
                 mode={reportMode}
                 reportData = {reportData}
-                />)}
+                userId={userId}
+                token={token}/>)}
         </div> 
     );
 }

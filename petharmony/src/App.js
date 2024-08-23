@@ -27,8 +27,9 @@ function App() {
     const email = localStorage.getItem('email');
     const name = localStorage.getItem('name');
     const role = localStorage.getItem('role');
-    if (token && email && name && role) {
-      login(token, email, name, role);
+    const userId = localStorage.getItem('userId');
+        if (token && email && name && role && userId) {
+      login(token, email, name, role, userId);
     }
   }, [login]);
 

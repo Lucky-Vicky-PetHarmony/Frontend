@@ -5,13 +5,10 @@ import warningImg from '../../asset/warning.png'
 import axios from "axios";
 
 
-const BoardCommentInput = ({ boardId, userId, onCommentSubmit }) => {
+const BoardCommentInput = ({ boardId, userId, token, onCommentSubmit }) => {
     const [ commentContent, setCommentContent ] = useState(""); // 입력된 댓글
 
-    const handleCommentChange = (e) => {
-        setCommentContent(e.target.value);
-    }
-
+    // 댓글 작성
     const commentSubmit = async () => {
         // 아무것도 입력안됐을 경우
         if(!commentContent.trim()){
@@ -26,7 +23,13 @@ const BoardCommentInput = ({ boardId, userId, onCommentSubmit }) => {
                         boardId: boardId,
                         userId: userId,
                         commContent: commentContent
-                    });
+                    },
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        },
+                    }
+                );
 
                     if(response.status === 200){
                         setCommentContent(""); // 입력필드초기화
@@ -53,7 +56,7 @@ const BoardCommentInput = ({ boardId, userId, onCommentSubmit }) => {
             <div className="bci_input">
                 <input 
                     type="text" 
-                    onChange={handleCommentChange}
+                    onChange={(e) => {setCommentContent(e.target.value)}}
                     value={commentContent}
                     placeholder="댓글을 입력하세요."/>
                 <img 

@@ -4,12 +4,12 @@ import sosImg from '../../asset/sos.png'
 import commpostImg from '../../asset/commpost.png';
 import axios from "axios";
 
-const BoardComment = ({comment, masterId, updateComment, setReportModal, setReportMode, setReportData}) => {
-    const loggedInUserId = 27; // 로그인한 사용자 ID
+const BoardComment = ({comment, masterId, updateComment, setReportModal, setReportMode, setReportData, userId, token}) => {
 
     const [updateForm, setUpdateForm] = useState(false);
     const [updatedContent, setUpdatedContent] = useState(comment.content);
 
+    // 신고버튼 클릭 메소드
     const reportBtnClick = (userId, userName, commId) => {
         setReportMode("comment");
         setReportModal(true);
@@ -23,10 +23,12 @@ const BoardComment = ({comment, masterId, updateComment, setReportModal, setRepo
         );
     }
 
+    // 댓글 수정 폼 toggle
     const updateFormtoggle = () => {
         setUpdateForm(prevState => !prevState);
     }
 
+    // 댓글 수정
     const commentUpdate = async () => {
         try {
             const response = await 
@@ -34,8 +36,14 @@ const BoardComment = ({comment, masterId, updateComment, setReportModal, setRepo
                     {
                         commId: comment.commId,
                         commContent: updatedContent,
-                        userId: loggedInUserId
-                    });
+                        userId: userId
+                    },
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        },
+                    }
+                );
                     
                     if(response.status === 200){
                         setUpdateForm(false);
@@ -50,6 +58,7 @@ const BoardComment = ({comment, masterId, updateComment, setReportModal, setRepo
         }
     }
 
+    // 댓글 삭제
     const commentDelete = async () => {
         try {
             const response = await 
@@ -57,9 +66,13 @@ const BoardComment = ({comment, masterId, updateComment, setReportModal, setRepo
                     {
                         params: {
                             commId: comment.commId,
-                            userId: loggedInUserId
+                            userId: userId
+                        },
+                        headers: {
+                            Authorization: `Bearer ${token}`
                         }
-                    });
+                    }
+                );
 
                     if (response.status === 200){
                         updateComment(); //데이터 다시 요청
@@ -73,8 +86,7 @@ const BoardComment = ({comment, masterId, updateComment, setReportModal, setRepo
     }
 
     return (
-        <div className="BoardComment">
-            
+        <div className="BoardComment"> 
             <div className="BC_top">
                 {/* 댓글정보 */}
                 <div className="BC_top_left">
@@ -85,14 +97,17 @@ const BoardComment = ({comment, masterId, updateComment, setReportModal, setRepo
                 </div>
 
                 {/* 신고 */}
-                {loggedInUserId !== comment.userId && (
+                {userId !== comment.userId && 
+                 comment.userName !== "(알수없음)" && 
+                 comment.content !== "관리자에 의해 삭제된 댓글입니다." && (
                     <div className="BC_top_report" onClick={() => reportBtnClick(comment.userId, comment.userName, comment.commId)}>
                         <img src={sosImg} alt="" />
                         <p>신고</p>
-                    </div>)}
+                    </div>
+                )}
 
                 {/* 댓글작성자일때 수정, 삭제*/}
-                {loggedInUserId === comment.userId && !updateForm &&(<div className="BC_top_update">
+                {userId === comment.userId && !updateForm &&(<div className="BC_top_update">
                     <p onClick={updateFormtoggle}>수정</p>
                      | 
                     <p onClick={commentDelete}>삭제</p>

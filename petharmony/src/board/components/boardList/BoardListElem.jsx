@@ -8,10 +8,9 @@ import { useNavigate } from 'react-router-dom';
 
 const BoardListElem = ({ board, customClass }) => {
     const nav = useNavigate(); //페이지 이동을 위한 navigate
-    const YOUR_USER_ID = 28; //로그인한 사용자 아이디
 
     const handleClick = () => {
-        nav(`/board/view/${board.boardId}`, { state: { userId: YOUR_USER_ID } });
+        nav(`/board/view/${board.boardId}`);
     };
 
     const categotyFormat = (category) => {

@@ -30,6 +30,7 @@ const Header = () => {
         localStorage.removeItem('email');
         localStorage.removeItem('name');
         localStorage.removeItem('role');
+        localStorage.removeItem('userId');
         logout();
     };
 

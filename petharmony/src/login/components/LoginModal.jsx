@@ -8,6 +8,7 @@ import LoginInput from "./LoginInput";
 import LoginJoinButton from "../../common/button/components/LoginJoinButton";
 import CancleButton from "../../common/button/components/CancelButton";
 
+
 const LoginModal = () => {
     // store에서 login 함수 가져옴
     const login = useAuthStore((state) => state.login);
@@ -48,12 +49,15 @@ const LoginModal = () => {
                 const email = response.data.email;     // 이메일
                 const name = response.data.userName;   // 회원 이름
                 const role = response.data.role;       // 권한
+                const userId = response.data.userId    // 회원 번호
+
                 // localStorage에 저장 후 로그인
                 localStorage.setItem('token', token);
                 localStorage.setItem('email', email);
                 localStorage.setItem('name', name);
                 localStorage.setItem('role', role);
-                login(token, email, name, role);
+                localStorage.setItem('userId', userId);
+                login(token, email, name, role, userId);
                 alert("로그인 성공");
                 closeModal();
             } else {

@@ -10,13 +10,17 @@ import sosImg from '../../asset/sos.png'
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const BoardContent = ({board, commCount, setReportModal, setReportMode, setReportData}) => {
-    const nav = useNavigate();
-    const loggedInUserId = 27; // 로그인한 사용자 ID
+const BoardContent = ({board, commCount, setReportModal, setReportMode, setReportData, userId, token}) => {
 
+    // 페이지 이동
+    const nav = useNavigate();
+
+    // 게시물 좋아요(pin)
     const [pin, setPin] = useState(board.pinStatus);
     const [pinCount, setPinCount] = useState(board.pinCount);
+    
 
+    // 신고기능
     const reportBtnClick = (userId, userName, boardId) => {
         setReportMode("board");
         setReportModal(true);
@@ -30,14 +34,20 @@ const BoardContent = ({board, commCount, setReportModal, setReportMode, setRepor
         );
     }
 
+    // 게시물 좋아요 반영
     const pinToggle = async() => {
         try {
             const response = await
                 axios.post(`http://localhost:8080/api/public/board/pinned`,
                     {
-                        userId: loggedInUserId,
+                        userId: userId,
                         boardId: board.boardId,
                         pinAction: pin ? "unlike" : "like"
+                    },
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        },
                     }
                 );
                 if(response.status === 200 && response.data.boardId === board.boardId){
@@ -52,6 +62,7 @@ const BoardContent = ({board, commCount, setReportModal, setReportMode, setRepor
         }
     }
 
+    // 카테고리 한글로 포맷
     const categotyFormat = (category) => {
         switch(category) {
             case "ADOPT":
@@ -65,7 +76,7 @@ const BoardContent = ({board, commCount, setReportModal, setReportMode, setRepor
         }
     }
 
-    // 게시물 삭제
+    // 게시물 삭제 
     const boardDelete = async () => {
         try {
             const response = await 
@@ -73,8 +84,11 @@ const BoardContent = ({board, commCount, setReportModal, setReportMode, setRepor
                     {
                         params: {
                             boardId: board.boardId,
-                            userId: loggedInUserId
-                        }
+                            userId: userId
+                        },
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        },
                     });
 
                     if (response.status === 200){
@@ -146,18 +160,19 @@ const BoardContent = ({board, commCount, setReportModal, setReportMode, setRepor
             {/* 게시물 작성자와 로그인된 사용자가 동일한지 확인 
                 본인 게시물 : 수정 | 삭제
                 타인 게시물 : 신고버튼 */}
-            {board.userId === loggedInUserId ? (
+            {board.userId === userId ? (
                 <div className="bc_7">
                     <p onClick={handleEditClick}>수정</p>
                     | 
                     <p onClick={boardDelete}>삭제</p>
                 </div>
-            ) : (
+            ) : board.userName!=="(알수없음)" ?
+            (
                 <div className="bc_6" onClick={() => reportBtnClick(board.userId, board.userName, board.boardId)}>
                     <img src={sosImg} alt="신고" />
                     <p>신고</p>
                 </div>
-            )}
+            ):null}
 
         </div>
     );
