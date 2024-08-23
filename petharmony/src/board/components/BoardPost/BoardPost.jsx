@@ -48,6 +48,14 @@ const BoardPost = () => {
 
     // 게시글 작성 함수
     const handleBoardPostBtn = async () => {
+        // 아무것도 입력안됐을 경우
+        if(!title.trim()){
+            alert("제목을 입력해주세요.");
+            return;
+        }else if(!content.trim()){
+            alert("내용을 입력해주세요.");
+            return;
+        }
 
         formData.append('userId', userId);
         formData.append('title', title);
@@ -86,6 +94,14 @@ const BoardPost = () => {
 
     // 게시글 수정 함수
     const handleBoardUpdateBtn = async () => {
+        // 아무것도 입력안됐을 경우
+        if(!title.trim()){
+            alert("제목을 입력해주세요.");
+            return;
+        }else if(!content.trim()){
+            alert("내용을 입력해주세요.");
+            return;
+        }
 
         formData.append('boardId', board.boardId);
         formData.append('userId', userId);
@@ -133,7 +149,7 @@ const BoardPost = () => {
             <BoardPostContent setTitle={setTitle} setContent={setContent} title={title} content={content}/>
             <BoardPostFile setFiles = {setFiles} isEdit={isEdit} setDeleteImages={setDeleteImages} existingImages={board.images || []}/>
             <div className="BP_buttons">
-                <div className="BP_buttons_cancle" onClick={() => nav('/boardList')}>취소</div>
+                <div className="BP_buttons_cancle" onClick={() => nav('/board/list')}>취소</div>
                 <div 
                     className="BP_buttons_post" 
                     onClick={() => isEdit ? handleBoardUpdateBtn() : handleBoardPostBtn()}

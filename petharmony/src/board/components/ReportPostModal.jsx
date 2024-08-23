@@ -16,6 +16,11 @@ const ReportPostModal = ({setReportModal, mode, reportData, userId, token}) => {
 
     // axios
     const reportPost = async () => {
+        // 아무것도 입력안됐을 경우
+        if(!reportContent.trim()){
+            alert("신고내용을 입력해주세요.");
+            return;
+        }
         try {
             const response = await 
                 axios.post(`http://localhost:8080/api/public/report/post`,
