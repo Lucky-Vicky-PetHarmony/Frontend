@@ -76,6 +76,20 @@ const BoardContent = ({board, commCount, setReportModal, setReportMode, setRepor
         }
     }
 
+    //이름 필터링
+    const nameFormat = (name) => {
+        if(name==="(알수없음)"){
+            return name
+        } else if(name.length <= 2) {
+            // 이름이 2글자 이하인 경우 첫 글자만 남기고 * 처리
+            return name[0] + '*';
+        } else {
+            // 첫 글자와 마지막 글자를 제외한 부분을 *로 처리
+            const middle = '*'.repeat(name.length - 2);
+            return name[0] + middle + name[name.length - 1];
+        }
+    }
+
     // 게시물 삭제 
     const boardDelete = async () => {
         try {
@@ -123,7 +137,9 @@ const BoardContent = ({board, commCount, setReportModal, setReportMode, setRepor
             {/* 제목, 작성자 */}
             <div className="bc_2">
                 <p className="bc_2_title">{board.title}</p>
-                <p className="bc_2_writer">{board.userName}</p>
+                <p className="bc_2_writer">
+                    {board.userId===userId?board.userName:nameFormat(board.userName)}
+                </p>
             </div>
 
             {/* 조회수, 댓글수, pin수, 작성시간(수정시간) */}

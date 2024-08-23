@@ -85,12 +85,28 @@ const BoardComment = ({comment, masterId, updateComment, setReportModal, setRepo
         }
     }
 
+    //이름 필터링
+    const nameFormat = (name) => {
+        if(name==="(알수없음)"){
+            return name
+        } else if(name.length <= 2) {
+            // 이름이 2글자 이하인 경우 첫 글자만 남기고 * 처리
+            return name[0] + '*';
+        } else {
+            // 첫 글자와 마지막 글자를 제외한 부분을 *로 처리
+            const middle = '*'.repeat(name.length - 2);
+            return name[0] + middle + name[name.length - 1];
+        }
+    }
+
     return (
         <div className="BoardComment"> 
             <div className="BC_top">
                 {/* 댓글정보 */}
                 <div className="BC_top_left">
-                    <p className="BC_top_left_writer">{comment.userName}</p>
+                    <p className="BC_top_left_writer">
+                        {comment.userId === userId ? comment.userName : nameFormat(comment.userName)}
+                    </p>
                     <p className="BC_top_left_time">{comment.commCreate}</p>
                     {/* 게시글작성자일때 */}
                     {comment.userId === masterId && (<div className="BC_top_left_master">작성자</div>)}
