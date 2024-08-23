@@ -7,3 +7,11 @@
     font-size: 24px;
     font-weight: bolder;
 }
+
+.pp_content {
+    margin: 21px 0 0 0;
+}
+
+.custom_board_list_elem {
+    width: 703px;
+}
