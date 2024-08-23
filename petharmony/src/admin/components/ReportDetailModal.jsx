@@ -11,7 +11,8 @@ const ReportDetailModal = ({setModal, reportDetailId, setReportDetailId}) => {
     const [reportDetailData, setReportDetailData] = useState(null);
     const [loading, setLoading] = useState(true); // 로딩 상태 추가
 
-    const [reportProcessing, setReportProcessing] = useState("UNPROCESSED");
+    const [reportProcessing, setReportProcessing] = useState("UNPROCESSED"); //선택된 값
+    const [initProcess, setInitProcess] = useState(""); //초기 처리상태값
 
     // 요청하는 reportid가 바뀔때마다
     useEffect(() => {
@@ -27,6 +28,7 @@ const ReportDetailModal = ({setModal, reportDetailId, setReportDetailId}) => {
             if (response.status === 200) {
                 setReportDetailData(response.data);
                 setReportProcessing(response.data.reportProcess);
+                setInitProcess(response.data.reportProcess);
                 // console.log(response.data);
             } else {
                 alert("신고 상세데이터 불러오기 실패");
@@ -49,6 +51,7 @@ const ReportDetailModal = ({setModal, reportDetailId, setReportDetailId}) => {
             });
 
             if (response.status === 200) {
+                window.location.reload();
             } else {
                 alert("신고 처리 실패");
             }
@@ -60,11 +63,11 @@ const ReportDetailModal = ({setModal, reportDetailId, setReportDetailId}) => {
 
     // 신고처리 저장
     const saveProcessing = () => {
-        const confirmed = window.confirm(`[${reportProcessConversion(reportProcessing)}] 처리 하시겠습니까?`);
+        const confirmed = window.confirm(
+            `[${reportProcessConversion(reportProcessing)}] 처리 하시겠습니까?\n${reportProcessing === "UNPROCESSED" || reportProcessing === "PENDING"?"":"저장 후 변경이 불가능합니다."}`);
 
         if (confirmed) {
             axiosReportProcessing();
-            window.location.reload();
         }
     }
 
@@ -72,7 +75,7 @@ const ReportDetailModal = ({setModal, reportDetailId, setReportDetailId}) => {
     const formatDate = (date) => {
         if (!date) return "-";
         const redate = date.replace(/-/g, '.'); //전체 문자열 검사해서 치환
-        return redate;
+        return redate.slice(0, 10);
     }
 
     //신고유형
@@ -126,6 +129,9 @@ const ReportDetailModal = ({setModal, reportDetailId, setReportDetailId}) => {
             case "THREE_DAY_SUSPENSION":
                 processName= "3일 정지";
                 break;
+            case "SEVEN_DAY_SUSPENSION":
+            processName= "7일 정지";
+            break;
             case "DELETE_POST":
                 processName= "글 삭제";
                 break;
@@ -214,18 +220,23 @@ const ReportDetailModal = ({setModal, reportDetailId, setReportDetailId}) => {
             {/* 신고처리 */}
             <div className="RDM_precess">
                 <p>🚨 신고 처리하기 <span>(* 처리시 해당 게시물을 신고한 모든 신고내역이 일괄처리됩니다.)</span></p>
-                <select
-                    className="RDM_row_select"
-                    value={reportProcessing}
-                    onChange={(e) => setReportProcessing(e.target.value)}
+                {(initProcess === "UNPROCESSED" || initProcess === "PENDING") ? (
+                    <select
+                        className="RDM_row_select"
+                        value={reportProcessing}
+                        onChange={(e) => setReportProcessing(e.target.value)}
                     >
-                    <option value="UNPROCESSED">미처리</option>
-                    <option value="PENDING">신고 보류</option>
-                    <option value="THREE_DAY_SUSPENSION">회원 3일 정지</option>
-                    <option value="DELETE_POST">삭제 처리</option>
-                    <option value="ACCOUNT_TERMINATION">회원 탈퇴 처리</option>
-                    <option value="IGNORE_REPORT">신고 무시하기</option>
-                </select>
+                        <option value="UNPROCESSED">미처리</option>
+                        <option value="PENDING">신고 보류</option>
+                        <option value="THREE_DAY_SUSPENSION">3일 정지</option>
+                        <option value="SEVEN_DAY_SUSPENSION">7일 정지</option>
+                        <option value="DELETE_POST">삭제 처리</option>
+                        <option value="ACCOUNT_TERMINATION">회원 탈퇴 처리</option>
+                        <option value="IGNORE_REPORT">신고 무시하기</option>
+                    </select>
+                ) : (
+                    <p>이미 처리된 신고입니다.</p>
+                )}
             </div>
 
             {/* 취소, 저장 버튼 */}

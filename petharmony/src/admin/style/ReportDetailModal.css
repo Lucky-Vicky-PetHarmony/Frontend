@@ -128,6 +128,11 @@
     color: var(--color-red);
 }
 
+.RDM>.RDM_precess>p:nth-child(2){
+    padding-left: 16px;
+    color: var(--color-gray1);
+}
+
 .RDM>.RDM_precess>p>span{
     font-size: 10px;
     color: var(--color-gray2);
