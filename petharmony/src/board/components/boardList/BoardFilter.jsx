@@ -74,9 +74,6 @@ const BoardFilter = ({mode, setFilter, setPage}) => {
                         <div
                             className="BF_board_filter_dropdown_btn"
                             onClick={() => handleFilter("dateReverse")}>과거순</div>
-                        <div
-                            className="BF_board_filter_dropdown_btn"
-                            onClick={() => handleFilter("mostReported")}>신고 횟수</div>
                     </div>
                 )}
             </div>
