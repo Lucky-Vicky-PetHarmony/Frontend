@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import useAuthStore from "../../store/useAuthStore";
 import axios from "axios";
 import "../styles/MyPage.css";
@@ -16,12 +16,15 @@ import DeleteAccount from "./dashboard/DeleteAccount";
 const MyPage = () => {
     // Zustand를 사용하여 토큰을 가져옴
     const { token } = useAuthStore();
+    const navigate = useNavigate();
     // 공통 상태 관리
     const [profile, setProfile] = useState({
         userName: "",
         email: "",
         phone: ""
     });
+    // 탈퇴 상태를 저장하기 위한 상태
+    const [isWithdrawn, setIsWithdrawn] = useState(false);
     // 프로필 정보를 가져오기 위한 비동기 함수
     useEffect(() => {
         const fetchMyProfile = async () => {
@@ -35,11 +38,23 @@ const MyPage = () => {
                     setProfile(response.data);
                 }
             } catch (error) {
-                console.error("요청이 실패했습니다.", error);
+                if (error.response && error.response.status === 403) {
+                    console.error("사용자가 탈퇴된 상태입니다.");
+                    setIsWithdrawn(true); // 탈퇴 상태로 설정
+                } else {
+                    console.error("요청이 실패했습니다.", error);
+                }
             }
         };
         fetchMyProfile();
     }, [token]);
+
+    // 탈퇴된 사용자인 경우 메인페이지로 이동
+    useEffect(() => {
+        if (isWithdrawn) {
+            navigate('/');
+        }
+    }, [isWithdrawn, navigate]);
 
     return (
         <div className="my_page">
@@ -59,7 +74,7 @@ const MyPage = () => {
                     <Route path="pin-posts" element={<PinPosts token={token} />} />
                     <Route path="my-comments" element={<MyComments token={token} />} />
                     <Route path="my-posts" element={<MyPosts token={token} />} />
-                    <Route path="delete-account" element={<DeleteAccount />} />
+                    <Route path="delete-account" element={<DeleteAccount token={token} />} />
                 </Routes>
             </div>
         </div>
