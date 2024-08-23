@@ -9,8 +9,13 @@ import BoardFilter from "./BoardFilter";
 import BoardListElem from "./BoardListElem";
 import axios from "axios";
 
+import useAuthStore from "../../../store/useAuthStore";
 
 const BoardList = () => {
+
+    //로그인한 사용자의 token과 userId
+    const { token, userId } = useAuthStore();
+
     const [category, setCategory] = useState('ALL');
     const [filter, setFilter] = useState("date");
     const [page, setPage] = useState(1);
@@ -23,8 +28,10 @@ const BoardList = () => {
 
     // 카테고리, 필터, 페이지 변경시마다 서버 요청
     useEffect(() => {
-        axiosBoardList();
-    }, [category, filter, page]);
+        if(token){
+            axiosBoardList();
+        }
+    }, [category, filter, page, token]);
 
     //리스트
     const axiosBoardList = async () => {
@@ -40,7 +47,12 @@ const BoardList = () => {
 
 
         try {
-            const response = await axios.get(url, {params});
+            const response = await axios.get(url, {
+                params,
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
+            });
 
             if (response.status === 200) {
                 setBoardData(response.data.content); // 서버로부터 받은 데이터를 상태로 저장
