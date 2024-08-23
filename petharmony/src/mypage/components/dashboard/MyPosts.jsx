@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../../styles/dashboard/MyPosts.css";
-import BoardListElem from "../../../board/component/boardList/BoardListElem";
+import BoardListElem from "../../../board/components/boardList/BoardListElem";
 
 const MyPosts = ({token}) => {
     // 내가 쓴 게시물 목록 상태

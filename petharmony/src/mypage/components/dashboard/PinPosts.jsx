@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../../styles/dashboard/PinPosts.css";
-import BoardListElem from "../../../board/component/boardList/BoardListElem";
+import BoardListElem from "../../../board/components/boardList/BoardListElem";
 
 const PinPosts = ({ token }) => {
     // PIN 게시물 목록 상태
