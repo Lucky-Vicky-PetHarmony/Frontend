@@ -21,6 +21,7 @@ function App() {
   const login = useAuthStore((state) => state.login);
   const activeModal = useModalStore((state) => state.activeModal);
   const findAccountMode = useModalStore((state) => state.findAccountMode);
+  const isLogin = useAuthStore((state) => state.isLogin);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -40,7 +41,7 @@ function App() {
         {activeModal === 'join' && <JoinModal />}
         {activeModal === 'findAccount' && <FindAccount mode={findAccountMode} />}
         <Routes>
-          <Route path="/" element={<Main />} />
+          <Route path="/" element={<Main isLogin={isLogin}/>} />
           <Route path="/oauth" element={<Oauth />} />
           <Route path="/board/list" element={<BoardList />} />
           <Route path="/board/view/:boardId" element={<BoardView />} />
