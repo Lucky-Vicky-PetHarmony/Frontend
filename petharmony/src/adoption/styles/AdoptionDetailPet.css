@@ -1,0 +1,192 @@
+.adoptionDetailPet{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-bottom: 32px;
+    gap: 16px;
+}
+
+/* 상단 */
+.adoptionDetailPet_top{
+    padding: 4px 8px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* 상단 - 태그 */
+.adoptionDetailPet_top_tags{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.adoptionDetailPet_top_tags>.tag{
+    padding: 8px 16px;
+    border-radius: 32px;
+    background-color: var(--color-green);
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: white;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 15%);
+}
+
+/* 상단 - 좋아요 */
+.adoptionDetailPet_top>img{
+    width: 32px;
+    cursor: pointer;
+}
+
+
+/* 하단 */
+.adoptionDetailPet_bottom{
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+}
+
+/*  하단 - 입양동물 사진 */
+.adoptionDetailPet_bottom_pic{
+    position: relative;
+    width: 408px;
+    height: 408px;
+    overflow: hidden;
+    border-radius: 4px;
+    border: 0.5px solid var(--color-gray4);
+}
+
+.adoptionDetailPet_bottom_pic>img{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* 하단 - 입양동물 정보카드 */
+.adoptionDetailPet_bottom_info{
+    width: 604px;
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 4px;
+
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 15%);
+
+}
+
+/* 입양동물 정보카드 왼쪽부분 */
+.adoptionDetailPet_bottom_info_left{
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 12px;
+    padding: 4px 40px;
+    margin: 28px 0px;
+}
+
+.adoptionDetailPet_bottom_info_left>.petinfo_elem{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+}
+
+.petinfo_elem>.hint{
+    text-align: center;
+    padding: 6px 16px;
+    font-size: 12px;
+    background-color: var(--color-gray1);
+    border-radius: 8px;
+    color: white;
+    position: absolute;
+    top: -28px;
+    left: -0px;
+    transform: translateX(-16%); /* 부모 요소의 왼쪽 끝을 기준으로 중앙에 위치 */
+    visibility: hidden;
+}
+
+.petinfo_elem>img{
+    width: 32px;
+}
+
+.petinfo_elem>img:hover+.hint{
+    visibility: visible;
+}
+
+.petinfo_elem>p{
+    color: var(--color-gray1);
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* 입양동물 정보카드 오른쪽 부분 */
+.adoptionDetailPet_bottom_info_right{
+    height: 356px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 4px 16px;
+    margin: 26px 0px;
+
+    border-left: 0.3px solid var(--color-gray4);
+}
+
+/* 입양동물 정보 카드 오른쪽 기본정보 */
+.adoptionDetailPet_bottom_info_right>.info_elem{
+    padding: 12px 6px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 8px;
+    border-bottom: 0.2px solid var(--color-gray4);
+}
+
+.adoptionDetailPet_bottom_info_right>.info_elem:first-child{
+    padding-top: 8px;
+}
+
+.adoptionDetailPet_bottom_info_right>.info_elem:nth-child(4),
+.adoptionDetailPet_bottom_info_right>.info_elem:nth-child(5){
+    border-bottom: none
+}
+
+.adoptionDetailPet_bottom_info_right>.info_elem>img{
+    width: 16px; height: 16px;
+}
+
+.adoptionDetailPet_bottom_info_right>.info_elem>.info_elem_text{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.adoptionDetailPet_bottom_info_right>.info_elem>.info_elem_text>p{
+    font-size: 13px;
+    color: var(--color-gray1);
+}
+
+.adoptionDetailPet_bottom_info_right>.info_elem>.info_elem_text>p:first-child{
+    font-weight: 600;
+}
+
+/* 입양동물 정보 카드 오른쪽 특이정보 */
+.info_elem.special{
+    background-color: #FFFDF3;
+    border-radius: 8px;
+}
+
+.info_elem.special>.info_elem_text>p{
+    width: 286px;
+    line-height: 18px;
+    color: var(--color-gray2);
+}
