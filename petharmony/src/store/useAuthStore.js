@@ -25,7 +25,10 @@ const useAuthStore = create((set) => ({
     userId: null
   }),
   // [헤더] > OOO님
-  setName: (newName) => set({ name: newName })
+  setName: (newName) => set(() => {
+    localStorage.setItem('name', newName);
+    return { name: newName };
+}),
 }));
 
 export default useAuthStore;
