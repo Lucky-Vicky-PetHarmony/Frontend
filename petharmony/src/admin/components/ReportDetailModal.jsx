@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-const ReportDetailModal = ({setModal, reportDetailId, setReportDetailId}) => {
+const ReportDetailModal = ({setModal, reportDetailId, setReportDetailId, token}) => {
     const nav = useNavigate();
 
     const [reportDetailData, setReportDetailData] = useState(null);
@@ -16,14 +16,21 @@ const ReportDetailModal = ({setModal, reportDetailId, setReportDetailId}) => {
 
     // 요청하는 reportid가 바뀔때마다
     useEffect(() => {
-        axiosReportDetail();
-    }, [reportDetailId]);
+        if(token){
+            axiosReportDetail();
+        }
+    }, [reportDetailId, token]);
 
     // 서버에 신고 리스트 요청
     const axiosReportDetail = async () => {
         try {
             setLoading(true);
-            const response = await axios.get(`http://localhost:8080/api/user/report/detail/${reportDetailId}`);
+            const response = await axios.get(`http://localhost:8080/api/admin/report/detail/${reportDetailId}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    },
+                });
 
             if (response.status === 200) {
                 setReportDetailData(response.data);
@@ -44,10 +51,13 @@ const ReportDetailModal = ({setModal, reportDetailId, setReportDetailId}) => {
     // 서버에 신고 처리 요청
     const axiosReportProcessing = async () => {
         try {
-            const response = await axios.put(`http://localhost:8080/api/user/report/processing/${reportDetailId}`, null,{
+            const response = await axios.put(`http://localhost:8080/api/admin/report/processing/${reportDetailId}`, null,{
                 params: {
                     processing: reportProcessing
-                }
+                },
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
             });
 
             if (response.status === 200) {
