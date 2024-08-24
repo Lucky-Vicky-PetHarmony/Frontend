@@ -1,0 +1,100 @@
+.adoptionList {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    padding: 160px 0 0 0;
+    width: 1025px;
+    gap: 60px;
+}
+
+.adoptionList>p{
+    font-size: 24px;
+    color: var(--color-gray1);
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+
+.adoptionList_category,
+.adoptionList_category_com
+{
+    display: flex;
+    flex-direction: row;
+    gap: 52px;
+}
+
+.adoptionList_category_com{
+    gap: 10px;
+    align-items: center;
+    cursor: pointer;
+}
+
+.adoptionList_category_com>img{
+    width: 28px;
+}
+
+.adoptionList_category_com>p{
+    font-size: 18px;
+}
+
+.adoptionList_category_com>p.active{
+    font-weight: 600;
+    color: var(--color-blue);
+}
+
+.adoptionList_Group{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 50px;
+}
+
+.adoptionList_banner{
+    padding: 28px 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(254, 214, 13, 0.4);
+    border-radius: 2px;
+    position: absolute;
+    top: 350px;
+    right: -160px;
+    gap: 12px;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 15%);
+    cursor: pointer;
+}
+
+.adoptionList_banner>p{
+    font-weight: 600;
+    color: var(--color-gray1);
+    text-align: center;
+    font-size: 12px;
+    line-height: 20px;
+}
+
+.adoptionList_banner>img{
+    width: 112px;
+}
+
+.adoptionList_banner_matchingBtn{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 8px;
+    gap: 4px;
+    background-color: white;
+    padding: 6px 16px 6px 18px;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 15%);
+}
+.adoptionList_banner_matchingBtn>p{
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-blue);
+}
+.adoptionList_banner_matchingBtn>img{
+    width: 16px;
+}
+

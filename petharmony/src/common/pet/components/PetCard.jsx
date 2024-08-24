@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import "../../../common.css";
 import "../styles/PetCard.css";
 import likeBtn from "../assets/likeBtn.png";
+import noLikeBtn from "../assets/noLikeBtn.png";
 import kindIcon from "../assets/kindIcon.png";
 import sexIcon from "../assets/sexIcon.png";
 import ageIcon from "../assets/ageIcon.png";
@@ -9,13 +10,22 @@ import weightIcon from "../assets/weightIcon.png";
 import locationIcon from "../assets/locationIcon.png";
 import statusIcon from "../assets/statusIcon.png";
 import temp from "../assets/temp.png"; // 임시 이미지
+import { useNavigate } from 'react-router-dom';
 
 const PetCard = () => {
+    const nav = useNavigate();
+
+    const [petLike, setPetLike] = useState(false);
+
+    const petLikeHandler = (e) => {
+        e.stopPropagation();
+        setPetLike(prev => !prev);
+    }
     // 하드코딩된 데이터
     const pet = {
         id: 1,
         image: temp,
-        words: ["호기심 많음", "건강한", "약한"],
+        words: ["호기심 많음", "돌봄이 필요한", "내성적인", "내장적인", "내성장인"],
         kind: "고양이",
         sex: "남아",
         age: "2004년생",
@@ -25,15 +35,16 @@ const PetCard = () => {
     };
 
     return (
-        <div className="pet_card">
+        <div className="pet_card" onClick={() => nav("/adoption/1")}>
             <img className="pc_img" src={pet.image} alt={pet.id} />
             <div className="pc_top">
                 <div className="pc_words">
                     {pet.words.map(word => <span key={word}>{word}</span>)}
                 </div >
-                <button className="pc_like_btn">
-                    <img src={likeBtn} alt="좋아요" />
-                </button>
+                <img 
+                    src={petLike?likeBtn:noLikeBtn} 
+                    alt="좋아요"
+                    onClick={petLikeHandler} />
             </div>
             <div className="pc_info">
                 <div className="pc_info_row">

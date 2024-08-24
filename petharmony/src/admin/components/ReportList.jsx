@@ -7,8 +7,11 @@ import ReportListElem from "./ReportListElem";
 import ReportDetailModal from "./ReportDetailModal";
 import BoardPagination from "../../board/components/boardList/BoardPagination";
 
+import useAuthStore from "../../store/useAuthStore";
 
 const ReportList = () => {
+
+    const { token } = useAuthStore();
 
     // 처리상태 필터
     const [selectedStatuses, setSelectedStatuses] = useState([]); //필터 체크박스(미처리, 보류, 처리완료)
@@ -40,13 +43,16 @@ const ReportList = () => {
     // 서버에 신고 리스트 요청
     const axiosReportList = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/api/public/report/list', {
+            const response = await axios.get('http://localhost:8080/api/admin/report/list', {
                 params: {
                     page: page-1,
                     size: 8,
                     sortBy: filter,
                     selection: selectedStatuses.join(",")
-                }
+                },
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
             });
 
             if (response.status === 200) {
@@ -62,8 +68,10 @@ const ReportList = () => {
     };
 
     useEffect(() => {
-        axiosReportList();
-    }, [page, filter, selectedStatuses])
+        if(token){
+            axiosReportList();
+        }
+    }, [page, filter, selectedStatuses, token])
 
     return (
         <div className="ARP">
@@ -147,7 +155,8 @@ const ReportList = () => {
                 <ReportDetailModal 
                     setModal={setModal}
                     reportDetailId={reportDetailId}
-                    setReportDetailId={setReportDetailId}/>
+                    setReportDetailId={setReportDetailId}
+                    token={token}/>
             )}
             
         </div>

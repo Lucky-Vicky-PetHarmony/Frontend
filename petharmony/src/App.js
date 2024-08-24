@@ -14,9 +14,10 @@ import BoardPost from "./board/components/BoardPost/BoardPost";
 import Oauth from "./login/components/Oauth";
 import MyPage from "./mypage/components/MyPage";
 import Layout from "./layout/Layout";
-import Adoption from "./adoption/components/Adoption";
+import AdoptionList from "./adoption/components/AdoptionList";
 import Matching from "./matching/components/Matching";
 import ReportList from "./admin/components/ReportList";
+import AdoptionDetail from "./adoption/components/AdoptionDetail";
 
 function App() {
   const login = useAuthStore((state) => state.login);
@@ -50,7 +51,8 @@ function App() {
           <Route path="/board/post" element={<BoardPost />} />
           <Route path="/board/edit-post" element={<BoardPost />} />
           <Route path="/mypage/*" element={<MyPage />} />
-          <Route path="/adoption" element={<Adoption />} />
+          <Route path="/adoption" element={<AdoptionList />} />
+          <Route path="/adoption/1" element={<AdoptionDetail />} />
           <Route path="/matching" element={<Matching />} />
           <Route path="/admin/report" element={<ReportList />} />
         </Routes>

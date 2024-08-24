@@ -1,0 +1,66 @@
+.adoptionDetailShelter{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 12px;
+    width: 1025px;
+}
+
+.adoptionDetailShelter_info{
+    background-color: rgba(114, 200, 90, 5%);
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 15%);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 40px 44px;
+    gap: 32px;
+    border-radius: 8px;
+}
+
+.adoptionDetailShelter_info_elem{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 56px;
+}
+
+.adoptionDetailShelter_info_elem>p{
+    color: var(--color-gray1);
+}
+
+.adoptionDetailShelter_info_elem>p:first-child{
+    font-weight: 600;
+    width: 95px;
+}
+
+/* 오른쪽 보호소 지도 */
+.adoptionDetailShelter_location{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-grow: 1;
+    gap: 8px;
+}
+
+.adoptionDetailShelter_location>img{
+    width: 100%;
+    border: 2px solid;
+    flex-grow: 1;
+    border-radius: 8px;
+}
+
+.adoptionDetailShelter_location_label{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+}
+
+.adoptionDetailShelter_location_label>img{
+    width: 28px;
+}
+
+.adoptionDetailShelter_location_label>p{
+    font-weight: bold;
+}
