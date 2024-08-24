@@ -19,7 +19,7 @@ const ProfileEdit = ({ token, profile, setProfile }) => {
     useEffect(() => {
         setName(profile.userName);
         setEmail(profile.email);
-        setPhone(profile.phone);
+        setPhone(formatPhone(profile.phone));
     }, [profile]);
     // 이름 입력 필드의 값이 변경될 때 상태 업데이트
     const handleNameChange = (e) => {
@@ -31,7 +31,14 @@ const ProfileEdit = ({ token, profile, setProfile }) => {
     };
     // 전화번호 입력 필드의 값이 변경될 때 상태 업데이트
     const handlePhoneChange = (e) => {
-        setPhone(e.target.value);
+        const phoneValue = e.target.value.replace(/[^0-9]/g, ''); // 숫자만 추출
+        setPhone(formatPhone(phoneValue)); // 하이픈 포맷 적용
+    };
+
+    const formatPhone = (phone) => {
+        if (phone.length <= 3) return phone;
+        if (phone.length <= 7) return phone.replace(/(\d{3})(\d{1,4})/, "$1-$2");
+        return phone.replace(/(\d{3})(\d{3,4})(\d{4})/, "$1-$2-$3");
     };
     // 프로필 업데이트를 서버에 제출하는 함수
     const handleProfileEditSubmit = async () => {
@@ -39,7 +46,7 @@ const ProfileEdit = ({ token, profile, setProfile }) => {
             const response = await axios.put('http://localhost:8080/api/user/myProfile', {
                 userName: name,
                 email: email,
-                phone: phone,
+                phone: phone.replace(/-/g, ''),
             }, {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -77,6 +84,7 @@ const ProfileEdit = ({ token, profile, setProfile }) => {
                     icon={editPhoneIcon}
                     type="text"
                     placeholder=""
+                    maxLength={13}
                     value={phone}
                     onChange={handlePhoneChange}
                 />
