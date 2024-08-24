@@ -3,6 +3,7 @@ import './common.css';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import useAuthStore from "./store/useAuthStore";
 import useModalStore from "./store/useModalStore";
+import ScrollToTop from "./common/scroll/ScrollToTop";
 import Main from "./main/components/Main";
 import LoginModal from "./login/components/LoginModal";
 import JoinModal from "./join/components/JoinModal";
@@ -29,7 +30,7 @@ function App() {
     const name = localStorage.getItem('name');
     const role = localStorage.getItem('role');
     const userId = localStorage.getItem('userId');
-        if (token && email && name && role && userId) {
+    if (token && email && name && role && userId) {
       login(token, email, name, role, userId);
     }
   }, [login]);
@@ -40,8 +41,9 @@ function App() {
         {activeModal === 'login' && <LoginModal />}
         {activeModal === 'join' && <JoinModal />}
         {activeModal === 'findAccount' && <FindAccount mode={findAccountMode} />}
+        <ScrollToTop />
         <Routes>
-          <Route path="/" element={<Main isLogin={isLogin}/>} />
+          <Route path="/" element={<Main isLogin={isLogin} />} />
           <Route path="/oauth" element={<Oauth />} />
           <Route path="/board/list" element={<BoardList />} />
           <Route path="/board/view/:boardId" element={<BoardView />} />
