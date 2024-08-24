@@ -33,7 +33,7 @@ const Header = () => {
     return (
         <div className="header">
             <div className="header_container">
-                <NavLink to="/" isLogin={isLogin}>
+                <NavLink to="/">
                     <img className="header_logo" src={layoutLogo} alt="" />
                 </NavLink>
                 <ul className="header_nav">
