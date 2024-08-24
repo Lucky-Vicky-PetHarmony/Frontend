@@ -42,7 +42,7 @@ const Header = () => {
                         <NavLink 
                             to="/matching" 
                             style={({ isActive }) => ({
-                                fontWeight: isActive ? '700' : 'normal'
+                                fontWeight: isActive ? '600' : 'normal'
                             })}
                         >
                             매칭
@@ -52,7 +52,7 @@ const Header = () => {
                         <NavLink 
                             to="/adoption" 
                             style={({ isActive }) => ({
-                                fontWeight: isActive ? '700' : 'normal'
+                                fontWeight: isActive ? '600' : 'normal'
                             })}
                         >
                             입양공고
@@ -62,7 +62,7 @@ const Header = () => {
                         <NavLink 
                             to="/board/list" 
                             style={({ isActive }) => ({
-                                fontWeight: isActive ? '700' : 'normal'
+                                fontWeight: isActive ? '600' : 'normal'
                             })}
                         >
                             게시판

@@ -8,12 +8,15 @@ import pinIcon from "../../../../board/asset/pin_gray.png";
 import replyIcon from "../../../assets/reply.png";
 
 const MyCommentList = ({ comment }) => {
+    // useNavigate() 호출
     const navigate = useNavigate();
 
+    // 해당 게시물의 상세 페이지로 이동
     const handleClick = () => {
         navigate(`/board/view/${comment.boardId}`, { state: { userId: comment.userId } });
     };
 
+    // 카테고리를 한글로 포맷팅
     const categoryFormat = (category) => {
         switch (category) {
             case "ADOPT":
@@ -27,6 +30,7 @@ const MyCommentList = ({ comment }) => {
         }
     };
 
+    // <BoardListElem> 컴포넌트를 기반으로 커스텀
     return (
         <div className="my_comment_list" onClick={handleClick}>
             <div className="board_container">

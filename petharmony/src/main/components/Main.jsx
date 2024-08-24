@@ -8,6 +8,7 @@ import mainTitle from "../assets/mainTitle.png";
 import BoardListElem from "../../board/components/boardList/BoardListElem";
 
 const Main = ({ isLogin }) => {
+    // useNavigate() 호출
     const navigate = useNavigate();
     // 내가 쓴 게시물 목록 상태
     const [boards, setBoards] = useState([]);
@@ -24,6 +25,7 @@ const Main = ({ isLogin }) => {
         };
         fetchBoards();
     }, []);
+    
     // 매칭 페이지로 이동 
     const handleMoveMatching = () => {
         if (!isLogin) {

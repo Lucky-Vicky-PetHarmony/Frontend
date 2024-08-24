@@ -14,7 +14,6 @@ const FindAccount = () => {
     const isFindIdMode = findAccountMode === 'id';
     // 현재 모달이 비밀번호 찾기 모달인지 확인
     const isFindPasswordMode = findAccountMode === 'password';
-
     /* 아이디 찾기 관련 상태 */
     // 사용자가 입력한 전화번호
     const [phone, setPhone] = useState("");
@@ -42,7 +41,6 @@ const FindAccount = () => {
     const messageStyle = {
         color: verificationMsg === "인증번호가 전송되었습니다." ? "var(--color-blue)" : "var(--color-red)",
     };
-
     /* 비밀번호 찾기 관련 상태 */
     // 사용자가 입력한 이메일
     const [email, setEmail] = useState("");
@@ -52,6 +50,21 @@ const FindAccount = () => {
     const [isFinishPassword, setIsFinishPassword] = useState(false);
     // 모달 닫기 전 카운트
     const [count, setCount] = useState(3);
+    // 모달 제목
+    const title = isFindIdMode
+        ? (
+            <>
+                <p>아이디를 잊어버리셨나요?</p>
+                <p className="fa_title_margin">회원가입 시 작성하셨던 핸드폰 번호로 인증해주세요</p>
+            </>
+        )
+        : (
+            <>
+                <p>비밀번호를 잊어버리셨나요?</p>
+                <p className="fa_title_margin">회원가입 시 작성하셨던 이메일로 인증해주세요</p>
+            </>
+        );
+
 
     // 전화번호 입력 시 숫자만 허용
     const handlePhoneChange = (e) => {
@@ -78,6 +91,7 @@ const FindAccount = () => {
 
         try {
             const response = await axios.post('http://localhost:8080/api/public/send-certification', phoneData);
+
             const message = response.data;
             if (response.status === 200) {
                 setVerifivationMsg(message);
@@ -93,7 +107,6 @@ const FindAccount = () => {
         } catch (error) {
             setVerifivationMsg("서버와의 통신에 실패했습니다.");
             setIsClick(false);
-            console.error(error);
         }
     };
 
@@ -112,6 +125,7 @@ const FindAccount = () => {
 
         try {
             const response = await axios.post('http://localhost:8080/api/public/check-certification', certificationData);
+
             if (response.status === 200) {
                 const responseData = response.data;
                 setUserEmail(responseData.email || "");
@@ -131,7 +145,6 @@ const FindAccount = () => {
             }
         } catch (error) {
             setCheckMsg("서버와의 통신에 실패했습니다.");
-            console.error(error);
         }
     };
 
@@ -162,6 +175,7 @@ const FindAccount = () => {
 
         try {
             const response = await axios.post('http://localhost:8080/api/public/send-email', emailData);
+
             if (response.status === 200) {
                 if (response.data === "임시 비밀번호가 이메일로 발송되었습니다.") {
                     setIsFinishPassword(true);
@@ -182,21 +196,6 @@ const FindAccount = () => {
         setIsFinishPassword(false);
         useModalStore.getState().openFindAccountModal('password');
     };
-
-    // 모달 제목
-    const title = isFindIdMode
-        ? (
-            <>
-                <p>아이디를 잊어버리셨나요?</p>
-                <p className="fa_title_margin">회원가입 시 작성하셨던 핸드폰 번호로 인증해주세요</p>
-            </>
-        )
-        : (
-            <>
-                <p>비밀번호를 잊어버리셨나요?</p>
-                <p className="fa_title_margin">회원가입 시 작성하셨던 이메일로 인증해주세요</p>
-            </>
-        );
 
     // 아이디 찾기 모달 내용    
     const idContent = (

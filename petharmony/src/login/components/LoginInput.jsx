@@ -2,11 +2,12 @@ import React from "react";
 import "../styles/LoginInput.css";
 
 const LoginInput = ({ setEmail, setPassword }) => {
-
+     // 이메일 필드에 값 입력
     const handleEmailChage = (e) => {
         setEmail(e.target.value);
     };
 
+     // 비밀번호 필드에 값 입력
     const handlePasswordChage = (e) => {
         setPassword(e.target.value);
     };
