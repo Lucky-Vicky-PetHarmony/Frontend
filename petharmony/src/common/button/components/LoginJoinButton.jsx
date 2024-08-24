@@ -2,7 +2,6 @@ import React from "react";
 import "../../../common.css";
 import "../styles/LoginJoinButton.css";
 import kakao from "../../../login/assets/kakaoLogo.png";
-import google from "../../../login/assets/googleLogo.png";
 
 const LoginJoinButton = ({ mode, onClick }) => {
     const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
@@ -12,7 +11,6 @@ const LoginJoinButton = ({ mode, onClick }) => {
     const isLoginMode = mode === "login";
     const isJoinFormMode = mode === "joinForm";
     const isKakaoMode = mode === "kakao";
-    const isGoogleMode = mode === "google";
     const isJoinMode = mode === "join";
 
     const getButtonClass = () => {
@@ -20,7 +18,7 @@ const LoginJoinButton = ({ mode, onClick }) => {
         if (isLoginMode) classes += " login_mode";
         if (isJoinFormMode) classes += " join_form_mode";
         if (isJoinMode) classes += " join_mode";
-        if (isKakaoMode || isGoogleMode) classes = "social_button";
+        if (isKakaoMode) classes = "social_button";
         return classes;
     };
 
@@ -36,11 +34,6 @@ const LoginJoinButton = ({ mode, onClick }) => {
                         <img src={kakao} alt="카카오톡 로그인" />
                     </div>
                     <span>카카오톡 로그인</span>
-                </div>
-            ) : isGoogleMode ? (
-                <div className="ljb_set">
-                    <img src={google} alt="구글 로그인" />
-                    <span>구글 로그인</span>
                 </div>
             ) : isJoinMode ? (
                 <p>회 원 가 입</p>

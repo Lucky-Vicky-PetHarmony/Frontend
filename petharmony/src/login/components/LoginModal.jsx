@@ -106,9 +106,6 @@ const LoginModal = () => {
                 <LoginJoinButton
                     mode="kakao"
                 />
-                <LoginJoinButton
-                    mode="google"
-                />
             </div>
         </div>
     )
