@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import useAuthStore from "../../../store/useAuthStore";
 import useModalStore from "../../../store/useModalStore";
 import "../styles/Header.css";
-import logo from "../assets/headerLogo.png";
+import layoutLogo from "../../logo/layoutLogo.png";
 import arrow from "../assets/arrow.png";
 
 const Header = () => {
@@ -37,8 +37,8 @@ const Header = () => {
     return (
         <div className="header">
             <div className="header_container">
-                <Link to="/">
-                    <img className="header_logo" src={logo} alt="" />
+                <Link to="/" isLogin={isLogin}>
+                    <img className="header_logo" src={layoutLogo} alt="" />
                 </Link>
                 <ul className="header_nav">
                     <li><Link to="/matching">매칭</Link></li>
