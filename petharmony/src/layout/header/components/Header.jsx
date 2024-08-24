@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import useAuthStore from "../../../store/useAuthStore";
 import useModalStore from "../../../store/useModalStore";
 import "../styles/Header.css";
-import logo from "../assets/headerLogo.png";
+import layoutLogo from "../../logo/layoutLogo.png";
 import arrow from "../assets/arrow.png";
 
 const Header = () => {
@@ -26,24 +26,47 @@ const Header = () => {
 
     // 로그아웃
     const handleLogout = () => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('email');
-        localStorage.removeItem('name');
-        localStorage.removeItem('role');
-        localStorage.removeItem('userId');
+        localStorage.clear();
         logout();
     };
 
     return (
         <div className="header">
             <div className="header_container">
-                <Link to="/">
-                    <img className="header_logo" src={logo} alt="" />
-                </Link>
+                <NavLink to="/" isLogin={isLogin}>
+                    <img className="header_logo" src={layoutLogo} alt="" />
+                </NavLink>
                 <ul className="header_nav">
-                    <li><Link to="/matching">매칭</Link></li>
-                    <li><Link to="/adoption">입양공고</Link></li>
-                    <li><Link to="/board/list">게시판</Link></li>
+                <li>
+                        <NavLink 
+                            to="/matching" 
+                            style={({ isActive }) => ({
+                                fontWeight: isActive ? '700' : 'normal'
+                            })}
+                        >
+                            매칭
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink 
+                            to="/adoption" 
+                            style={({ isActive }) => ({
+                                fontWeight: isActive ? '700' : 'normal'
+                            })}
+                        >
+                            입양공고
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink 
+                            to="/board/list" 
+                            style={({ isActive }) => ({
+                                fontWeight: isActive ? '700' : 'normal'
+                            })}
+                        >
+                            게시판
+                        </NavLink>
+                    </li>
                 </ul>
                 <div className="header_my">
                     {!isLogin ? (
@@ -57,16 +80,16 @@ const Header = () => {
                             {showDropDownMenu && (
                                 <div className="header_dropdown_menu">
                                     {role !== '[ROLE_ADMIN]' ? (
-                                        <Link to="/mypage">마이페이지</Link>
+                                        <NavLink to="/mypage">마이페이지</NavLink>
                                     ) : (
                                         /*
                                             임시로 메인페이지로 이동(수정 예정)
                                             role이 '[ROLE_USER]'여도 URL로 접근 가능
                                             --> 접근 제어 하는 라우트 보호 적용 예정
                                         */
-                                        <Link to="/admin/report">신고목록</Link>
+                                        <NavLink to="/admin/report">신고목록</NavLink>
                                     )}
-                                    <Link to="/" onClick={handleLogout}>로그아웃</Link>
+                                    <NavLink to="/" onClick={handleLogout}>로그아웃</NavLink>
                                 </div>
                             )}
                         </div>

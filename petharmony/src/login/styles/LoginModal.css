@@ -71,10 +71,6 @@
 .lm_social {
     position: absolute;
     top: 392px;
-    display: flex;
-    justify-content: space-between;
-    width: 163px;
-    height: 57px;
 }
 
 .lm_find_btn:active {
