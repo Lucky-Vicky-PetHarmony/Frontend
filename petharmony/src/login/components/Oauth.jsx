@@ -62,17 +62,20 @@ export function Oauth() {
                 })
                 .then(res => {
                     if (res.status === 200) {
-                        const token = res.data.jwtToken;   // JWT 토큰
-                        const email = res.data.email;      // 이메일
-                        const name = res.data.userName;    // 이름
-                        const role = res.data.role;        // 역할
+                        const token = res.data.jwtToken;  // JWT 토큰
+                        const email = res.data.email;     // 이메일
+                        const name = res.data.userName;   // 회원 이름
+                        const role = res.data.role;       // 권한
+                        const userId = res.data.userId    // 회원 번호
+        
                         // localStorage에 저장 후 로그인
                         localStorage.setItem('token', token);
                         localStorage.setItem('email', email);
                         localStorage.setItem('name', name);
                         localStorage.setItem('role', role);
-                        login(token, email, name, role);
-                        alert("로그인 성공");
+                        localStorage.setItem('userId', userId);
+                        login(token, email, name, role, userId);
+                        alert("🐶카카오 로그인 처리되었습니다.");
                         navigate("/");
                     } else {
                         throw new Error("카카오 로그인에 오류가 발생했습니다.");
