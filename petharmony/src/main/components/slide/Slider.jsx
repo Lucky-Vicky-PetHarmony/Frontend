@@ -28,16 +28,16 @@ const Slider = () => {
     return (
         <div className="slider">
             <Swiper
-                modules={[Autoplay]}                // Autoplay 모듈 추가
-                spaceBetween={52}                   // 간격 : 52
-                slidesPerView={6}                   // 보여질 슬라이드 개수 : 6
-                loop={true}                         // 슬라이드 반복 설정
+                modules={[Autoplay]}                       // Autoplay 모듈 추가
+                spaceBetween={52}                          // 간격 : 52
+                slidesPerView={Math.min(slides.length, 6)} // 슬라이드 개수에 맞춰 slidesPerView를 조정
+                loop={slides.length > 6}                   // 슬라이드 개수가 6개 이상일 때만 loop 모드 활성화
                 autoplay={{
-                    delay: 1000,                    // 1초마다 자동으로 슬라이드 전환
+                    delay: 1000,                           // 1초마다 자동으로 슬라이드 전환
                     disableOnInteraction: false,
                 }}
-                speed={1000}                        // 슬라이드 전환 속도 : 1초
-                direction={'horizontal'}            // 슬라이드 방향 : 수평
+                speed={1000}                               // 슬라이드 전환 속도 : 1초
+                direction={'horizontal'}                   // 슬라이드 방향 : 수평
             >
                 {slides?.length > 0 ? (
                     slides.map((slide, index) => (
