@@ -63,12 +63,14 @@
     height: 88px;
 }
 
-
 .main_adoption {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 36px;
     margin: 60px 0 100px 0;
     width: 1000px;
-    height: 814px;
-    border: 1px solid var(--color-gray5);
+    height: 100%;
 }
 
 .main_board {

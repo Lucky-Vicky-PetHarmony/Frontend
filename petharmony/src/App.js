@@ -18,6 +18,8 @@ import AdoptionList from "./adoption/components/AdoptionList";
 import Matching from "./matching/components/Matching";
 import ReportList from "./admin/components/ReportList";
 import AdoptionDetail from "./adoption/components/AdoptionDetail";
+import Authority from "./common/authority/Authority";
+import ProtectedRoute from "./common/authority/ProtectedRoute";
 
 function App() {
   const login = useAuthStore((state) => state.login);
@@ -44,9 +46,9 @@ function App() {
         {activeModal === 'findAccount' && <FindAccount mode={findAccountMode} />}
         <ScrollToTop />
         <Routes>
-          <Route path="/" element={<Main isLogin={isLogin} />} />
+          <Route path="/" element={<Main />} />
           <Route path="/oauth" element={<Oauth />} />
-          <Route path="/board/list" element={<BoardList isLogin={isLogin}/>} />
+          <Route path="/board/list" element={<BoardList isLogin={isLogin} />} />
           <Route path="/board/view/:boardId" element={<BoardView isLogin={isLogin} />} />
           <Route path="/board/post" element={<BoardPost />} isLogin={isLogin} />
           <Route path="/board/edit-post" element={<BoardPost isLogin={isLogin} />} />
@@ -54,7 +56,15 @@ function App() {
           <Route path="/adoption" element={<AdoptionList />} />
           <Route path="/adoption/1" element={<AdoptionDetail />} />
           <Route path="/matching" element={<Matching />} />
-          <Route path="/admin/report" element={<ReportList />} />
+          <Route path="/authority" element={<Authority />} />
+          <Route
+            path="/admin/report"
+            element={
+              <ProtectedRoute requiredRole="[ROLE_ADMIN]">
+                <ReportList />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </Layout>
     </Router>

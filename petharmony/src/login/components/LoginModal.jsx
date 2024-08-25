@@ -54,7 +54,7 @@ const LoginModal = () => {
                 localStorage.setItem('role', role);
                 localStorage.setItem('userId', userId);
                 login(token, email, name, role, userId);
-                alert(response.data);
+                alert("🐶 로그인 성공");
                 closeModal();
             } else {
                 alert(response.data);

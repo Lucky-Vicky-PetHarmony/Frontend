@@ -10,12 +10,28 @@ import slideTitle from "../assets/slideTitle.png";
 import adoptionTitle from "../assets/adoptionTitle.png";
 import boardTitle from "../assets/boardTitle.png";
 import BoardListElem from "../../board/components/boardList/BoardListElem";
+import PetCard from "./PetCard";
 
-const Main = ({ isLogin }) => {
+const Main = () => {
     // useNavigate() 호출
     const navigate = useNavigate();
+    // 공고일이 지난 유기 동물들
+    const [pets, setPets] = useState([]);
     // 내가 쓴 게시물 목록 상태
     const [boards, setBoards] = useState([]);
+
+    // 유기 동물 데이터 가져오기 
+    useEffect(() => {
+        const fetchPets = async () => {
+            try {
+                const response = await axios.get('http://localhost:8080/api/public/petCards');
+                setPets(response.data);
+            } catch (error) {
+                console.log("유기동물 데이터를 가져오는 데 실패했습니다.", error);
+            }
+        };
+        fetchPets();
+    }, []);
 
     // 게시물 가져오기
     useEffect(() => {
@@ -32,11 +48,7 @@ const Main = ({ isLogin }) => {
 
     // 매칭 페이지로 이동 
     const handleMoveMatching = () => {
-        if (!isLogin) {
-            alert('로그인 후 이용해주세요.');
-        } else {
-            navigate('/matching');
-        }
+        navigate('/matching');
     };
 
     return (
@@ -54,7 +66,9 @@ const Main = ({ isLogin }) => {
             </div>
             <img className="main_title" src={adoptionTitle} alt="" />
             <div className="main_adoption">
-                {/* 구현 예정 */}
+                {pets.map(pet => (
+                    <PetCard key={pet.desertionNo} pet={pet} />
+                ))}
             </div>
             <img className="main_title" src={boardTitle} alt="" />
             <div className="main_board">

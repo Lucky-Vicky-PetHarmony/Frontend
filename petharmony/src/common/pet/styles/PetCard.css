@@ -18,6 +18,8 @@
 .pc_img {
     width:100%;
     height: 224px;
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
 }
 
 /* 유기동물 단어와 좋아요 버튼 */

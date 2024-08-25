@@ -1,0 +1,23 @@
+.authority {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 160px 0 0 0;
+    height: 800px;
+}
+
+.authority>img {
+    position: absolute;
+    top: 300px;
+    width: 500px;
+    height: 150px;
+}
+
+.authority>p {
+    position: absolute;
+    top: 500px;
+    width: 500px;
+    text-align: center;
+    font-size: 15px;
+}
