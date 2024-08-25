@@ -10,7 +10,7 @@ import sosImg from '../../asset/sos.png'
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const BoardContent = ({board, commCount, setReportModal, setReportMode, setReportData, userId, token}) => {
+const BoardContent = ({board, commCount, setReportModal, setReportMode, setReportData, userId, token, isLogin, formatDate}) => {
 
     // 페이지 이동
     const nav = useNavigate();
@@ -22,6 +22,10 @@ const BoardContent = ({board, commCount, setReportModal, setReportMode, setRepor
 
     // 신고기능
     const reportBtnClick = (userId, userName, boardId) => {
+        if(!isLogin){
+            alert("로그인이 필요한 서비스입니다.");
+            return;
+        }
         setReportMode("board");
         setReportModal(true);
         // 피신고자id, 피신고자 이름, boardId(commmId)
@@ -36,6 +40,10 @@ const BoardContent = ({board, commCount, setReportModal, setReportMode, setRepor
 
     // 게시물 좋아요 반영
     const pinToggle = async() => {
+        if(!isLogin){
+            alert("로그인이 필요한 서비스입니다.");
+            return;
+        }
         try {
             const response = await
                 axios.post(`http://localhost:8080/api/user/board/pinned`,
@@ -92,6 +100,11 @@ const BoardContent = ({board, commCount, setReportModal, setReportMode, setRepor
 
     // 게시물 삭제 
     const boardDelete = async () => {
+        const isConfirmed = window.confirm("게시글을 삭제하시겠습니까?");
+    
+        if (!isConfirmed) {
+            return; // 사용자가 취소를 눌렀을 경우, 함수 종료
+        }
         try {
             const response = await 
                 axios.delete(`http://localhost:8080/api/user/board/delete`,
@@ -158,7 +171,9 @@ const BoardContent = ({board, commCount, setReportModal, setReportMode, setRepor
                         <p>{pinCount}</p>
                     </div>
                 </div>
-                <div className="bc_3_right">{board.updateTime}</div>
+                <div className="bc_3_right">
+                    {board.createTime===board.updateTime ? formatDate(board.updateTime) : `(수정됨) ${formatDate(board.updateTime)}`}
+                </div>
             </div>
 
             {/* 내용 */}

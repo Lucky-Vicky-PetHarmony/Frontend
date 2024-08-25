@@ -4,13 +4,17 @@ import sosImg from '../../asset/sos.png'
 import commpostImg from '../../asset/commpost.png';
 import axios from "axios";
 
-const BoardComment = ({comment, masterId, updateComment, setReportModal, setReportMode, setReportData, userId, token}) => {
+const BoardComment = ({comment, masterId, updateComment, setReportModal, setReportMode, setReportData, userId, token, isLogin, formatDate}) => {
 
     const [updateForm, setUpdateForm] = useState(false);
     const [updatedContent, setUpdatedContent] = useState(comment.content);
 
     // 신고버튼 클릭 메소드
     const reportBtnClick = (userId, userName, commId) => {
+        if(!isLogin){
+            alert("로그인이 필요한 서비스입니다.");
+            return;
+        }
         setReportMode("comment");
         setReportModal(true);
         // 피신고자id, 피신고자 이름, boardId(commmId)
@@ -60,6 +64,11 @@ const BoardComment = ({comment, masterId, updateComment, setReportModal, setRepo
 
     // 댓글 삭제
     const commentDelete = async () => {
+        const isConfirmed = window.confirm("댓글을 삭제하시겠습니까?");
+    
+        if (!isConfirmed) {
+            return; // 사용자가 취소를 눌렀을 경우, 함수 종료
+        }
         try {
             const response = await 
                 axios.delete(`http://localhost:8080/api/user/comment/delete`,
@@ -107,7 +116,10 @@ const BoardComment = ({comment, masterId, updateComment, setReportModal, setRepo
                     <p className="BC_top_left_writer">
                         {comment.userId === userId ? comment.userName : nameFormat(comment.userName)}
                     </p>
-                    <p className="BC_top_left_time">{comment.commCreate}</p>
+                    <p className="BC_top_left_time">
+                    {comment.commUpdate===comment.commCreate ? formatDate(comment.commUpdate) : `${formatDate(comment.commUpdate)} (수정됨)`}
+
+                    </p>
                     {/* 게시글작성자일때 */}
                     {comment.userId === masterId && (<div className="BC_top_left_master">작성자</div>)}
                 </div>

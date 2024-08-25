@@ -11,10 +11,10 @@ import axios from "axios";
 
 import useAuthStore from "../../../store/useAuthStore";
 
-const BoardList = () => {
+const BoardList = ({isLogin}) => {
 
     //로그인한 사용자의 token과 userId
-    const { token, userId } = useAuthStore();
+    const { token } = useAuthStore();
 
     const [category, setCategory] = useState('ALL');
     const [filter, setFilter] = useState("date");
@@ -28,10 +28,8 @@ const BoardList = () => {
 
     // 카테고리, 필터, 페이지 변경시마다 서버 요청
     useEffect(() => {
-        if(token){
-            axiosBoardList();
-        }
-    }, [category, filter, page, token]);
+        axiosBoardList();
+    }, [category, filter, page]);
 
     //리스트
     const axiosBoardList = async () => {
@@ -42,15 +40,15 @@ const BoardList = () => {
 
         //검색어가 없으면 /list 요청, 검색어가 있으면 /search 요청
         const url = searchText.trim() === "" 
-            ? 'http://localhost:8080/api/user/board/list' 
-            : 'http://localhost:8080/api/user/board/search';
+            ? 'http://localhost:8080/api/public/board/list' 
+            : 'http://localhost:8080/api/public/board/search';
 
 
         try {
             const response = await axios.get(url, {
                 params,
                 headers: {
-                    Authorization: `Bearer ${token}`
+                    Authorization: token ? { Authorization: `Bearer ${token}` } : {}, // 토큰이 있으면 헤더에 추가
                 },
             });
 
@@ -71,7 +69,7 @@ const BoardList = () => {
             <img src={boardbannerimg} alt="" />
             <div className="boardlist_top_top">
                 <BoardSelectBtn mode={"list"} category={category} setCategory={setCategory} setPage={setPage}/>
-                <BoardWriteBtn/>
+                <BoardWriteBtn isLogin={isLogin}/>
             </div>
             <div className="boardlist_top_bottom">
                 <BoardFilter 
