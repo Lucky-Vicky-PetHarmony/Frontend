@@ -1,0 +1,36 @@
+.slide_item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 120px;
+    height: 192px;
+    cursor: pointer;
+}
+
+.slide_item:hover {
+    transform: translateY(-2px);
+}
+
+.si_img {
+    position: absolute;
+    top: 2px;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+}
+
+.si_location {
+    position: absolute;
+    top: 145px;
+    font-size: 20px;
+    font-family: bold;
+}
+
+.si_sex_age {
+    position: absolute;
+    top: 175px;
+    font-size: 16px;
+    color: var(--color-gray1);
+}
