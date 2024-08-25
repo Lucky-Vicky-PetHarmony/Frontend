@@ -1,7 +1,7 @@
 .login_button {
     width: 254px;
     height: 36px;
-    border-radius: 8px;
+    border-radius: 6px;
     border: 1px solid var(--color-green);
     font-size: 16px;
     font-weight: bold;
@@ -14,7 +14,6 @@
 }
 
 .login_button.join_form_mode {
-    margin-top: 7px;
     background-color: var(--color-white);
     color: var(--color-green);
 }
@@ -25,30 +24,16 @@
 }
 
 .social_button {
-    width: 69px;
-    height: 57px;
+    width: 254px;
+    height: 36px;
     border: none;
     background-color: transparent;
     cursor: pointer;
 }
 
-.ljb_set {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10.5px;
-     width: 69px;
-    height: 57px;
-}
-
-.ljb_set img {
-    width: 35px;
-    height: 35px;
-}
-
-.ljb_set span{
-    font-size: 10px;
-    color: var(--color-gray1);
+.kakaoBtn {
+    width: 254px;
+    height: 36px;
 }
 
 .login_button:active,

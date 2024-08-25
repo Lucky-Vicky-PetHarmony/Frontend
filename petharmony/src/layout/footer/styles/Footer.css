@@ -7,10 +7,10 @@
 .footer_container {
     margin: 0 auto;
     margin-top: 57px;
-    width: 1025px;
     display: flex;
     flex-direction: row;
     gap: 52px;
+    width: 1025px;
 }
 
 .footer_logo {
@@ -19,9 +19,9 @@
 }
 
 .footer_content>p {
+    margin: 0 0 10px 0;
     font-size: 13px;
     color: var(--color-gray2);
-    margin: 0 0 10px 0;
 }
 
 .footer_content p:nth-child(3) {

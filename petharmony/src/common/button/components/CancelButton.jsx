@@ -1,5 +1,4 @@
 import React from "react";
-import "../../../common.css";
 import "../styles/CancelButton.css";
 import cancelIcon from "../assets/exit.png";
 

@@ -26,22 +26,23 @@ const Header = () => {
 
     // 로그아웃
     const handleLogout = () => {
-        localStorage.clear();
         logout();
     };
 
     return (
         <div className="header">
             <div className="header_container">
-                <NavLink to="/" isLogin={isLogin}>
+                {/* 로고를 클릭하면 메인 페이지(/)로 이동 */}
+                <NavLink to="/">
                     <img className="header_logo" src={layoutLogo} alt="" />
                 </NavLink>
+                {/* 각 네비게이션 링크: 활성화된 페이지일 경우 텍스트 굵기(fontWeight)를 700으로 설정 */}
                 <ul className="header_nav">
                 <li>
                         <NavLink 
                             to="/matching" 
                             style={({ isActive }) => ({
-                                fontWeight: isActive ? '700' : 'normal'
+                                fontWeight: isActive ? '600' : 'normal'
                             })}
                         >
                             매칭
@@ -51,7 +52,7 @@ const Header = () => {
                         <NavLink 
                             to="/adoption" 
                             style={({ isActive }) => ({
-                                fontWeight: isActive ? '700' : 'normal'
+                                fontWeight: isActive ? '600' : 'normal'
                             })}
                         >
                             입양공고
@@ -61,7 +62,7 @@ const Header = () => {
                         <NavLink 
                             to="/board/list" 
                             style={({ isActive }) => ({
-                                fontWeight: isActive ? '700' : 'normal'
+                                fontWeight: isActive ? '600' : 'normal'
                             })}
                         >
                             게시판
@@ -69,21 +70,23 @@ const Header = () => {
                     </li>
                 </ul>
                 <div className="header_my">
+                     {/* 로그인 여부에 따른 조건부 렌더링 */}
                     {!isLogin ? (
                         <button className="header_login_btn" onClick={openLoginModal}>
                             로그인
                         </button>
                     ) : (
+                        // 로그인한 상태일 때 사용자 이름과 드롭다운 메뉴 표시
                         <div className="header_user" onClick={handleShowDropDownMenu}>
                             <span>{name}님</span>
                             <img className="header_arrow" src={arrow} alt="" />
+                            {/* 드롭다운 메뉴 표시: role에 따라 조건부 렌더링 */}
                             {showDropDownMenu && (
                                 <div className="header_dropdown_menu">
                                     {role !== '[ROLE_ADMIN]' ? (
                                         <NavLink to="/mypage">마이페이지</NavLink>
                                     ) : (
                                         /*
-                                            임시로 메인페이지로 이동(수정 예정)
                                             role이 '[ROLE_USER]'여도 URL로 접근 가능
                                             --> 접근 제어 하는 라우트 보호 적용 예정
                                         */

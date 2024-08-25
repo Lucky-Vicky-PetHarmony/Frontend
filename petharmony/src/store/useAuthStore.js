@@ -16,14 +16,19 @@ const useAuthStore = create((set) => ({
     role,
     userId: Number(userId) // 상태에서는 숫자로 저장
   }),
-  logout: () => set({
-    isLogin: false,
-    token: '',
-    email: '',
-    name: '',
-    role: '',
-    userId: null
-  }),
+  logout: () => {
+    // localStorage 초기화
+    localStorage.clear();
+    // 상태 초기화
+    set({
+      isLogin: false,
+      token: '',
+      email: '',
+      name: '',
+      role: '',
+      userId: null
+    });
+  },
   // [헤더] > OOO님
   setName: (newName) => set(() => {
     localStorage.setItem('name', newName);

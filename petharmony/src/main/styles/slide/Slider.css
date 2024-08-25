@@ -1,0 +1,11 @@
+.slider {
+    width: 100%;
+    overflow: hidden;
+}
+
+.slider_loading {
+    margin: auto;
+    display: block;
+    width: 208px;
+    height: 81px;
+}

@@ -5,9 +5,10 @@ import "../../styles/dashboard/DeleteAccount.css";
 import useAuthStore from "../../../store/useAuthStore";
 
 const DeleteAccount = ({ token }) => {
+    // useNavigate() 호출
+    const navigate = useNavigate();
     // store에서 logout 함수 가져옴
     const logout = useAuthStore((state) => state.logout);
-    const navigate = useNavigate();
 
     // 회원 탈퇴
     const handleClick = async () => {
@@ -18,10 +19,8 @@ const DeleteAccount = ({ token }) => {
                 }
             });
             if (response.status === 200) {
-                // localStorage 전체 데이터 삭제
-                localStorage.clear();
-                // 로그아웃 
-                logout(token, response.data.email, response.data.name, response.data.role);
+                // 로그아웃
+                logout();
                 alert("회원탈퇴 처리되었습니다.");
                 navigate('/'); // 메인페이지로 이동
             }

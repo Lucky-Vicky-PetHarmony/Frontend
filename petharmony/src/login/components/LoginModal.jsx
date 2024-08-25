@@ -8,7 +8,6 @@ import LoginInput from "./LoginInput";
 import LoginJoinButton from "../../common/button/components/LoginJoinButton";
 import CancleButton from "../../common/button/components/CancelButton";
 
-
 const LoginModal = () => {
     // store에서 login 함수 가져옴
     const login = useAuthStore((state) => state.login);
@@ -21,7 +20,7 @@ const LoginModal = () => {
 
     // 로그인
     const handleSubmitLogin = async (e) => {
-        e.preventDefault();
+        e.preventDefault(); // 리로드 방지(비동기적으로 폼 데이터 서버에 전송)
 
         if (!email) {
             alert("이메일을 입력해주세요.");
@@ -39,11 +38,8 @@ const LoginModal = () => {
         };
 
         try {
-            const response = await axios.post('http://localhost:8080/api/public/login', loginData, {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
+            const response = await axios.post('http://localhost:8080/api/public/login', loginData);
+
             if (response.status === 200) {
                 const token = response.data.jwtToken;  // JWT 토큰
                 const email = response.data.email;     // 이메일
@@ -58,19 +54,20 @@ const LoginModal = () => {
                 localStorage.setItem('role', role);
                 localStorage.setItem('userId', userId);
                 login(token, email, name, role, userId);
-                alert("로그인 성공");
+                alert(response.data);
                 closeModal();
             } else {
-                alert("로그인 실패");
+                alert(response.data);
             }
         } catch (error) {
             if (error.response) {
-                console.log(error.response);
-                alert("존재하지 않는 계정입니다.");
+                alert(error.response.data);
+                console.clear(); // 임시방편으로 콘솔 지우기 (배포할 때 라이브러리로 지워야됨)
             } else if (error.request) {
                 alert("서버와의 통신 중 오류가 발생했습니다.");
+            } else {
+                alert("예기치 못한 오류가 발생했습니다: " + error.message);
             }
-            console.error("Error: ", error);
         }
     };
 
@@ -85,7 +82,7 @@ const LoginModal = () => {
                     setEmail={setEmail}
                     setPassword={setPassword}
                 />
-                <div className="lm_self">
+                <div className="lm_button">
                     <LoginJoinButton
                         mode="login"
                         type="submit"
@@ -95,17 +92,15 @@ const LoginModal = () => {
                         mode="joinForm"
                         onClick={openJoinModal}
                     />
-                    <div className="lm_find">
-                        <button className="lm_find_btn" onClick={() => openFindAccountModal('id')}>이메일 찾기</button>
-                        <span className="lm_find_line">|</span>
-                        <button className="lm_find_btn" onClick={() => openFindAccountModal('password')}>비밀번호 찾기</button>
-                    </div>
+                    <LoginJoinButton
+                        mode="kakao"
+                    />
                 </div>
-            </div>
-            <div className="lm_social">
-                <LoginJoinButton
-                    mode="kakao"
-                />
+                <div className="lm_find">
+                    <button className="lm_find_btn" onClick={() => openFindAccountModal('id')}>이메일 찾기</button>
+                    <span className="lm_find_line">|</span>
+                    <button className="lm_find_btn" onClick={() => openFindAccountModal('password')}>비밀번호 찾기</button>
+                </div>
             </div>
         </div>
     )
