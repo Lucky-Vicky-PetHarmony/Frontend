@@ -1,0 +1,68 @@
+/* 보호소 지도 */
+.adoptionDetailShelter_location{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-grow: 1;
+    gap: 8px;
+}
+
+/* 카카오 지도 표시 */
+.adoptionDetailShelter_location>.kakaomap{
+    width: 100%;
+    border: 2px solid var(--color-gray1);
+    flex-grow: 1;
+    border-radius: 8px;
+}
+
+.adoptionDetailShelter_location_top{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.adoptionDetailShelter_location_top>*{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+}
+
+/* 왼쪽 보호소 이름 */
+
+.adoptionDetailShelter_location_top>.location_top_left{
+    cursor: pointer;
+}
+
+.adoptionDetailShelter_location_top>.location_top_left:hover p{
+    color: var(--color-blue);
+}
+
+.adoptionDetailShelter_location_top>.location_top_left>img{
+    width: 28px;
+}
+
+.adoptionDetailShelter_location_top>*>p{
+    font-weight: bold;
+}
+
+/* 보호소 길칮가, 로드뷰 */
+.location_top_right{
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: 12px;
+}
+
+.location_top_right>p{
+    font-size: 14px;
+    cursor: pointer;
+    color: var(--color-gray1);
+}
+
+.location_top_right>p:hover{
+    color: var(--color-blue);
+}
