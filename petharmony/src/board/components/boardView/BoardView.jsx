@@ -9,7 +9,7 @@ import ReportPostModal from "../ReportPostModal";
 
 import useAuthStore from "../../../store/useAuthStore";
 
-const BoardView = () => {
+const BoardView = ({isLogin}) => {
     //로그인한 사용자의 token과 userId
     const { token, userId } = useAuthStore();
 
@@ -28,17 +28,21 @@ const BoardView = () => {
     const [reportMode, setReportMode] = useState("");
     const [reportData, setReportData] = useState({});
 
-    
+    const formatDate = (date) => {
+        if (!date) return "-";
+        const redate = date.replace(/-/g, '.'); //전체 문자열 검사해서 치환
+        return redate.slice(0, 16);
+    }
 
     // 서버에 게시글내용 상세 요청
     const fetchBoardData = async () => {
         try{
             const response = await 
                 axios
-                    .get(`http://localhost:8080/api/user/board/view`, {
-                        params: { userId, boardId },
+                    .get(`http://localhost:8080/api/public/board/view`, {
+                        params: { userId: userId?userId:0, boardId },
                         headers: {
-                            Authorization: `Bearer ${token}`
+                            Authorization: token ? { Authorization: `Bearer ${token}` } : {}, // 토큰이 있으면 헤더에 추가
                             },
                         });
                 setBoardData(response.data);
@@ -52,10 +56,10 @@ const BoardView = () => {
         try{
             const response = await 
                 axios
-                    .get(`http://localhost:8080/api/user/comment/list`,{
+                    .get(`http://localhost:8080/api/public/comment/list`,{
                         params: { boardId },
                         headers: {
-                            Authorization: `Bearer ${token}`
+                            Authorization: token ? { Authorization: `Bearer ${token}` } : {}, // 토큰이 있으면 헤더에 추가
                             },
                         });
                 setCommentData(response.data);
@@ -65,11 +69,9 @@ const BoardView = () => {
     };
 
     useEffect(() => {
-        if (userId && token) {  // userId와 token이 존재할 때만 요청 실행
-            fetchBoardData();
-            fetchCommentData();
-        }
-    }, [userId, token]);  // userId와 token이 변경될 때마다 실행
+        fetchBoardData();
+        fetchCommentData();
+    }, [userId]);  // userId와 token이 변경될 때마다 실행
 
     return (
         <div className="BoardView">
@@ -81,12 +83,15 @@ const BoardView = () => {
                     setReportMode={setReportMode}
                     setReportData={setReportData}
                     userId={userId}
-                    token={token}/>
+                    token={token}
+                    isLogin={isLogin}
+                    formatDate={formatDate}/>
                 <BoardCommentInput 
                     boardId={boardId} 
                     userId={userId} 
                     token={token}
-                    onCommentSubmit={fetchCommentData} />
+                    onCommentSubmit={fetchCommentData}
+                    isLogin={isLogin}/>
                 {commentData.map(comment => (
                     <BoardComment 
                         key={comment.commId} 
@@ -97,7 +102,9 @@ const BoardView = () => {
                         setReportMode={setReportMode}
                         setReportData={setReportData}
                         userId={userId}
-                        token={token}/>
+                        token={token}
+                        isLogin={isLogin}
+                        formatDate={formatDate}/>
                 ))}
             </>) :
             (<p>Loading...</p>)}

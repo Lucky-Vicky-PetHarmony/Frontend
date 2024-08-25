@@ -26,6 +26,13 @@ const BoardListElem = ({ board, customClass }) => {
         }
     }
 
+    // 날짜 형식
+    const formatDate = (date) => {
+        if (!date) return "-";
+        const redate = date.replace(/-/g, '.'); //전체 문자열 검사해서 치환
+        return redate.slice(0, 16);
+    }
+
     return (
         <div className={`boardcontent ${customClass}`} onClick={handleClick}>
             <div className="boardcontent_left">
@@ -52,7 +59,9 @@ const BoardListElem = ({ board, customClass }) => {
                         <p>{board.pinCount}</p>
                     </div>
                 </div>
-                <p className="boardcontent_right_bottom">{board.boardUpdate}</p>
+                <p className="boardcontent_right_bottom">
+                    {board.boardCreate===board.boardUpdate ? formatDate(board.boardUpdate) : `(수정됨) ${formatDate(board.boardUpdate)}`}
+                </p>
             </div>
         </div>
     );

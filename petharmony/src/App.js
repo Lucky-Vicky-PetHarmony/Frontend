@@ -46,10 +46,10 @@ function App() {
         <Routes>
           <Route path="/" element={<Main isLogin={isLogin} />} />
           <Route path="/oauth" element={<Oauth />} />
-          <Route path="/board/list" element={<BoardList />} />
-          <Route path="/board/view/:boardId" element={<BoardView />} />
-          <Route path="/board/post" element={<BoardPost />} />
-          <Route path="/board/edit-post" element={<BoardPost />} />
+          <Route path="/board/list" element={<BoardList isLogin={isLogin}/>} />
+          <Route path="/board/view/:boardId" element={<BoardView isLogin={isLogin} />} />
+          <Route path="/board/post" element={<BoardPost />} isLogin={isLogin} />
+          <Route path="/board/edit-post" element={<BoardPost isLogin={isLogin} />} />
           <Route path="/mypage/*" element={<MyPage />} />
           <Route path="/adoption" element={<AdoptionList />} />
           <Route path="/adoption/1" element={<AdoptionDetail />} />

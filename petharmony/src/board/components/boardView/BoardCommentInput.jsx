@@ -5,11 +5,15 @@ import warningImg from '../../asset/warning.png'
 import axios from "axios";
 
 
-const BoardCommentInput = ({ boardId, userId, token, onCommentSubmit }) => {
+const BoardCommentInput = ({ boardId, userId, token, onCommentSubmit, isLogin }) => {
     const [ commentContent, setCommentContent ] = useState(""); // 입력된 댓글
 
     // 댓글 작성
     const commentSubmit = async () => {
+        if(!isLogin){
+            alert("로그인이 필요한 서비스입니다.");
+            return;
+        }
         // 아무것도 입력안됐을 경우
         if(!commentContent.trim()){
             alert("댓글 내용을 입력해주세요.");

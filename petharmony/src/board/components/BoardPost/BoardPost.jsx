@@ -9,7 +9,8 @@ import axios from "axios";
 
 import useAuthStore from "../../../store/useAuthStore";
 
-const BoardPost = () => {
+const BoardPost = ({isLogin}) => {
+
     //로그인한 사용자의 token과 userId
     const { token, userId } = useAuthStore();
 
@@ -44,6 +45,13 @@ const BoardPost = () => {
             setContent(board.content);
         }
     }, [isEdit, board]);
+
+    useEffect(() => {
+        if (!isLogin||board===null) {
+          alert("잘못된 접근입니다.");
+          nav("/");  // 로그인하지 않은 경우, 로그인상태라도 url을 직접 쳐서 edit창에 들어온 경우 메인 페이지로 리다이렉트
+        }
+      }, [isLogin, nav]);
 
 
     // 게시글 작성 함수
@@ -130,7 +138,7 @@ const BoardPost = () => {
                         });
                     
                     if(response.status === 200){
-                        alert(response.data);
+                        alert(`[${response.data.title}] 수정완료`);
                         nav(`/board/view/${board.boardId}`); // 수정된 게시물의 상세 페이지로 이동
                     }else{
                         alert("게시글 수정 실패")
