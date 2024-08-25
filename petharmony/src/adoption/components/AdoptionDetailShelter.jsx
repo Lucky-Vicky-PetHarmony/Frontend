@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../styles/AdoptionDetailShelter.css";
-import location from '../asset/detailIcon/location.png'
+import KakaoMap from "./KakaoMap";
 
 const AdoptionDetailShelter = () => {
     
@@ -36,13 +36,7 @@ const AdoptionDetailShelter = () => {
                     <p>051-971-6208</p>
                 </div>
             </div>
-            <div className="adoptionDetailShelter_location">
-                <div className="adoptionDetailShelter_location_label">
-                    <img src={location} alt="" />
-                    <p>(사)동물보호관리협회</p>
-                </div>
-                <img src="" alt="" />
-            </div>
+            <KakaoMap/>
         </div>
     );
 }

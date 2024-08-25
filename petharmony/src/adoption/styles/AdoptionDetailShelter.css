@@ -32,35 +32,3 @@
     font-weight: 600;
     width: 95px;
 }
-
-/* 오른쪽 보호소 지도 */
-.adoptionDetailShelter_location{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: space-between;
-    flex-grow: 1;
-    gap: 8px;
-}
-
-.adoptionDetailShelter_location>img{
-    width: 100%;
-    border: 2px solid;
-    flex-grow: 1;
-    border-radius: 8px;
-}
-
-.adoptionDetailShelter_location_label{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 12px;
-}
-
-.adoptionDetailShelter_location_label>img{
-    width: 28px;
-}
-
-.adoptionDetailShelter_location_label>p{
-    font-weight: bold;
-}
