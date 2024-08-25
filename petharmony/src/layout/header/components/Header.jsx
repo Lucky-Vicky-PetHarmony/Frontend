@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import useAuthStore from "../../../store/useAuthStore";
 import useModalStore from "../../../store/useModalStore";
 import "../styles/Header.css";
@@ -16,6 +16,8 @@ const Header = () => {
         role: state.role,
         logout: state.logout
     }));
+     // 현재 경로 확인을 위한 hook
+     const location = useLocation();
     // 드롭다운 메뉴
     const [showDropDownMenu, setShowDropDownMenu] = useState(false);
 
@@ -36,34 +38,36 @@ const Header = () => {
                 <NavLink to="/">
                     <img className="header_logo" src={layoutLogo} alt="" />
                 </NavLink>
-                {/* 각 네비게이션 링크: 활성화된 페이지일 경우 텍스트 굵기(fontWeight)를 700으로 설정 */}
                 <ul className="header_nav">
-                <li>
-                        <NavLink 
-                            to="/matching" 
-                            style={({ isActive }) => ({
-                                fontWeight: isActive ? '600' : 'normal'
-                            })}
+                    <li>
+                        <NavLink
+                            to="/matching"
+                            style={{
+                                color: location.pathname.startsWith('/matching') ? 'var(--color-blue)' : 'var(--color-black)',
+                                fontWeight: location.pathname.startsWith('/matching') ? 'bold' : '500'
+                            }}
                         >
                             매칭
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink 
-                            to="/adoption" 
-                            style={({ isActive }) => ({
-                                fontWeight: isActive ? '600' : 'normal'
-                            })}
+                        <NavLink
+                            to="/adoption"
+                            style={{
+                                color: location.pathname.startsWith('/adoption') ? 'var(--color-blue)' : 'var(--color-black)',
+                                fontWeight: location.pathname.startsWith('/adoption') ? 'bold' : '500'
+                            }}
                         >
                             입양공고
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink 
-                            to="/board/list" 
-                            style={({ isActive }) => ({
-                                fontWeight: isActive ? '600' : 'normal'
-                            })}
+                        <NavLink
+                            to="/board/list"
+                            style={{
+                                color: location.pathname.startsWith('/board') ? 'var(--color-blue)' : 'var(--color-black)',
+                                fontWeight: location.pathname.startsWith('/board') ? 'bold' : '500'
+                            }}
                         >
                             게시판
                         </NavLink>
@@ -86,10 +90,6 @@ const Header = () => {
                                     {role !== '[ROLE_ADMIN]' ? (
                                         <NavLink to="/mypage">마이페이지</NavLink>
                                     ) : (
-                                        /*
-                                            role이 '[ROLE_USER]'여도 URL로 접근 가능
-                                            --> 접근 제어 하는 라우트 보호 적용 예정
-                                        */
                                         <NavLink to="/admin/report">신고목록</NavLink>
                                     )}
                                     <NavLink to="/" onClick={handleLogout}>로그아웃</NavLink>
