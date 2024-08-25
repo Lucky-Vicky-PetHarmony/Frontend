@@ -9,7 +9,7 @@ import axios from "axios";
 
 import useAuthStore from "../../../store/useAuthStore";
 
-const BoardPost = ({isLogin}) => {
+const BoardPost = () => {
 
     //로그인한 사용자의 token과 userId
     const { token, userId } = useAuthStore();
@@ -46,12 +46,45 @@ const BoardPost = ({isLogin}) => {
         }
     }, [isEdit, board]);
 
-    useEffect(() => {
-        if(location.pathname === '/board/edit-post' && Object.keys(board).length === 0 ){
-            alert("잘못된 접근입니다.");
+    // 로딩 상태 추가
+const [isLoading, setIsLoading] = useState(true);
+
+useEffect(() => {
+    // token이 존재하는지 확인
+    if (token) {
+        // token이 있을 경우 로딩 상태 해제
+        setIsLoading(false);
+
+        // 경로가 /board/edit-post 이면서, board 데이터가 없는 경우 잘못된 접근으로 판단하여 리다이렉트
+        if (location.pathname === '/board/edit-post' && Object.keys(board).length === 0) {
+            alert("잘못된 접근입니다.")
             nav("/");
         }
-      }, []);
+    } else {
+        // token을 기다리는 시간 동안 로딩 상태 유지
+        const timeoutId = setTimeout(() => {
+            // 일정 시간이 지나도 token이 없으면 잘못된 접근으로 판단하여 리다이렉트
+            if (!token) {
+                if (location.pathname === '/board/edit-post' && Object.keys(board).length === 0) {
+                    nav("/");
+                } else if (location.pathname === '/board/post') {
+                    nav("/");
+                }
+                alert("로그인이 필요한 서비스입니다.")
+            }
+            // 최종적으로 로딩 상태 해제
+            setIsLoading(false);
+        }, 300); // 500ms 대기시간 (필요에 따라 조정 가능)
+
+        // 컴포넌트가 언마운트될 때 타이머 클리어
+        return () => clearTimeout(timeoutId);
+    }
+}, [token, board, location.pathname, nav]);
+
+// 로딩 중일 때 표시할 내용 추후 로딩페이지로 변경옞정
+if (isLoading) {
+    return <div>Loading...</div>;
+}
 
 
     // 게시글 작성 함수
