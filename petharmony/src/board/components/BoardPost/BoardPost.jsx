@@ -47,11 +47,11 @@ const BoardPost = ({isLogin}) => {
     }, [isEdit, board]);
 
     useEffect(() => {
-        if (!isLogin||board===null) {
-          alert("잘못된 접근입니다.");
-          nav("/");  // 로그인하지 않은 경우, 로그인상태라도 url을 직접 쳐서 edit창에 들어온 경우 메인 페이지로 리다이렉트
+        if(location.pathname === '/board/edit-post' && Object.keys(board).length === 0 ){
+            alert("잘못된 접근입니다.");
+            nav("/");
         }
-      }, [isLogin, nav]);
+      }, []);
 
 
     // 게시글 작성 함수
