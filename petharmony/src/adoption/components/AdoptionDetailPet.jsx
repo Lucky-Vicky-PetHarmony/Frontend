@@ -33,10 +33,10 @@ const AdoptionDetailPet = ({pet}) => {
             <div className="adoptionDetailPet_top">
                 <div className="adoptionDetailPet_top_tags">
                     {pet.words.map((word, index) => (
-                        <div className="tag">{word}</div>
+                        <div className="tag" key={index}>{word}</div>
                     ))}
                 </div>
-                <img onClick={() => petLikeHandler()}src={petLike?like_A:like_N} alt="" />
+                <img onClick={() => petLikeHandler()} src={petLike?like_A:like_N} alt="" />
             </div>
             <div className="adoptionDetailPet_bottom">
                 <div className="adoptionDetailPet_bottom_pic">
