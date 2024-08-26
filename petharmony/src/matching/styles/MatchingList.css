@@ -1,0 +1,61 @@
+.matchinglistbg{
+
+    margin-top: 90px;
+    width: 1680px;
+    height: fit-content;
+    background-size: cover; /* 필요에 따라 추가 */
+    background-position: center; /* 필요에 따라 추가 */
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.matchinglist{
+    margin: 52px 0;
+    width: 1025px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+
+}
+
+.matchinglist>p{
+    text-align: center;
+    font-size: 28px;
+    font-weight: 600;
+    color: white;
+    letter-spacing: 2px;
+
+    margin-bottom: 32px;
+}
+
+.matchinglist>p>span{
+    text-align: center;
+    padding-top: 12px;
+    font-size: 16px;
+    color: white;
+}
+
+.matchinglist_cards{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 50px;
+}
+
+.matchinglist>.rematching{
+    margin-top: 32px;
+    padding: 12px 100px;
+    font-size: 28px;
+    background-color: white;
+    border-radius: 32px;
+    border: 1px solid var(--color-blue);
+    color: var(--color-blue);
+    font-weight: 600;
+
+    cursor: pointer;
+
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+}

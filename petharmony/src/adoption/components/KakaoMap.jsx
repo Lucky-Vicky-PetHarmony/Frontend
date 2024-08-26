@@ -5,7 +5,7 @@ import location from '../asset/detailIcon/location.png'
 
 const {kakao} = window;
 
-const KakaoMap = () => {
+const KakaoMap = ({care_addr, care_nm}) => {
     const [map, setMap] = useState(null);
     const [marker, setMarker] = useState(null);
     const [coords, setCoords] = useState({ lat: null, lng: null });
@@ -40,7 +40,7 @@ const KakaoMap = () => {
     const searchAddr = (mapInstance, markerInstance) => {
         // 주소검색
         new kakao.maps.services.Geocoder().addressSearch(
-            "경기도 부천시 소사구 경인로 72 (송내동) ", // 보호소 주소를 여기에 입력 {/* 바꿔야함 */}ㄴ
+            `${care_addr}`, // 보호소 주소를 여기에 입력 {/* 바꿔야함 */}ㄴ
             function (result, status) {
                 if (status === window.kakao.maps.services.Status.OK) {
                     const currentPos = new window.kakao.maps.LatLng(
@@ -67,14 +67,14 @@ const KakaoMap = () => {
                     <div 
                         className="location_top_left"
                         onClick={() => 
-                            {window.open(`https://map.kakao.com/link/map/가나동물병원,${coords.lat},${coords.lng}`, "_blank");}}
+                            {window.open(`https://map.kakao.com/link/map/${care_nm},${coords.lat},${coords.lng}`, "_blank");}}
                         >
                         <img src={location} alt="" />
-                        <p>가나동물병원</p> {/* 바꿔야함 */}
+                        <p>{care_nm}</p>
                     </div>
                     <div className="location_top_right">
                         <p onClick={() => 
-                            {window.open(`https://map.kakao.com/link/to/가나동물병원,${coords.lat},${coords.lng}`, "_blank");}}>🔍  길찾기</p>{/* 바꿔야함 */}
+                            {window.open(`https://map.kakao.com/link/to/${care_nm},${coords.lat},${coords.lng}`, "_blank");}}>🔍  길찾기</p>
                         <p onClick={() => 
                             { window.open(`https://map.kakao.com/link/roadview/${coords.lat},${coords.lng}`, "_blank");
                         }}>📍  로드뷰</p>

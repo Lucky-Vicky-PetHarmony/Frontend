@@ -35,7 +35,7 @@ const PetCard = () => {
     };
 
     return (
-        <div className="pet_card" onClick={() => nav("/adoption/1")}>
+        <div className="pet_card" onClick={() => nav(`/adoption/${pet.id}`)}>
             <img className="pc_img" src={pet.image} alt={pet.id} />
             <div className="pc_top">
                 <div className="pc_words">

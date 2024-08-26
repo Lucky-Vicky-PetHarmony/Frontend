@@ -1,6 +1,59 @@
 .matching {
+    margin-top: 90px;
+    width: 1680px;
+    height: fit-content;
+    background-size: cover; /* 필요에 따라 추가 */
+    background-position: center; /* 필요에 따라 추가 */
+
     display: flex;
-    margin: 0 auto;
-    padding: 160px 0 0 0;
-    width: 1025px;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.matching>p:first-child{
+    margin-top: 50px;
+    font-size: 32px;
+    color: white;
+    font-weight: bold;
+}
+.matching_ex{
+    margin-top: 16px;
+    font-size: 16px;
+    color: white;
+    text-align: center;
+    line-height: 32px;
+}
+
+.matching_words{
+    margin-top: 52px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 1072px;
+    gap: 48px;
+}
+
+.matching_address{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.matching_address>p{
+    margin-top: 52px;
+    font-size: 28px;
+    font-weight: bold;
+    color: white;
+}
+
+.matching_btn{
+    margin: 32px 0;
+    padding: 16px 170px;
+    border-radius: 32px;
+    font-size: 24px;
+    font-weight: bold;
+    background-color: white;
+    color: var(--color-gray1);
+    cursor: pointer;
 }

@@ -20,6 +20,7 @@ import ReportList from "./admin/components/ReportList";
 import AdoptionDetail from "./adoption/components/AdoptionDetail";
 import Authority from "./common/authority/Authority";
 import ProtectedRoute from "./common/authority/ProtectedRoute";
+import MatchingList from "./matching/components/MatchingList";
 
 function App() {
   const login = useAuthStore((state) => state.login);
@@ -56,6 +57,7 @@ function App() {
           <Route path="/adoption" element={<AdoptionList />} />
           <Route path="/adoption/1" element={<AdoptionDetail />} />
           <Route path="/matching" element={<Matching />} />
+          <Route path="/matching-list" element={<MatchingList />} />
           <Route path="/authority" element={<Authority />} />
           <Route
             path="/admin/report"
