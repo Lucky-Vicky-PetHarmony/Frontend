@@ -60,6 +60,13 @@ const Matching = () => {
         }
     };
 
+    // TODO: 서버에 단어 보내기
+    // TODO: 서버에 주소 보내기
+    // TODO: 응답오면 페이지 이동(매칭리스트)
+
+
+
+
     return (
         <div className="matching" style={{ backgroundImage: `url(${backgroundImage})` }}>
             <p>당신만을 위한 특별한 매칭서비스</p>

@@ -10,6 +10,9 @@ const MatchingList = () => {
     const nav = useNavigate();
     //로그인한 사용자의 token과 userId
     const { token, userId } = useAuthStore();
+
+    // TODO: 서버에 매칭카드 요청하기
+    // TODO: 매칭카드가 없으면 단어선택페이지로 이동
     
 
     return (

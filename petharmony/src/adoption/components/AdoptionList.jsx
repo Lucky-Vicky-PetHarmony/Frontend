@@ -21,16 +21,16 @@ const AdoptionList = () => {
     const [ pets, setPets ] = useState();
     const [isLoading, setIsLoading] = useState(true); // 로딩 상태 추가
 
-
-    // TODO: 리스트받아오기
-
     const [adoptCategory, setAdoptCategory] = useState("ALL");
 
     useEffect(() => {
         axiosAdoptionList();
     }, [])
 
-    // 서버에 신고 리스트 요청
+    // TODO: 리스트받아오기
+    // TODO: 좋아요처리
+
+    // 서버에 입양동물 리스트 요청
     const axiosAdoptionList = async () => {
         try {
             const response = await axios.get('http://localhost:8080/api/public/allPetsInfo', {
