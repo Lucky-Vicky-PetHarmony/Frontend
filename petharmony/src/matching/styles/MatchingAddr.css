@@ -1,0 +1,73 @@
+.MA{
+    margin-top: 8px;
+    width: 1072px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.MA_input{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 500px;
+    gap: 12px;
+}
+
+.MA_input>p:first-child{
+    color: white;
+}
+
+
+.MA_input>.MA_input_addr{
+    margin-top: 32px;
+    font-size: 16px;
+    width: 100%;
+    padding: 8px 12px;
+    color: var(--color-gray2);
+    border-radius: 8px;
+    border: 0.2px solid var(--color-gray1);
+    outline: none;
+}
+
+.MA_input>.MA_input_btn{
+    width: 100%;
+    font-size: 16px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: none;
+    font-weight: 600;
+    color: var(--color-gray1);
+    cursor: pointer;
+    outline: none;
+}
+
+.Existing_address{
+    width: 100%;
+    padding: 8px 12px;
+    background-color: var(--color-yellow);
+    text-align: center;
+    border-radius: 8px;
+    border: none;
+    color: var(--color-gray1);
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.Existing_address:active{
+    transform: scale(0.99);
+}
+
+.MA_input_btn:active{
+    transform: scale(0.99);
+}
+
+.MA>.map{
+    width: 500px;
+    height: 300px;
+    display: none;
+    border-radius: 8px;
+    border: 2px solid var(--color-gray1);
+}

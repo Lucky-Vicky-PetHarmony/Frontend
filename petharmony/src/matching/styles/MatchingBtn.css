@@ -1,0 +1,47 @@
+.matchingbtn{
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--color-gray1);
+    letter-spacing: 1px;
+
+    width: 176px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 20px;
+    background-color: #B5D4FF;
+
+    box-shadow: 
+        inset -3px -3px 15px rgba(0, 0, 0, 0.3), /* 첫 번째 그림자 */
+        inset 5px 5px 10px rgba(255, 255, 255, 0.7),       /* 두 번째 그림자 */
+        5px 5px 10px rgba(170, 170, 170, 0.2);         /* 두 번째 그림자 */
+
+    cursor: pointer;
+}
+
+.matchingbtn:hover{
+    background-color: #84b7ff;
+}
+
+.matchingbtn:focus,
+.matchingbtn:active{
+    background-color: #99c9ff; /* 조금 더 어두운 색상 */
+
+    box-shadow: 
+        inset 3px 3px 10px rgba(0, 0, 0, 0.3), /* 첫 번째 그림자 */
+        inset -3px -3px 10px rgba(255, 255, 255, 0.7), /* 두 번째 그림자 */
+        2px 2px 5px rgba(170, 170, 170, 0.3); /* 세 번째 그림자 */
+    
+    transform: translateY(1px); /* 약간 아래로 이동한 느낌 */
+}
+
+.matchingbtn.active{
+    background-color: var(--color-yellow);
+    box-shadow: 
+        inset -3px -3px 10px rgba(255, 255, 255, 0.2), /* 첫 번째 그림자 */
+        inset 5px 5px 15px rgba(0, 0, 0, 0.3),       /* 두 번째 그림자 */
+        5px 5px 10px rgba(170, 170, 170, 0.2);         /* 두 번째 그림자 */
+
+}
