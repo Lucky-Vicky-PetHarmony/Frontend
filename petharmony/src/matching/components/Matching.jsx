@@ -5,16 +5,18 @@ import MatchingBtn from "./MatchingBtn";
 import axios from "axios";
 import useAuthStore from '../../store/useAuthStore';
 import MatchingAddr from "./MatchingAddr";
+import { useNavigate } from 'react-router-dom';
 
 const Matching = () => {
+    const nav = useNavigate();
     //로그인한 사용자의 token과 userId
     const { token, userId } = useAuthStore();
     
-    const [words, setWords] = useState([]);
-    const [userWords, setUserWords] = useState([]);
+    const [words, setWords] = useState([]);         // 전체단어
+    const [userWords, setUserWords] = useState([]); // 사용자가 선택한 단어
 
-    const [addr, setAddr] = useState();
-    const [existAddr, setExistAddr] = useState();
+    const [addr, setAddr] = useState();             // 사용자 주소
+    const [existAddr, setExistAddr] = useState();   // 기존 사용자주소
 
     useEffect(() => {
         if(token){
@@ -61,8 +63,69 @@ const Matching = () => {
     };
 
     // TODO: 서버에 단어 보내기
+    const sentWords = async () => {
+        try {
+            const response = await axios.post(`http://localhost:8080/api/user/words`, 
+                {
+                    userId: userId,                 // 유저 아이디
+                    wordId: userWords               // 유저가 선택한 단어 리스트
+                },
+                {
+                    headers: {
+                        Authorization: token,
+                    },
+                });
+            if (response.status === 200) {
+                nav("/matching-list");
+            } else {
+                alert("단어 전송에 실패하였습니다. 다시 시도해주세요.")
+                console.log("단어 전송 실패");
+            }
+        } catch (error) {
+            alert("서버와의 통신 중 오류가 발생했습니다.");
+            console.error("Error: ", error);
+        }
+    };
+
     // TODO: 서버에 주소 보내기
-    // TODO: 응답오면 페이지 이동(매칭리스트)
+    const sentAddr = async () => {
+        try {
+            const response = await axios.post(`http://localhost:8080/api/user/address`, 
+                {
+                    userId: userId,                 // 유저 아이디
+                    address: addr                   // 주소
+                },
+                {
+                    headers: {
+                        Authorization: token,
+                    },
+                });
+            if (response.status === 200) {
+            } else {
+                alert("주소 전송에 실패하였습니다. 다시 시도해주세요.");
+                console.log("주소 전송 실패");
+            }
+        } catch (error) {
+            alert("서버와의 통신 중 오류가 발생했습니다.");
+            console.error("Error: ", error);
+        }
+    };
+
+    // TODO: 성공적으로 서버에 전송이 되면 매칭 리스트로 이동
+    const matchingHandler = async () => {
+        if (userWords.length === 0) {
+            alert("단어를 선택해주세요");
+            return;
+        } else if (addr == null) {
+            alert("주소를 입력해주세요");
+            return;
+        } else {
+            if(addr!==existAddr){
+                sentAddr();
+            }
+            sentWords();
+        }
+    }
 
 
 
@@ -81,7 +144,7 @@ const Matching = () => {
                 <MatchingAddr setAddr={setAddr} existAddr={existAddr}/>
             </div>
 
-            <div className="matching_btn">매칭 GOGO!! 🐶</div>
+            <div className="matching_btn" onClick={() => matchingHandler()}>매칭 GOGO!! 🐶</div>
         </div>
     );
 }
