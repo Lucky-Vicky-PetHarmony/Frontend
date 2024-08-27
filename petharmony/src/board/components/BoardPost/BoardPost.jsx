@@ -8,6 +8,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import axios from "axios";
 
 import useAuthStore from "../../../store/useAuthStore";
+import Loading from "../../../common/Loading/Loading";
 
 const BoardPost = () => {
 
@@ -83,7 +84,7 @@ useEffect(() => {
 
 // 로딩 중일 때 표시할 내용 추후 로딩페이지로 변경옞정
 if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loading/>;
 }
 
 

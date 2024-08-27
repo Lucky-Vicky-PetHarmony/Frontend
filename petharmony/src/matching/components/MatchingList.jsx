@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import "../styles/MatchingList.css";
 import axios from "axios";
 import bg from "../asset/matchinglistBG.png";
-import useAuthStore from '../../store/useAuthStore';
 import PetCard from "../../common/pet/components/PetCard";
 import { useNavigate } from "react-router-dom";
+import Loading from '../../common/Loading/Loading';
 
 const MatchingList = () => {
     // 페이지 이동
@@ -15,6 +15,8 @@ const MatchingList = () => {
      const token = localStorage.getItem("token");
 
     const [matchingData, setMatchingData] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);  // 로딩 상태 관리
+
 
     useEffect(() => {
         if(!token&&!userId){
@@ -43,9 +45,14 @@ const MatchingList = () => {
             }
         } catch (error) {
             console.error("매칭 목록 가져오기 실패: ", error);
+        }finally{
+            setIsLoading(false);  // 데이터 로딩이 끝나면 로딩 상태를 false로 설정
         }
     };
-    
+
+    if (isLoading) {
+        return <Loading />;  // 로딩 중일 때 로딩 컴포넌트를 렌더링
+    }
 
     return (
         <div className="matchinglistbg" style={{backgroundImage:`url(${bg})`}}>

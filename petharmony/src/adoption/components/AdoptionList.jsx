@@ -15,6 +15,7 @@ import PetCard from '../../common/pet/components/PetCard';
 
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Loading from "../../common/Loading/Loading";
 
 
 const AdoptionList = () => {
@@ -112,7 +113,7 @@ const AdoptionList = () => {
     };
 
     if (isLoading) {
-        return <div className="loading">로딩 중...</div>; // 로딩 중 화면 표시
+        return <Loading/>; // 로딩 중 화면 표시
     }
     
     return (

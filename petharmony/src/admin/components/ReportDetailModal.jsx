@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import '../style/ReportDetailModal.css';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import Loading from '../../common/Loading/Loading';
 
 
 
@@ -163,7 +164,7 @@ const ReportDetailModal = ({setModal, reportDetailId, setReportDetailId, token})
 
     // 데이터가 로딩 중일 때 로딩 메시지를 표시
     if (loading) {
-        return <div>Loading...</div>;
+        return <Loading/>;
     }
 
     return (

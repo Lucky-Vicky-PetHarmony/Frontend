@@ -8,6 +8,7 @@ import axios from "axios";
 import ReportPostModal from "../ReportPostModal";
 
 import useAuthStore from "../../../store/useAuthStore";
+import Loading from "../../../common/Loading/Loading";
 
 const BoardView = ({isLogin}) => {
     //로그인한 사용자의 token과 userId
@@ -107,7 +108,7 @@ const BoardView = ({isLogin}) => {
                         formatDate={formatDate}/>
                 ))}
             </>) :
-            (<p>Loading...</p>)}
+            (<Loading/>)}
             <div className="BoardView_backbtn" onClick={() => nav('/board/list')}>목록</div>
             {reportModal && (
                 <ReportPostModal 
