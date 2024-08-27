@@ -8,7 +8,6 @@ const InterestedPets = ({ token }) => {
     const [pets, setPets] = useState([]);
 
     // 관심있는 입양동물 가져오기  (수정 예정)
-    /*
     useEffect(() => {
         const fetchInterestedPet = async () => {
             try {
@@ -24,7 +23,6 @@ const InterestedPets = ({ token }) => {
         };
         fetchInterestedPet();
     }, [token]);
-    */
 
     return (
         <div className="interested_pets">
