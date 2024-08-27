@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import useAuthStore from "../../store/useAuthStore";
 import axios from "axios";
 import "../styles/Main.css";
 import mainImg from "../assets/mainImg.png";
@@ -10,9 +11,10 @@ import slideTitle from "../assets/slideTitle.png";
 import adoptionTitle from "../assets/adoptionTitle.png";
 import boardTitle from "../assets/boardTitle.png";
 import BoardListElem from "../../board/components/boardList/BoardListElem";
-import PetCard from "./PetCard";
+import PetCard from "../../common/pet/components/PetCard";
 
 const Main = () => {
+    const { userId } = useAuthStore();
     // useNavigate() 호출
     const navigate = useNavigate();
     // 공고일이 지난 유기 동물들
@@ -24,8 +26,9 @@ const Main = () => {
     useEffect(() => {
         const fetchPets = async () => {
             try {
-                const response = await axios.get('http://localhost:8080/api/public/petCards');
+                const response = await axios.get(`http://localhost:8080/api/public/petCards/${userId ? userId : 0}`);
                 setPets(response.data);
+                console.log(response.data);
             } catch (error) {
                 console.log("유기동물 데이터를 가져오는 데 실패했습니다.", error);
             }
@@ -66,8 +69,8 @@ const Main = () => {
             </div>
             <img className="main_title" src={adoptionTitle} alt="" />
             <div className="main_adoption">
-                {pets.map(pet => (
-                    <PetCard key={pet.desertionNo} pet={pet} />
+                {pets.map((pet, index) => (
+                    <PetCard key={index} pet={pet} />
                 ))}
             </div>
             <img className="main_title" src={boardTitle} alt="" />
