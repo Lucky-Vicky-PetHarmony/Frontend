@@ -25,6 +25,10 @@ const AdoptionDetailPet = ({pet, token, userId}) => {
     const [petLike, setPetLike] = useState(pet.pet_like);
 
     const petLikeHandler = () => {
+        if(!token&&!userId){
+            alert("입양동물 좋아요는 로그인이 필요합니다.")
+            return;
+        }
         axiosPetLike();
         setPetLike(prev => !prev);
     }
@@ -44,7 +48,7 @@ const AdoptionDetailPet = ({pet, token, userId}) => {
                     },
                 });
             if (response.status === 200) {
-                console.log(response.data)
+                setPetLike(prev => !prev);
             } else {
                 console.log("좋아요 실패");
             }

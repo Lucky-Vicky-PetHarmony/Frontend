@@ -22,8 +22,13 @@ const PetCard = ({pet, userId, token}) => {
     const [petLike, setPetLike] = useState(pet.pet_like);
 
     const petLikeHandler = (e) => {
-        e.stopPropagation();
-        setPetLike(prev => !prev);
+        
+        e.stopPropagation(); // 먼저 이벤트 전파를 중지
+
+        if(!token&&!userId){
+            alert("입양동물 좋아요는 로그인이 필요합니다.")
+            return; // 로그인하지 않은 경우 함수 종료
+        }
         axiosPetLike();
     }
 
@@ -42,6 +47,7 @@ const PetCard = ({pet, userId, token}) => {
                     },
                 });
             if (response.status === 200) {
+                setPetLike(prev => !prev);
             } else {
                 console.log("좋아요 실패");
             }

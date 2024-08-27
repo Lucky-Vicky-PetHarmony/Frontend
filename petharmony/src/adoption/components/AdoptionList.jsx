@@ -149,7 +149,7 @@ const AdoptionList = () => {
             </div>
             <div className="adoptionList_Group">
                 {pets.map((pet, index) => (
-                    <PetCard key={index} pet={pet}/>
+                    <PetCard key={index} pet={pet} userId={userId} token={token}/>
                 ))}
             </div>
             <div className="adoptionList_banner" onClick={() => nav('/matching')}>
