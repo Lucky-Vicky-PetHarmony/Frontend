@@ -36,3 +36,27 @@
 .me_btn:active {
     transform: scale(0.97);
 }
+
+.me_kakao_user {
+    display: flex;
+    margin: 37px 0 0 0;
+    padding: 10px 10px 10px 20px;
+    border: none;
+    border-radius: 20px;
+    background-color: rgba(250, 227, 0, 0.3);
+    font-weight: bolder;
+    color: #371D1E;
+}
+
+.me_kakao_user>img {
+    width: 30px;
+    height: 30px;
+}
+
+.me_kakao_user>p {
+    padding: 0 0 0 13px;
+    align-items: center;
+    align-self: center;
+    color: #371D1E;
+    font-weight: bolder;
+}
