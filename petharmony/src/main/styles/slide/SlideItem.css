@@ -24,8 +24,8 @@
 .si_location {
     position: absolute;
     top: 145px;
-    font-size: 15px;
-    font-family: bolder;
+    font-size: 18px;
+    font-weight: bolder;
 }
 
 .si_sex_age {
