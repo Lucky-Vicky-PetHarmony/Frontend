@@ -23,34 +23,11 @@ const PetCard = ({pet}) => {
         e.stopPropagation();
         setPetLike(prev => !prev);
     }
-    // 하드코딩된 데이터
-    // const pet = {
-    //     id: 1,
-    //     image: temp,
-    //     words: ["호기심 많음", "돌봄이 필요한", "내성적인", "내장적인", "내성장인"],
-    //     kind: "고양이",
-    //     sex: "남아",
-    //     age: "2004년생",
-    //     weight: "4kg",
-    //     location: "서울 노원구",
-    //     status: "중성화 완료"
-    // };
-    // "popfile": "http://www.animal.go.kr/files/shelter/2024/07/202407161507650.jpg",
-    // "kind_cd_detail": "도마뱀",
-    // "words": [
-    //     "독특한",
-    //     "멋진",
-    //     "온순한"
-    // ],
-    // "kind_cd": "기타축종",
-    // "care_nm": "경기도 하남시",
-    // "weight": "0.03(Kg)",
-    // "age": "2024년생",
-    // "sex_cd": "알 수 없음",
-    // "neuter_yn": "알 수 없음"
+
+    // TODO: 좋아요처리
 
     return (
-        <div className="pet_card" onClick={() => nav(`/adoption/1`)}>
+        <div className="pet_card" onClick={() => nav(`/adoption/${pet.desertion_no}`)}>
             <img className="pc_img" src={pet.popfile} alt="입양동물 사진" />
             <div className="pc_top">
                 <div className="pc_words">
