@@ -10,10 +10,12 @@ import paw_b from '../asset/paw_b.png';
 import paw_bl from '../asset/paw_bl.png';
 import bannerImg from '../asset/bannerImg.png';
 import Click from '../asset/Click.png';
+import upbtn from '../asset/upbtn.png';
 import PetCard from '../../common/pet/components/PetCard';
 
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Loading from "../../common/Loading/Loading";
 
 
 const AdoptionList = () => {
@@ -39,9 +41,9 @@ const AdoptionList = () => {
     // 스크롤 이벤트 리스너 설정
     useEffect(() => {
         const handleScroll = () => {
-            // 사용자가 페이지 끝에 도달하고 데이터 요청 중이 아닌 경우
+            // 사용자가 페이지 끝부분에 도달하고 데이터 요청 중이 아닌 경우
             if (
-                window.innerHeight + window.scrollY >= document.documentElement.offsetHeight - 50 &&
+                window.innerHeight + window.scrollY >= document.documentElement.offsetHeight - 500 &&
                 !isFetching
             ) {
                 // 페이지 번호를 증가시켜 다음 데이터를 요청
@@ -111,7 +113,7 @@ const AdoptionList = () => {
     };
 
     if (isLoading) {
-        return <div className="loading">로딩 중...</div>; // 로딩 중 화면 표시
+        return <Loading/>; // 로딩 중 화면 표시
     }
     
     return (
@@ -149,10 +151,10 @@ const AdoptionList = () => {
             </div>
             <div className="adoptionList_Group">
                 {pets.map((pet, index) => (
-                    <PetCard key={index} pet={pet}/>
+                    <PetCard key={index} pet={pet} userId={userId} token={token}/>
                 ))}
             </div>
-            <div className="adoptionList_banner" onClick={() => nav('/matching')}>
+            <div className="adoptionList_banner" onClick={() => nav('/matching-list')}>
                 <p>특별한 인연을<br/>찾아드립니다</p>
                 <img src={bannerImg} alt="" />
                 <div className="adoptionList_banner_matchingBtn">
@@ -160,6 +162,19 @@ const AdoptionList = () => {
                     <img src={Click} alt="" />
                 </div>
             </div>
+            <img 
+                src={upbtn} 
+                alt="" 
+                style={{
+                    width:"50px", 
+                    borderRadius:"32px", 
+                    position:"fixed",
+                    bottom:"100px",
+                    right:"120px",
+                    boxShadow:"4px 4px 10px rgba(0,0,0,0.25)",
+                    cursor:"pointer"
+                    }}
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}/>
         </div>
     );
 }

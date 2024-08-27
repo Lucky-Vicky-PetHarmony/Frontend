@@ -41,10 +41,10 @@ const Header = () => {
                 <ul className="header_nav">
                     <li>
                         <NavLink
-                            to="/matching"
+                            to="/matching-list"
                             style={{
-                                color: location.pathname.startsWith('/matching') ? 'var(--color-blue)' : 'var(--color-black)',
-                                fontWeight: location.pathname.startsWith('/matching') ? 'bold' : '500'
+                                color: location.pathname.startsWith('/matching-list') ? 'var(--color-blue)' : 'var(--color-black)',
+                                fontWeight: location.pathname.startsWith('/matching-list') ? 'bold' : '500'
                             }}
                         >
                             매칭

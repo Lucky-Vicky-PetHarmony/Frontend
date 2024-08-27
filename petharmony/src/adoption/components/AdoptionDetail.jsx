@@ -5,6 +5,7 @@ import AdoptionDetailShelter from "./AdoptionDetailShelter";
 import useAuthStore from '../../store/useAuthStore';
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import Loading from '../../common/Loading/Loading';
 
 
 const AdoptionDetail = () => {
@@ -44,7 +45,7 @@ const AdoptionDetail = () => {
 
     // 데이터가 아직 로드되지 않았을 때 로딩 메시지 표시
     if (!pet) {
-        return <div>Loading...</div>;
+        return <Loading/>;
     }
     
     return (

@@ -60,9 +60,9 @@
     align-items: center;
     background-color: rgba(254, 214, 13, 0.4);
     border-radius: 2px;
-    position: absolute;
-    top: 350px;
-    right: -160px;
+    position: fixed;
+    top: 180px;
+    right: 90px;
     gap: 12px;
     box-shadow: 4px 4px 8px rgba(0, 0, 0, 15%);
     cursor: pointer;
@@ -97,9 +97,4 @@
 }
 .adoptionList_banner_matchingBtn>img{
     width: 16px;
-}
-
-.loading{
-    padding-top: 200px;
-    margin: auto;
 }
