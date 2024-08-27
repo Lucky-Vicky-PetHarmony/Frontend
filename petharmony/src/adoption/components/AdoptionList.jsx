@@ -60,7 +60,7 @@ const AdoptionList = () => {
     // 서버에 입양동물 리스트 요청
     const axiosAdoptionList = async () => {
         try {
-            const response = await axios.get(`http://localhost:8080/api/public/${getCategoryEndpoint()}`, {
+            const response = await axios.get(`http://localhost:8080/api/public/${getCategoryEndpoint()}/${userId?userId:0}`, {
                 params: {
                     page: page
                 },

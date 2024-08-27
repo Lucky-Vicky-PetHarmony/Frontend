@@ -17,7 +17,7 @@ import { useNavigate } from 'react-router-dom';
 const PetCard = ({pet}) => {
     const nav = useNavigate();
 
-    const [petLike, setPetLike] = useState(false);
+    const [petLike, setPetLike] = useState(pet.pet_like);
 
     const petLikeHandler = (e) => {
         e.stopPropagation();
