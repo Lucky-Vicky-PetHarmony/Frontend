@@ -154,6 +154,9 @@ const AdoptionList = () => {
                     <PetCard key={index} pet={pet} userId={userId} token={token}/>
                 ))}
             </div>
+            {isFetching&&(<div className="adoptionList_loading">
+                <div className="spinner"></div>
+            </div>)}
             <div className="adoptionList_banner" onClick={() => nav('/matching-list')}>
                 <p>특별한 인연을<br/>찾아드립니다</p>
                 <img src={bannerImg} alt="" />
