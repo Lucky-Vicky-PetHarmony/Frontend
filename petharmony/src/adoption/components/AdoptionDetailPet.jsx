@@ -16,17 +16,43 @@ import info from '../asset/detailIcon/info.png'
 import paw_bl from '../asset/paw_bl.png'
 import dog_bl from '../asset/dog_bl.png'
 import cat_bl from '../asset/cat_bl.png'
+import axios from "axios";
 
 
-const AdoptionDetailPet = ({pet}) => {
 
-    // TODO: 좋아요처리(좋아요 취소요청인지 활성화요청인지 보내야함)
+const AdoptionDetailPet = ({pet, token, userId}) => {
     
     const [petLike, setPetLike] = useState(pet.pet_like);
 
     const petLikeHandler = () => {
+        axiosPetLike();
         setPetLike(prev => !prev);
     }
+
+    // TODO: 좋아요처리(좋아요 취소요청인지 활성화요청인지 보내야함)
+    const axiosPetLike = async () => {
+        try {
+            const response = await axios.post(`http://localhost:8080/api/user/pet-likes`, 
+                {
+                    userId: userId,                 // 유저 아이디
+                    desertionNo: pet.desertion_no,   // 입양 동물 아이디
+                    isLiked: !petLike,           // 좋아요 활성화 여부 (true: 좋아요, false: 취소)
+                },
+                {
+                    headers: {
+                        Authorization: token,
+                    },
+                });
+            if (response.status === 200) {
+                console.log(response.data)
+            } else {
+                console.log("좋아요 실패");
+            }
+        } catch (error) {
+            alert("서버와의 통신 중 오류가 발생했습니다.");
+            console.error("Error: ", error);
+        }
+    };
 
     return (
         <div className="adoptionDetailPet">

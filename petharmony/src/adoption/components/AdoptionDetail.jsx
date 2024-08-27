@@ -8,8 +8,9 @@ import { useParams } from "react-router-dom";
 
 
 const AdoptionDetail = () => {
-    // 공유저장소에서 토큰과 userId 가져옴
-    const { token, userId } = useAuthStore();
+    // localstorage에서 토큰과 userId를 가져옴
+    const userId = localStorage.getItem("userId");
+    const token = localStorage.getItem("token");
     
     // 서버로 부터 받은 데이터 저장
     const [ pet, setPet ] = useState(null);
@@ -49,7 +50,7 @@ const AdoptionDetail = () => {
     return (
         <div className="adoptionDetail">
             <p>🍀 입양 동물 정보</p>
-            <AdoptionDetailPet pet={pet}/>
+            <AdoptionDetailPet pet={pet} token={token} userId={userId}/>
             <p>🏡 해당 동물을 보호하고 있는 보호소 정보</p>
             <AdoptionDetailShelter pet={pet}/>
         </div>
