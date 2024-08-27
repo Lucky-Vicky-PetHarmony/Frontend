@@ -49,6 +49,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     gap: 50px;
+    margin-bottom: 120px;
 }
 
 .adoptionList_banner{

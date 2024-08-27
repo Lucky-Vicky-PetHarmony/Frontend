@@ -1,36 +1,50 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/AdoptionDetail.css";
 import AdoptionDetailPet from "./AdoptionDetailPet";
 import AdoptionDetailShelter from "./AdoptionDetailShelter";
+import useAuthStore from '../../store/useAuthStore';
+import axios from "axios";
+import { useParams } from "react-router-dom";
+
 
 const AdoptionDetail = () => {
+    // 공유저장소에서 토큰과 userId 가져옴
+    const { token, userId } = useAuthStore();
+    
+    // 서버로 부터 받은 데이터 저장
+    const [ pet, setPet ] = useState(null);
 
-    // TODO: 정보 받아오기
-    // 하드코딩된 데이터
-    const pet = {
-        weekend_operating_hours: "운영 안함",
-        words: ["건강한", "활발한", "특별한"],
-        kind_cd_detail: "믹스견",
-        kind_cd: "개",
-        happen_place: "평창동 207-1  홍지문터널관리소 인근",
-        care_nm: "한국동물구조관리협회",
-        special_mark: "경계. 예민. 사나움. 코검정. 우전지파행및부종. 털때탐. 꼬리단미안됨. ",
-        care_addr: "서울특별시 마포구 만리재로 74 (신공덕동, 신공덕2차삼성래미안) 삼성 래미안상가 117호",
-        week_operating_hours: "09:00 ~ 18:00",
-        pet_like: true,
-        save_trgt_animal: "개",
-        popfile: "http://www.animal.go.kr/files/shelter/2024/07/202407251707806.jpg",
-        happen_dt: "2024-07-24",
-        close_day: "일요일",
-        care_tel: "031-867-9119",
-        color_cd: "갈",
-        org_nm: "경기도 하남시",
-        notice_period: "2024-07-25 ~ 2024-08-05",
-        age: "2022년생",
-        sex_cd: "여아",
-        neuter_yn: "알 수 없음",
-        weight: "17(kg)"
+    // 보여줄 입양동물의 boardId를 url에서 추출
+    const { desertionNo } = useParams(); //URL파라미터를 가져옴. 여기서는 게시물 번호를 가져옴
+
+    useEffect(() => {
+        axiosAdoptionDetail();
+    }, [])
+
+    // 서버에 입양동물 리스트 요청
+    const axiosAdoptionDetail = async () => {
+        try {
+            const response = await axios.get(`http://localhost:8080/api/public/${desertionNo}/${userId?userId:0}`, {
+                headers: {
+                    Authorization: token ? `Bearer ${token}` : undefined,
+                },
+            });
+
+            if (response.status === 200) {
+                setPet(response.data);
+            } else {
+                alert("데이터 불러오기 실패");
+            }
+        } catch (error) {
+            alert("서버와의 통신 중 오류가 발생했습니다.");
+            console.error("Error: ", error);
+        }
     };
+
+    // 데이터가 아직 로드되지 않았을 때 로딩 메시지 표시
+    if (!pet) {
+        return <div>Loading...</div>;
+    }
     
     return (
         <div className="adoptionDetail">

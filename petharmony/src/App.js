@@ -55,7 +55,7 @@ function App() {
           <Route path="/board/edit-post" element={<BoardPost isLogin={isLogin} />} />
           <Route path="/mypage/*" element={<MyPage />} />
           <Route path="/adoption" element={<AdoptionList />} />
-          <Route path="/adoption/1" element={<AdoptionDetail />} />
+          <Route path="/adoption/:desertionNo" element={<AdoptionDetail />} />
           <Route path="/matching" element={<Matching />} />
           <Route path="/matching-list" element={<MatchingList />} />
           <Route path="/authority" element={<Authority />} />
