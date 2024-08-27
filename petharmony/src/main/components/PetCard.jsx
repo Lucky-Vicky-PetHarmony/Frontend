@@ -50,7 +50,7 @@ const PetCard = ({ pet }) => {
                     </div>
                     <div className="pc_info_row_item">
                         <img src={weightIcon} alt="" className="pc_info_icon" />
-                        <span>{pet.weigth}</span>
+                        <span>{pet.weight}</span>
                     </div>
                 </div>
                 <div className="pc_info_row">
