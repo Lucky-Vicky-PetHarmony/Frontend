@@ -12,9 +12,11 @@ import weightIcon from "../assets/weightIcon.png";
 import locationIcon from "../assets/locationIcon.png";
 import statusIcon from "../assets/statusIcon.png";
 import temp from "../assets/temp.png"; // 임시 이미지
+import axios from "axios";
+
 import { useNavigate } from 'react-router-dom';
 
-const PetCard = ({pet}) => {
+const PetCard = ({pet, userId, token}) => {
     const nav = useNavigate();
 
     const [petLike, setPetLike] = useState(pet.pet_like);
@@ -22,9 +24,32 @@ const PetCard = ({pet}) => {
     const petLikeHandler = (e) => {
         e.stopPropagation();
         setPetLike(prev => !prev);
+        axiosPetLike();
     }
 
-    // TODO: 좋아요처리
+    // TODO: 좋아요처리(좋아요 취소요청인지 활성화요청인지 보내야함)
+    const axiosPetLike = async () => {
+        try {
+            const response = await axios.post(`http://localhost:8080/api/user/pet-likes`, 
+                {
+                    userId: userId,                 // 유저 아이디
+                    desertionNo: pet.desertion_no,   // 입양 동물 아이디
+                    isLiked: !petLike,           // 좋아요 활성화 여부 (true: 좋아요, false: 취소)
+                },
+                {
+                    headers: {
+                        Authorization: token,
+                    },
+                });
+            if (response.status === 200) {
+            } else {
+                console.log("좋아요 실패");
+            }
+        } catch (error) {
+            alert("서버와의 통신 중 오류가 발생했습니다.");
+            console.error("Error: ", error);
+        }
+    };
 
     return (
         <div className="pet_card" onClick={() => nav(`/adoption/${pet.desertion_no}`)}>
@@ -36,7 +61,7 @@ const PetCard = ({pet}) => {
                 <img 
                     src={petLike?likeBtn:noLikeBtn} 
                     alt="좋아요"
-                    onClick={petLikeHandler} />
+                    onClick={(e) => {petLikeHandler(e)}} />
             </div>
             <div className="pc_info">
                 <div className="pc_info_row">

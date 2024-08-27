@@ -11,56 +11,56 @@ import paw_bl from '../asset/paw_bl.png';
 import bannerImg from '../asset/bannerImg.png';
 import Click from '../asset/Click.png';
 import PetCard from '../../common/pet/components/PetCard';
-import useAuthStore from '../../store/useAuthStore';
 
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 
 const AdoptionList = () => {
-    // 페이지 이동시
     const nav = useNavigate();
     
-    // 공유저장소에서 토큰과 userId 가져옴
-    const { token, userId } = useAuthStore();
+    // localstorage에서 토큰과 userId를 가져옴
+    const userId = localStorage.getItem("userId");
+    const token = localStorage.getItem("token");
 
-    const [ pets, setPets ] = useState([]);                   // 서버에서 가져온 동물 데이터
-    const [isLoading, setIsLoading] = useState(true);       // 초기 로딩 상태 추가
-    const [ page, setPage ] = useState(0);                  // 요청할 페이지
-    const [isFetching, setIsFetching] = useState(false);    // 추가 데이터 요청 중 상태
+    // 서버에서 가져온 동물 데이터와 관련된 상태들
+    const [pets, setPets] = useState([]);                 // 동물 데이터 목록
+    const [isLoading, setIsLoading] = useState(true);       // 로딩 상태 관리
+    const [page, setPage] = useState(0);                  // 현재 페이지 번호
+    const [isFetching, setIsFetching] = useState(false);    // 데이터 요청 중인지 여부
 
-    const [adoptCategory, setAdoptCategory] = useState("ALL");  // 카테고리 선택
+    const [adoptCategory, setAdoptCategory] = useState("ALL");  // 선택된 카테고리
 
-    // 페이지 값이 증가하거나, 카테고리가 변한때 서버에 데이터 요청
+    // 페이지 번호 또는 카테고리가 변경될 때마다 데이터를 요청
     useEffect(() => {
         axiosAdoptionList();
     }, [page, adoptCategory]);
 
-
+    // 스크롤 이벤트 리스너 설정
     useEffect(() => {
-        // 윈도우 객체에 스크롤 이벤트 리스너 추가, 사용자가 페이지를 스크롤할때마다 handleScroll 함수 호출
+        const handleScroll = () => {
+            // 사용자가 페이지 끝에 도달하고 데이터 요청 중이 아닌 경우
+            if (
+                window.innerHeight + window.scrollY >= document.documentElement.offsetHeight - 50 &&
+                !isFetching
+            ) {
+                // 페이지 번호를 증가시켜 다음 데이터를 요청
+                setPage((prevPage) => prevPage + 1);
+            }
+        };
+
+        // 스크롤 이벤트 리스너 등록
         window.addEventListener("scroll", handleScroll);
-        // 컴포넌트가 언마운트, 리렌더링될 때 호출, 메모리 누수 방지
+        // 컴포넌트가 언마운트될 때 리스너 제거
         return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
-
-
-    // 사용자가 페이지를 스크롤할 때마다 호출, 페이지 끝에 도달했는지 확인
-    const handleScroll = () => {
-
-        // window.innerHeight : 브라우저 창의 뷰포트 높이
-        // document.documentElement.scrollTop : 현재 문서 상단에서부터 현재 스크롤 위치까지의 거리
-        // document.documentElement.offsetHeight-450 : 마지막 페이지의 카드의 하단
-        if ((window.innerHeight + window.scrollY >= document.documentElement.offsetHeight-450) && !isFetching) {
-        setIsFetching(true);
-        setPage(prevPage => prevPage + 1);
-    }
-    };
+    }, [isFetching]);
 
     // 서버에 입양동물 리스트 요청
     const axiosAdoptionList = async () => {
+        if (isFetching) return; // 이미 요청 중이라면 함수 종료
+        setIsFetching(true); // 데이터 요청 시작
         try {
-            const response = await axios.get(`http://localhost:8080/api/public/${getCategoryEndpoint()}/${userId?userId:0}`, {
+            const response = await axios.get(`http://localhost:8080/api/public/${getCategoryEndpoint()}/${userId ? userId : 0}`, {
                 params: {
                     page: page
                 },
@@ -70,21 +70,25 @@ const AdoptionList = () => {
             });
 
             if (response.status === 200) {
-                setPets(prevPets => [...prevPets, ...response.data]); // 이전 데이터에 새로운 데이터 추가
-                setIsLoading(false);
-                setIsFetching(false);
+                if (response.data.length === 0) {
+                    // 더 이상 데이터가 없는 경우
+                    setIsFetching(false);
+                    return;
+                }
+                setPets((prevPets) => [...prevPets, ...response.data]); // 기존 데이터에 추가
+                setIsLoading(false); // 로딩 상태 해제
             } else {
                 alert("데이터 불러오기 실패");
             }
         } catch (error) {
             alert("서버와의 통신 중 오류가 발생했습니다.");
             console.error("Error: ", error);
-        }finally{
-            setIsFetching(false);
+        } finally {
+            setIsFetching(false); // 데이터 요청 종료
         }
     };
 
-    // 카테고리에 따라 엔드포인트 변경
+    // 카테고리에 따라 엔드포인트를 변경
     const getCategoryEndpoint = () => {
         switch (adoptCategory) {
             case "DOG":
@@ -98,10 +102,10 @@ const AdoptionList = () => {
         }
     };
 
-    // 카테고리가 바뀌면 첫번째 페이지로 초기화 및 기존 데이터 초기화
+    // 카테고리가 바뀌면 첫 번째 페이지로 초기화하고 기존 데이터를 초기화
     const handleCategoryChange = (category) => {
         setAdoptCategory(category);
-        setPets([]); // 카테고리가 변경되면 기존 데이터 초기화
+        setPets([]); // 기존 데이터 초기화
         setPage(0); // 페이지 번호 초기화
         setIsLoading(true); // 로딩 상태로 설정
     };
@@ -117,35 +121,35 @@ const AdoptionList = () => {
                 <div className="adoptionList_category_com"
                     onClick={() => handleCategoryChange("ALL")}>
                     <img 
-                        src={adoptCategory==="ALL" ? all_b : all_bl } 
+                        src={adoptCategory === "ALL" ? all_b : all_bl } 
                         alt="전체" />
-                    <p className={`${adoptCategory==="ALL"?"active":""}`}>전체</p>
+                    <p className={`${adoptCategory === "ALL" ? "active" : ""}`}>전체</p>
                 </div>
                 <div className="adoptionList_category_com"
                     onClick={() => handleCategoryChange("DOG")}>
                     <img 
-                        src={adoptCategory==="DOG" ? dog_b : dog_bl } 
+                        src={adoptCategory === "DOG" ? dog_b : dog_bl } 
                         alt="" />
-                    <p className={`${adoptCategory==="DOG"?"active":""}`}>강아지</p>
+                    <p className={`${adoptCategory === "DOG" ? "active" : ""}`}>강아지</p>
                 </div>
                 <div className="adoptionList_category_com"
                     onClick={() => handleCategoryChange("CAT")}>
                     <img 
-                        src={adoptCategory==="CAT" ? cat_b : cat_bl } 
+                        src={adoptCategory === "CAT" ? cat_b : cat_bl } 
                         alt="" />
-                    <p className={`${adoptCategory==="CAT"?"active":""}`}>고양이</p>
+                    <p className={`${adoptCategory === "CAT" ? "active" : ""}`}>고양이</p>
                 </div>
                 <div className="adoptionList_category_com"
                     onClick={() => handleCategoryChange("OTHER")}>
                     <img 
-                        src={adoptCategory==="OTHER" ? paw_b : paw_bl } 
+                        src={adoptCategory === "OTHER" ? paw_b : paw_bl } 
                         alt="" />
-                    <p className={`${adoptCategory==="OTHER"?"active":""}`}>그 외</p>
+                    <p className={`${adoptCategory === "OTHER" ? "active" : ""}`}>그 외</p>
                 </div>
             </div>
             <div className="adoptionList_Group">
                 {pets.map((pet, index) => (
-                    <PetCard key={index} pet={pet} />
+                    <PetCard key={index} pet={pet}/>
                 ))}
             </div>
             <div className="adoptionList_banner" onClick={() => nav('/matching')}>
