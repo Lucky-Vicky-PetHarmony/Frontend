@@ -71,7 +71,7 @@ const MyPage = () => {
                     {/* 특정 경로에 대해 각 컴포넌트 렌더링 */}
                     <Route path="profile-edit" element={<ProfileEdit token={token} profile={profile} setProfile={setProfile} />} />
                     <Route path="password-edit" element={<PasswordEdit token={token} profile={profile} />} />
-                    <Route path="interested-pets" element={<InterestedPets />} />
+                    <Route path="interested-pets" element={<InterestedPets token={token} />} />
                     <Route path="pin-posts" element={<PinPosts token={token} />} />
                     <Route path="my-comments" element={<MyComments token={token} />} />
                     <Route path="my-posts" element={<MyPosts token={token} />} />
