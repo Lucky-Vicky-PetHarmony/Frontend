@@ -14,7 +14,7 @@ import BoardListElem from "../../board/components/boardList/BoardListElem";
 import PetCard from "../../common/pet/components/PetCard";
 
 const Main = () => {
-    const { userId } = useAuthStore();
+    const { token, userId } = useAuthStore();
     // useNavigate() 호출
     const navigate = useNavigate();
     // 공고일이 지난 유기 동물들
@@ -34,7 +34,7 @@ const Main = () => {
             }
         };
         fetchPets();
-    }, []);
+    }, [userId]);
 
     // 게시물 가져오기
     useEffect(() => {
@@ -70,7 +70,7 @@ const Main = () => {
             <img className="main_title" src={adoptionTitle} alt="" />
             <div className="main_adoption">
                 {pets.map((pet, index) => (
-                    <PetCard key={index} pet={pet} />
+                    <PetCard key={index} pet={pet} token={token} userId={userId} />
                 ))}
             </div>
             <img className="main_title" src={boardTitle} alt="" />

@@ -5,7 +5,7 @@ import PetCard from "../../../common/pet/components/PetCard";
 import useAuthStore from "../../../store/useAuthStore";
 
 const InterestedPets = ({ token }) => {
-    const { userId} = useAuthStore();
+    const { userId } = useAuthStore();
     // 내가 관심있는 입양 동물 상태
     const [pets, setPets] = useState([]);
 
@@ -30,8 +30,8 @@ const InterestedPets = ({ token }) => {
         <div className="interested_pets">
             <p className="ip_title">관심있는 입양동물</p>
             <div className="ip_content">
-                {pets.map(pet => (
-                    <PetCard key={pet.desertionNo} pet={pet} />
+                {pets.map((pet, index) => (
+                    <PetCard key={index} pet={pet} token={token} userId={userId} />
                 ))}
             </div>
         </div>
