@@ -30,7 +30,6 @@ const AdoptionDetailPet = ({pet, token, userId}) => {
             return;
         }
         axiosPetLike();
-        setPetLike(prev => !prev);
     }
 
     // TODO: 좋아요처리(좋아요 취소요청인지 활성화요청인지 보내야함)
