@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import './common.css';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import useAuthStore from "./store/useAuthStore";
@@ -21,9 +21,11 @@ import AdoptionDetail from "./adoption/components/AdoptionDetail";
 import Authority from "./common/authority/Authority";
 import ProtectedRoute from "./common/authority/ProtectedRoute";
 import MatchingList from "./matching/components/MatchingList";
+import Loading from "./common/Loading/Loading";
 
 function App() {
   const login = useAuthStore((state) => state.login);
+  const [initialized, setInitialized] = useState(false);
   const activeModal = useModalStore((state) => state.activeModal);
   const findAccountMode = useModalStore((state) => state.findAccountMode);
   const isLogin = useAuthStore((state) => state.isLogin);
@@ -37,8 +39,13 @@ function App() {
     if (token && email && name && role && userId) {
       login(token, email, name, role, userId);
     }
+    setInitialized(true);  // 초기화 완료 설정
   }, [login]);
 
+  if (!initialized) {
+    return <Loading />;
+  }
+  
   return (
     <Router>
       <Layout>

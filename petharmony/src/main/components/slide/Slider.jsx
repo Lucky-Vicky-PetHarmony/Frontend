@@ -24,7 +24,6 @@ const Slider = () => {
             try {
                 const response = await axios.get('http://localhost:8080/api/public/slides');
                 setSlides(response.data);
-                console.log(response.data);
             } catch (error) {
                 console.error("슬라이드를 가져오는 데 실패했습니다:", error);
             }
