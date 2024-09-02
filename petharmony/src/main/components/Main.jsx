@@ -28,7 +28,6 @@ const Main = () => {
             try {
                 const response = await axios.get(`http://localhost:8080/api/public/petCards/${userId ? userId : 0}`);
                 setPets(response.data);
-                console.log(response.data);
             } catch (error) {
                 console.log("유기동물 데이터를 가져오는 데 실패했습니다.", error);
             }
