@@ -43,7 +43,7 @@ const AdoptionDetailPet = ({pet, token, userId}) => {
                 },
                 {
                     headers: {
-                        Authorization: token,
+                        Authorization: `Bearer ${token}`,
                     },
                 });
             if (response.status === 200) {
