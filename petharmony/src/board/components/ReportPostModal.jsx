@@ -52,6 +52,20 @@ const ReportPostModal = ({setReportModal, mode, reportData, userId, token}) => {
             alert("신고 처리 중 오류가 발생했습니다.");
         }
     }
+
+    //이름 필터링
+    const nameFormat = (name) => {
+        if(name==="(알수없음)"){
+            return name
+        } else if(name.length <= 2) {
+            // 이름이 2글자 이하인 경우 첫 글자만 남기고 * 처리
+            return name[0] + '*';
+        } else {
+            // 첫 글자와 마지막 글자를 제외한 부분을 *로 처리
+            const middle = '*'.repeat(name.length - 2);
+            return name[0] + middle + name[name.length - 1];
+        }
+    }
     
 
     return (
@@ -64,7 +78,7 @@ const ReportPostModal = ({setReportModal, mode, reportData, userId, token}) => {
             {/* 피신고자 */}
             <div className="RPM_reported">
                 <p>피신고자</p>
-                <p className="report_name">{reportData.reportedName}</p>
+                <p className="report_name">{nameFormat(reportData.reportedName)}</p>
             </div>
 
             {/* 신고 유형 선택 */}

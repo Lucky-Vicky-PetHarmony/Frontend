@@ -173,7 +173,7 @@ const AdoptionList = () => {
                     borderRadius:"32px", 
                     position:"fixed",
                     bottom:"100px",
-                    right:"120px",
+                    right:"212px",
                     boxShadow:"4px 4px 10px rgba(0,0,0,0.25)",
                     cursor:"pointer"
                     }}
