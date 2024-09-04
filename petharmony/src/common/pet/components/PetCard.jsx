@@ -43,7 +43,7 @@ const PetCard = ({pet, userId, token}) => {
                 },
                 {
                     headers: {
-                        Authorization: token,
+                        Authorization: `Bearer ${token}`,
                     },
                 });
             if (response.status === 200) {
