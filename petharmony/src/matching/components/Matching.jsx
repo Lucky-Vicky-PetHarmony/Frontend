@@ -72,7 +72,7 @@ const Matching = () => {
                 },
                 {
                     headers: {
-                        Authorization: token,
+                        Authorization:`Bearer ${token}`
                     },
                 });
             if (response.status === 200) {
@@ -97,7 +97,7 @@ const Matching = () => {
                 },
                 {
                     headers: {
-                        Authorization: token,
+                        Authorization: `Bearer ${token}`
                     },
                 });
             if (response.status === 200) {
