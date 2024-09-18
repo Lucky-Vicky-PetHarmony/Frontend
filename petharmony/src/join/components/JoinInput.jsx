@@ -6,13 +6,9 @@ import passwordIcon from "../assets/join_password.png";
 import phoneIcon from "../assets/join_phone.png";
 
 const JoinInput = ({ setName, setEmail, setPassword, setPasswordCheck, setPhone }) => {
-    // 비밀번호 입력 필드
     const [localPassword, setLocalPassword] = useState("");
-    // 비밀번호 확인 입력 필드
     const [localPasswordCheck, setLocalPasswordCheck] = useState("");
-    // 비밀번호와 비밀번호 확인 필드의 값이 일치하지 않을 때 상태 : 일치하면 true
     const [passwordMismatch, setPasswordMismatch] = useState(false);
-    // 전화번호 입력 필드
     const [localPhone, setLocalPhone] = useState("");
 
     // 이름 필드에 값 입력

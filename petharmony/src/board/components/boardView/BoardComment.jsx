@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import '../../style/boardView/BoardComment.css';
 import sosImg from '../../asset/sos.png'
 import commpostImg from '../../asset/commpost.png';
-import axios from "axios";
+import axiosInstance from "../../../api/axiosConfig";
 
-const BoardComment = ({comment, masterId, updateComment, setReportModal, setReportMode, setReportData, userId, token, isLogin, formatDate}) => {
+const BoardComment = ({comment, masterId, updateComment, setReportModal, setReportMode, setReportData, userId, isLogin, formatDate}) => {
 
     const [updateForm, setUpdateForm] = useState(false);
     const [updatedContent, setUpdatedContent] = useState(comment.content);
@@ -36,16 +36,11 @@ const BoardComment = ({comment, masterId, updateComment, setReportModal, setRepo
     const commentUpdate = async () => {
         try {
             const response = await 
-                axios.put(`http://localhost:8080/api/user/comment/update`,
+            axiosInstance.put(`/api/user/comment/update`,
                     {
                         commId: comment.commId,
                         commContent: updatedContent,
                         userId: userId
-                    },
-                    {
-                        headers: {
-                            Authorization: `Bearer ${token}`
-                        },
                     }
                 );
                     
@@ -71,14 +66,11 @@ const BoardComment = ({comment, masterId, updateComment, setReportModal, setRepo
         }
         try {
             const response = await 
-                axios.delete(`http://localhost:8080/api/user/comment/delete`,
+            axiosInstance.delete(`/api/user/comment/delete`,
                     {
                         params: {
                             commId: comment.commId,
                             userId: userId
-                        },
-                        headers: {
-                            Authorization: `Bearer ${token}`
                         }
                     }
                 );

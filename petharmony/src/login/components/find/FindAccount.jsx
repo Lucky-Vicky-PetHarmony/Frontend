@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import axiosInstance from "../../../api/axiosConfig";
 import useModalStore from "../../../store/useModalStore";
 import "../../styles/find/FindAccount.css";
 import logo from "../../../common/logo/assets/logo.png";
@@ -90,7 +90,7 @@ const FindAccount = () => {
         setIsClick(true);
 
         try {
-            const response = await axios.post('http://localhost:8080/api/public/send-certification', phoneData);
+            const response = await axiosInstance.post('/api/public/send-certification', phoneData);
 
             const message = response.data;
             if (response.status === 200) {
@@ -124,7 +124,7 @@ const FindAccount = () => {
         };
 
         try {
-            const response = await axios.post('http://localhost:8080/api/public/check-certification', certificationData);
+            const response = await axiosInstance.post('/api/public/check-certification', certificationData);
 
             if (response.status === 200) {
                 const responseData = response.data;
@@ -174,7 +174,7 @@ const FindAccount = () => {
         };
 
         try {
-            const response = await axios.post('http://localhost:8080/api/public/send-email', emailData);
+            const response = await axiosInstance.post('/api/public/send-email', emailData);
 
             if (response.status === 200) {
                 if (response.data === "임시 비밀번호가 이메일로 발송되었습니다.") {

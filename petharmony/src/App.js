@@ -45,7 +45,7 @@ function App() {
   if (!initialized) {
     return <Loading />;
   }
-  
+
   return (
     <Router>
       <Layout>
@@ -54,7 +54,7 @@ function App() {
         {activeModal === 'findAccount' && <FindAccount mode={findAccountMode} />}
         <ScrollToTop />
         <Routes>
-          <Route path="/" element={<Main />} />
+          <Route path="/" element={<Main isLogin={isLogin} />} />
           <Route path="/oauth" element={<Oauth />} />
           <Route path="/board/list" element={<BoardList isLogin={isLogin} />} />
           <Route path="/board/view/:boardId" element={<BoardView isLogin={isLogin} />} />

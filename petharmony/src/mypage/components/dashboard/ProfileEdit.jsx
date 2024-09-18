@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import useAuthStore from "../../../store/useAuthStore";
-import axios from "axios";
+import axiosInstance from "../../../api/axiosConfig";
 import "../../styles/dashboard/MyEdit.css";
 import editNameIcon from "../../assets/edit_nameIcon.png";
 import editEmailIcon from "../../assets/edit_emailIcon.png";
@@ -8,10 +8,9 @@ import editPhoneIcon from "../../assets/edit_phoneIcon.png";
 import kakao from "../../assets/kakao.png";
 import InputField from "../../../common/form/components/InputField";
 
-const ProfileEdit = ({ token, profile, setProfile }) => {
-    // Zustand의 setName 함수를 통해 전역 상태의 이름 업데이트하는 함수 가져옴
+const ProfileEdit = ({ profile, setProfile }) => {
     const { setName: updateGlobalName } = useAuthStore();
-    // profile에서 초기 상태 설정
+
     const [name, setName] = useState(profile.userName);
     const [email, setEmail] = useState(profile.email);
     const [phone, setPhone] = useState(profile.phone);
@@ -22,7 +21,7 @@ const ProfileEdit = ({ token, profile, setProfile }) => {
         setName(profile.userName);
         setEmail(profile.email);
         setPhone(formatPhone(profile.phone));
-        setKakaoUser(!!profile.kakaoId); // 프로필 정보가 업데이트될 때마다 상태 업데이트
+        setKakaoUser(!!profile.kakaoId);
     }, [profile]);
 
     // 이름 입력 필드의 값이 변경될 때 상태 업데이트
@@ -48,17 +47,13 @@ const ProfileEdit = ({ token, profile, setProfile }) => {
         return phone.replace(/(\d{3})(\d{3,4})(\d{4})/, "$1-$2-$3");
     };
 
-    // 프로필 업데이트를 서버에 제출하는 함수
+    // 프로필 정보 업데이트
     const handleProfileEditSubmit = async () => {
         try {
-            const response = await axios.put('http://localhost:8080/api/user/myProfile', {
+            const response = await axiosInstance.put('/api/user/myProfile', {
                 userName: name,
                 email: email,
                 phone: phone.replace(/-/g, ''),
-            }, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
             });
 
             if (response.status === 200) {

@@ -1,31 +1,25 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axiosInstance from "../../../api/axiosConfig";
 import "../../styles/dashboard/DeleteAccount.css";
 import useAuthStore from "../../../store/useAuthStore";
 
-const DeleteAccount = ({ token }) => {
-    // useNavigate() 호출
+const DeleteAccount = () => {
     const navigate = useNavigate();
-    // store에서 logout 함수 가져옴
+
     const logout = useAuthStore((state) => state.logout);
 
     // 회원 탈퇴
     const handleClick = async () => {
         try {
-            const response = await axios.put('http://localhost:8080/api/user/deleteAccount', null, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            });
+            const response = await axiosInstance.put('/api/user/deleteAccount');
             if (response.status === 200) {
-                // 로그아웃
                 logout();
-                alert("회원탈퇴 처리되었습니다.");
-                navigate('/'); // 메인페이지로 이동
+                alert("🚨 회원탈퇴 처리되었습니다.");
+                navigate('/');
             }
         } catch (error) {
-            console.error("회원탈퇴 처리에 실패했습니다.", error);
+            console.error("🐶 회원탈퇴 처리에 실패했습니다.", error);
         }
     };
 

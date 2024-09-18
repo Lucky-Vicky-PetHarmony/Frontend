@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import useModalStore from "../../store/useModalStore";
-import axios from "axios";
+import axiosInstance from "../../api/axiosConfig";
 import "../styles/JoinModal.css";
 import logo from "../../common/logo/assets/logo.png";
 import join_success from "../assets/join_success.png";
@@ -76,7 +76,7 @@ const JoinModal = () => {
         };
 
         try {
-            const response = await axios.post('http://localhost:8080/api/public/signUp', signUpData);
+            const response = await axiosInstance.post('/api/public/signUp', signUpData);
 
             if (response.status === 200) {
                 alert(response.data);

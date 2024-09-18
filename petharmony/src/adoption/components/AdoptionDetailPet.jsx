@@ -16,16 +16,16 @@ import info from '../asset/detailIcon/info.png'
 import paw_bl from '../asset/paw_bl.png'
 import dog_bl from '../asset/dog_bl.png'
 import cat_bl from '../asset/cat_bl.png'
-import axios from "axios";
+import axiosInstance from "../../api/axiosConfig";
 
 
 
-const AdoptionDetailPet = ({pet, token, userId}) => {
+const AdoptionDetailPet = ({pet, userId}) => {
     
     const [petLike, setPetLike] = useState(pet.pet_like);
 
     const petLikeHandler = () => {
-        if(!token&&!userId){
+        if(!userId){
             alert("입양동물 좋아요는 로그인이 필요합니다.")
             return;
         }
@@ -35,16 +35,11 @@ const AdoptionDetailPet = ({pet, token, userId}) => {
     // TODO: 좋아요처리(좋아요 취소요청인지 활성화요청인지 보내야함)
     const axiosPetLike = async () => {
         try {
-            const response = await axios.post(`http://localhost:8080/api/user/pet-likes`, 
+            const response = await axiosInstance.post(`/api/user/pet-likes`, 
                 {
                     userId: userId,                 // 유저 아이디
                     desertionNo: pet.desertion_no,   // 입양 동물 아이디
                     isLiked: !petLike,           // 좋아요 활성화 여부 (true: 좋아요, false: 취소)
-                },
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
                 });
             if (response.status === 200) {
                 setPetLike(prev => !prev);

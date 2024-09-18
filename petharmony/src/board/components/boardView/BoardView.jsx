@@ -4,7 +4,7 @@ import BoardContent from "./BoardContent";
 import BoardCommentInput from './BoardCommentInput';
 import BoardComment from './BoardComment';
 import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
+import axiosInstance from "../../../api/axiosConfig";
 import ReportPostModal from "../ReportPostModal";
 
 import useAuthStore from "../../../store/useAuthStore";
@@ -12,7 +12,7 @@ import Loading from "../../../common/Loading/Loading";
 
 const BoardView = ({isLogin}) => {
     //로그인한 사용자의 token과 userId
-    const { token, userId } = useAuthStore();
+    const { userId } = useAuthStore();
 
     // 페이지 이동시에 사용
     const nav = useNavigate();
@@ -39,12 +39,9 @@ const BoardView = ({isLogin}) => {
     const fetchBoardData = async () => {
         try{
             const response = await 
-                axios
-                    .get(`http://localhost:8080/api/public/board/view`, {
-                        params: { userId: userId?userId:0, boardId },
-                        headers: {
-                            Authorization: token ? { Authorization: `Bearer ${token}` } : {}, // 토큰이 있으면 헤더에 추가
-                            },
+            axiosInstance
+                    .get(`/api/public/board/view`, {
+                        params: { userId: userId?userId:0, boardId }
                         });
                 setBoardData(response.data);
         }catch(error){
@@ -56,12 +53,9 @@ const BoardView = ({isLogin}) => {
     const fetchCommentData = async () => {
         try{
             const response = await 
-                axios
-                    .get(`http://localhost:8080/api/public/comment/list`,{
-                        params: { boardId },
-                        headers: {
-                            Authorization: token ? { Authorization: `Bearer ${token}` } : {}, // 토큰이 있으면 헤더에 추가
-                            },
+            axiosInstance
+                    .get(`/api/public/comment/list`,{
+                        params: { boardId }
                         });
                 setCommentData(response.data);
         }catch(error){
@@ -84,13 +78,11 @@ const BoardView = ({isLogin}) => {
                     setReportMode={setReportMode}
                     setReportData={setReportData}
                     userId={userId}
-                    token={token}
                     isLogin={isLogin}
                     formatDate={formatDate}/>
                 <BoardCommentInput 
                     boardId={boardId} 
                     userId={userId} 
-                    token={token}
                     onCommentSubmit={fetchCommentData}
                     isLogin={isLogin}/>
                 {commentData.map(comment => (
@@ -103,7 +95,6 @@ const BoardView = ({isLogin}) => {
                         setReportMode={setReportMode}
                         setReportData={setReportData}
                         userId={userId}
-                        token={token}
                         isLogin={isLogin}
                         formatDate={formatDate}/>
                 ))}
@@ -116,7 +107,7 @@ const BoardView = ({isLogin}) => {
                 mode={reportMode}
                 reportData = {reportData}
                 userId={userId}
-                token={token}/>)}
+            />)}
         </div> 
     );
 }

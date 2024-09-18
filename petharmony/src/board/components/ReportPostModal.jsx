@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import '../style/ReportPostModal.css';
 import redlightImg from '../asset/redlight.png'
 
-import axios from "axios";
+import axiosInstance from "../../api/axiosConfig";
 
 
-const ReportPostModal = ({setReportModal, mode, reportData, userId, token}) => {
+const ReportPostModal = ({setReportModal, mode, reportData, userId}) => {
     //mode: board이면 게시물 신고, comment이면 댓글신고
     //그 외: 신고자id, 신고자 이름, 피신고자id, 피신고자 이름, boardId(commmId) 부모로부터 받아야함
     //서버에 보낼거 : 신고자 id, 피신고자 id, 신고유형, 신고내용, 댓글인지 게시물인지, boardId(commmId)
@@ -23,7 +23,7 @@ const ReportPostModal = ({setReportModal, mode, reportData, userId, token}) => {
         }
         try {
             const response = await 
-                axios.post(`http://localhost:8080/api/user/report/post`,
+            axiosInstance.post(`/api/user/report/post`,
                     {
                         reporterId: userId,
                         reportedId: reportData.reportedId,
@@ -32,11 +32,6 @@ const ReportPostModal = ({setReportModal, mode, reportData, userId, token}) => {
                         reportBoardOrComment: mode,
                         reportPostId: reportData.boardOrCommentId
 
-                    },
-                    {
-                        headers: {
-                            Authorization: `Bearer ${token}`
-                        },
                     }
                 );
                     

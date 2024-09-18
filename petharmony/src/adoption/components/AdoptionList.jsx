@@ -13,7 +13,7 @@ import Click from '../asset/Click.png';
 import upbtn from '../asset/upbtn.png';
 import PetCard from '../../common/pet/components/PetCard';
 
-import axios from "axios";
+import axiosInstance from "../../api/axiosConfig";
 import { useNavigate } from "react-router-dom";
 import Loading from "../../common/Loading/Loading";
 
@@ -23,7 +23,6 @@ const AdoptionList = () => {
     
     // localstorage에서 토큰과 userId를 가져옴
     const userId = localStorage.getItem("userId");
-    const token = localStorage.getItem("token");
 
     // 서버에서 가져온 동물 데이터와 관련된 상태들
     const [pets, setPets] = useState([]);                 // 동물 데이터 목록
@@ -62,13 +61,10 @@ const AdoptionList = () => {
         if (isFetching) return; // 이미 요청 중이라면 함수 종료
         setIsFetching(true); // 데이터 요청 시작
         try {
-            const response = await axios.get(`http://localhost:8080/api/public/${getCategoryEndpoint()}/${userId ? userId : 0}`, {
+            const response = await axiosInstance.get(`/api/public/${getCategoryEndpoint()}/${userId ? userId : 0}`, {
                 params: {
                     page: page
-                },
-                headers: {
-                    Authorization: token ? `Bearer ${token}` : undefined,
-                },
+                }
             });
 
             if (response.status === 200) {
@@ -151,7 +147,7 @@ const AdoptionList = () => {
             </div>
             <div className="adoptionList_Group">
                 {pets.map((pet, index) => (
-                    <PetCard key={index} pet={pet} userId={userId} token={token}/>
+                    <PetCard key={index} pet={pet} userId={userId} />
                 ))}
             </div>
             {isFetching&&(<div className="adoptionList_loading">
