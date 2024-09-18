@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import '../style/ReportDetailModal.css';
-import axios from "axios";
+import axiosInstance from "../../api/axiosConfig";
 import { useNavigate } from 'react-router-dom';
 import Loading from '../../common/Loading/Loading';
 
 
 
-const ReportDetailModal = ({setModal, reportDetailId, setReportDetailId, token}) => {
+const ReportDetailModal = ({setModal, reportDetailId, setReportDetailId}) => {
     const nav = useNavigate();
 
     const [reportDetailData, setReportDetailData] = useState(null);
@@ -17,21 +17,14 @@ const ReportDetailModal = ({setModal, reportDetailId, setReportDetailId, token})
 
     // 요청하는 reportid가 바뀔때마다
     useEffect(() => {
-        if(token){
-            axiosReportDetail();
-        }
-    }, [reportDetailId, token]);
+        axiosReportDetail();
+    }, [reportDetailId]);
 
     // 서버에 신고 리스트 요청
     const axiosReportDetail = async () => {
         try {
             setLoading(true);
-            const response = await axios.get(`http://localhost:8080/api/admin/report/detail/${reportDetailId}`,
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    },
-                });
+            const response = await axiosInstance.get(`/api/admin/report/detail/${reportDetailId}`);
 
             if (response.status === 200) {
                 setReportDetailData(response.data);
@@ -52,13 +45,10 @@ const ReportDetailModal = ({setModal, reportDetailId, setReportDetailId, token})
     // 서버에 신고 처리 요청
     const axiosReportProcessing = async () => {
         try {
-            const response = await axios.put(`http://localhost:8080/api/admin/report/processing/${reportDetailId}`, null,{
+            const response = await axiosInstance.put(`/api/admin/report/processing/${reportDetailId}`, null,{
                 params: {
                     processing: reportProcessing
-                },
-                headers: {
-                    Authorization: `Bearer ${token}`
-                },
+                }
             });
 
             if (response.status === 200) {

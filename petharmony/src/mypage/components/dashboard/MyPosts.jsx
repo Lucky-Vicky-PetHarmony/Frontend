@@ -1,28 +1,23 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import axiosInstance from "../../../api/axiosConfig";
 import "../../styles/dashboard/MyPosts.css";
 import BoardListElem from "../../../board/components/boardList/BoardListElem";
 
-const MyPosts = ({token}) => {
-    // 내가 쓴 게시물 목록 상태
+const MyPosts = () => {
     const [posts, setPosts] = useState([]);
 
-    // PIN 게시물 가져오는 함수
+    // PIN 게시물
     useEffect(() => {
         const fetchMyPosts = async () => {
             try {
-                const response = await axios.get('http://localhost:8080/api/user/myPosts', {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                });
+                const response = await axiosInstance.get('/api/user/myPosts');
                 setPosts(response.data);
             } catch (error) {
                 console.error("핀 게시물을 가져오는 데 실패했습니다:", error);
             }
         };
         fetchMyPosts();
-    }, [token]);
+    }, []);
 
     return (
         <div className="my_posts">

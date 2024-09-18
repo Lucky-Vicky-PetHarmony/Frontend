@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import '../../style/boardView/BoardCommentInput.css';
 import commpostImg from '../../asset/commpost.png';
 import warningImg from '../../asset/warning.png'
-import axios from "axios";
+import axiosInstance from "../../../api/axiosConfig";
 
 
-const BoardCommentInput = ({ boardId, userId, token, onCommentSubmit, isLogin }) => {
+const BoardCommentInput = ({ boardId, userId, onCommentSubmit, isLogin }) => {
     const [ commentContent, setCommentContent ] = useState(""); // 입력된 댓글
 
     // 댓글 작성
@@ -22,16 +22,11 @@ const BoardCommentInput = ({ boardId, userId, token, onCommentSubmit, isLogin })
 
         try {
             const response = await 
-                axios.post('http://localhost:8080/api/user/comment/post',
+            axiosInstance.post('/api/user/comment/post',
                     {
                         boardId: boardId,
                         userId: userId,
                         commContent: commentContent
-                    },
-                    {
-                        headers: {
-                            Authorization: `Bearer ${token}`
-                        },
                     }
                 );
 

@@ -7,18 +7,17 @@ import layoutLogo from "../../logo/layoutLogo.png";
 import arrow from "../assets/arrow.png";
 
 const Header = () => {
-    // Zustand의 useModalStore 훅을 사용하여 가져옴
     const openLoginModal = useModalStore((state) => state.openLoginModal);
-    // Zustand의 useAuthStore 훅을 사용하여 가져옴
+
     const { isLogin, name, role, logout } = useAuthStore((state) => ({
         isLogin: state.isLogin,
         name: state.name,
         role: state.role,
         logout: state.logout
     }));
-     // 현재 경로 확인을 위한 hook
+
      const location = useLocation();
-    // 드롭다운 메뉴
+
     const [showDropDownMenu, setShowDropDownMenu] = useState(false);
 
     // 로그인을 했을 때 드롭다운 메뉴 : USER(마에페이지, 로그아웃) || ADMIN(신고목록, 로그아웃)
@@ -26,7 +25,6 @@ const Header = () => {
         setShowDropDownMenu(!showDropDownMenu);
     };
 
-    // 로그아웃
     const handleLogout = () => {
         logout();
     };

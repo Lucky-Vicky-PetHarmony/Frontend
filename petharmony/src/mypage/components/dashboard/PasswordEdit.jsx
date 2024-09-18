@@ -1,12 +1,12 @@
 import React, { useState } from "react";
+import axiosInstance from "../../../api/axiosConfig";
 import "../../styles/dashboard/MyEdit.css";
 import prePasswordIcon from "../../assets/prePasswordIcon.png";
 import newPasswordIcon from "../../assets/newPasswordIcon.png";
 import kakao from "../../assets/kakao.png";
 import InputField from "../../../common/form/components/InputField";
-import axios from "axios";
 
-const PasswordEdit = ({ token, profile }) => {
+const PasswordEdit = ({ profile }) => {
     const [prePassword, setPrePassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
     const [passwordCheck, setPasswordCheck] = useState("");
@@ -26,7 +26,7 @@ const PasswordEdit = ({ token, profile }) => {
 
     const handlePasswordEditSubmit = async () => {
         if (newPassword !== passwordCheck) {
-            alert('새 비밀번호와 확인 비밀번호가 일치하지 않습니다.');
+            alert('🐶 새 비밀번호와 확인 비밀번호가 일치하지 않습니다.');
             return;
         }
 
@@ -36,11 +36,7 @@ const PasswordEdit = ({ token, profile }) => {
         };
 
         try {
-            const response = await axios.put('http://localhost:8080/api/user/password', passwordEditData, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
+            const response = await axiosInstance.put('/api/user/password', passwordEditData);
 
             if (response.status === 200) {
                 setPrePassword("");
@@ -48,8 +44,8 @@ const PasswordEdit = ({ token, profile }) => {
                 setPasswordCheck("");
             }
         } catch (error) {
-            alert('비밀번호 변경에 실패했습니다.');
-            console.error('비밀번호 수정을 실패했습니다.');
+            alert('🐶 비밀번호 변경에 실패했습니다.');
+            console.error('비밀번호 변경을 실패했습니다.');
         }
     };
 

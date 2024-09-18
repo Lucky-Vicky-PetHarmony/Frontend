@@ -5,12 +5,14 @@ import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import "../../styles/slide/Slider.css";
 import SlideItem from "./SlideItem";
-import axios from "axios";
+import axiosInstance from "../../../api/axiosConfig";
 import loading from "../../assets/slideLoading.png";
 
 const Slider = () => {
     const [slides, setSlides] = useState([]);
+
     const swiperRef = useRef(null);
+
     const navigate = useNavigate();
 
     // 입양동물 상세 페이지로 이동
@@ -18,11 +20,11 @@ const Slider = () => {
         navigate(`/adoption/${desertionNo}`);
     }
 
-    // 슬라이더 데이터 가져오기
+    // 공고일이 지나지 않은 유기 동물 슬라이더
     useEffect(() => {
         const fetchSlides = async () => {
             try {
-                const response = await axios.get('http://localhost:8080/api/public/slides');
+                const response = await axiosInstance.get('/api/public/slides');
                 setSlides(response.data);
             } catch (error) {
                 console.error("슬라이드를 가져오는 데 실패했습니다:", error);

@@ -7,16 +7,15 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import useAuthStore from "../../store/useAuthStore";
 import axios from "axios";
+import axiosInstance from "../../api/axiosConfig";
 
 export function Oauth() {
     const navigate = useNavigate();
-    // store에서 login 함수 가져옴
+
     const login = useAuthStore((state) => state.login);
-    // REST API KEY
+
     const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
-    // Redirect URI
     const REDIRECT_URI = `http://localhost:3000/oauth`;
-    // Kakao에서 제공하는 인가 코드
     const code = new URL(window.location.href).searchParams.get("code");
 
     // 인가 코드를 사용하여 엑세스 토큰을 요청
@@ -53,7 +52,7 @@ export function Oauth() {
                 .then(response => {
                     if (response && response.data.access_token) {
                         // 액세스 토큰을 얻으면 이를 서버에 전달
-                        return axios.post("http://localhost:8080/api/public/kakao", {
+                        return axiosInstance.post("/api/auth/kakao", {
                             accessToken: response.data.access_token
                         });
                     } else {
@@ -68,17 +67,10 @@ export function Oauth() {
                         const role = res.data.role;       // 권한
                         const userId = res.data.userId    // 회원 번호
         
-                        // localStorage에 저장 후 로그인
-                        localStorage.setItem('token', token);
-                        localStorage.setItem('email', email);
-                        localStorage.setItem('name', name);
-                        localStorage.setItem('role', role);
-                        localStorage.setItem('userId', userId);
                         login(token, email, name, role, userId);
-                        alert("🐶카카오 로그인 처리되었습니다.");
                         navigate("/");
                     } else {
-                        throw new Error("카카오 로그인에 오류가 발생했습니다.");
+                        throw new Error("🐶 카카오 로그인에 오류가 발생했습니다.");
                     }
                 })
                 .catch(err => console.error("Error:", err));

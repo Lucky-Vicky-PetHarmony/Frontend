@@ -7,10 +7,10 @@ import commImg from '../../asset/comment.png'
 import viewImg from '../../asset/view.png'
 import dogImg from '../../asset/dog.png'
 import sosImg from '../../asset/sos.png'
-import axios from "axios";
+import axiosInstance from "../../../api/axiosConfig";
 import { useNavigate } from "react-router-dom";
 
-const BoardContent = ({board, commCount, setReportModal, setReportMode, setReportData, userId, token, isLogin, formatDate}) => {
+const BoardContent = ({board, commCount, setReportModal, setReportMode, setReportData, userId, isLogin, formatDate}) => {
 
     // 페이지 이동
     const nav = useNavigate();
@@ -46,16 +46,11 @@ const BoardContent = ({board, commCount, setReportModal, setReportMode, setRepor
         }
         try {
             const response = await
-                axios.post(`http://localhost:8080/api/user/board/pinned`,
+            axiosInstance.post(`/api/user/board/pinned`,
                     {
                         userId: userId,
                         boardId: board.boardId,
                         pinAction: pin ? "unlike" : "like"
-                    },
-                    {
-                        headers: {
-                            Authorization: `Bearer ${token}`
-                        },
                     }
                 );
                 if(response.status === 200 && response.data.boardId === board.boardId){
@@ -107,15 +102,12 @@ const BoardContent = ({board, commCount, setReportModal, setReportMode, setRepor
         }
         try {
             const response = await 
-                axios.delete(`http://localhost:8080/api/user/board/delete`,
+            axiosInstance.delete(`/api/user/board/delete`,
                     {
                         params: {
                             boardId: board.boardId,
                             userId: userId
-                        },
-                        headers: {
-                            Authorization: `Bearer ${token}`
-                        },
+                        }
                     });
 
                     if (response.status === 200){

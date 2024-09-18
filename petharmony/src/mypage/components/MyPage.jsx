@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
-import useAuthStore from "../../store/useAuthStore";
-import axios from "axios";
+import axiosInstance from "../../api/axiosConfig";
 import "../styles/MyPage.css";
 import MyProfile from "./profile/MyProfile";
 import SideBar from "./nav/SideBar";
@@ -14,9 +13,8 @@ import MyPosts from "./dashboard/MyPosts";
 import DeleteAccount from "./dashboard/DeleteAccount";
 
 const MyPage = () => {
-    // Zustand를 사용하여 토큰을 가져옴
-    const { token } = useAuthStore();
     const navigate = useNavigate();
+
     // 공통 상태 관리
     const [profile, setProfile] = useState({
         userName: "",
@@ -24,22 +22,19 @@ const MyPage = () => {
         phone: "",
         kakaoId: ""
     });
-    // 탈퇴 상태를 저장하기 위한 상태
+
     const [isWithdrawn, setIsWithdrawn] = useState(false);
-    // 프로필 정보를 가져오기 위한 비동기 함수
+    
+    // 프로필 정보
     useEffect(() => {
         const fetchMyProfile = async () => {
             try {
-                const response = await axios.get('http://localhost:8080/api/user/myProfile', {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    },
-                });
+                const response = await axiosInstance.get('/api/user/myProfile');
                 if (response.status === 200) {
                     setProfile(response.data);
                 }
             } catch (error) {
-                if (error.response && error.response.status === 403) {
+                if (error.response && error.response.status === 410) {
                     console.error("사용자가 탈퇴된 상태입니다.");
                     setIsWithdrawn(true); // 탈퇴 상태로 설정
                 } else {
@@ -48,9 +43,9 @@ const MyPage = () => {
             }
         };
         fetchMyProfile();
-    }, [token]);
+    }, []);
 
-    // 탈퇴된 사용자인 경우 메인페이지로 이동
+    // 탈퇴한 사용자인 경우 메인페이지로 이동
     useEffect(() => {
         if (isWithdrawn) {
             navigate('/');
@@ -60,22 +55,21 @@ const MyPage = () => {
     return (
         <div className="my_page">
             <div className="mp_left">
-                {/* profile props로 전달 */}
                 <MyProfile profile={profile} />
                 <SideBar />
             </div>
             <div className="mp_right">
                 <Routes>
-                    {/* 기본 경로로 렌더링하며 profile, setProfile props로 전달 */}
-                    <Route index element={<ProfileEdit token={token} profile={profile} setProfile={setProfile} />} />
+                    {/* 기본 경로로 렌더링 */}
+                    <Route index element={<ProfileEdit profile={profile} setProfile={setProfile} />} />
                     {/* 특정 경로에 대해 각 컴포넌트 렌더링 */}
-                    <Route path="profile-edit" element={<ProfileEdit token={token} profile={profile} setProfile={setProfile} />} />
-                    <Route path="password-edit" element={<PasswordEdit token={token} profile={profile} />} />
-                    <Route path="interested-pets" element={<InterestedPets token={token} />} />
-                    <Route path="pin-posts" element={<PinPosts token={token} />} />
-                    <Route path="my-comments" element={<MyComments token={token} />} />
-                    <Route path="my-posts" element={<MyPosts token={token} />} />
-                    <Route path="delete-account" element={<DeleteAccount token={token} />} />
+                    <Route path="profile-edit" element={<ProfileEdit profile={profile} setProfile={setProfile} />} />
+                    <Route path="password-edit" element={<PasswordEdit profile={profile} />} />
+                    <Route path="interested-pets" element={<InterestedPets />} />
+                    <Route path="pin-posts" element={<PinPosts />} />
+                    <Route path="my-comments" element={<MyComments />} />
+                    <Route path="my-posts" element={<MyPosts />} />
+                    <Route path="delete-account" element={<DeleteAccount />} />
                 </Routes>
             </div>
         </div>

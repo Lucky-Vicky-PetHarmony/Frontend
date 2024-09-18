@@ -1,21 +1,16 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import axiosInstance from "../../../api/axiosConfig";
 import "../../styles/dashboard/MyComments.css";
 import MyCommentList from "../dashboard/commentList/MyCommentList";
 
-const MyComments = ({ token }) => {
-    // 댓글 상태 
+const MyComments = () => {
     const [commentData, setCommentData] = useState([]);
 
-    // 내가 작성한 댓글 가져오기
+    // 내가 쓴 댓글
     useEffect(() => {
         const fetchMyComments = async () => {
             try {
-                const response = await axios.get('http://localhost:8080/api/user/myComments', {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                });
+                const response = await axiosInstance.get('/api/user/myComments');
                 if (response.status === 200) {
                     setCommentData(response.data);
                 }
@@ -24,7 +19,7 @@ const MyComments = ({ token }) => {
             }
         };
         fetchMyComments();
-    }, [token]);
+    }, []);
 
     return (
         <div className="my_comments">

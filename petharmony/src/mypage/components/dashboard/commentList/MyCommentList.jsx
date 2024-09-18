@@ -8,7 +8,6 @@ import pinIcon from "../../../../board/asset/pin_gray.png";
 import replyIcon from "../../../assets/reply.png";
 
 const MyCommentList = ({ comment }) => {
-    // useNavigate() 호출
     const navigate = useNavigate();
 
     // 해당 게시물의 상세 페이지로 이동

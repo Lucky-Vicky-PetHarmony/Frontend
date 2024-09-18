@@ -5,7 +5,7 @@ import BoardPostContent from "./BoardPostContent";
 import BoardPostFile from './BoardPostFile';
 import BoardPostWarningMsg from '../../asset/BoardPostWarningMsg.png'
 import { useNavigate, useLocation } from 'react-router-dom';
-import axios from "axios";
+import axiosInstance from "../../../api/axiosConfig";
 
 import useAuthStore from "../../../store/useAuthStore";
 import Loading from "../../../common/Loading/Loading";
@@ -111,11 +111,7 @@ if (isLoading) {
         });
 
         try {
-            const response = await axios.post('http://localhost:8080/api/user/board/post', formData, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                },
-            });
+            const response = await axiosInstance.post('/api/user/board/post', formData);
 
             if (response.status === 200) {
                 alert(`[${response.data.title}] 작성완료`);
@@ -162,14 +158,9 @@ if (isLoading) {
 
         try {
             const response = await 
-                axios
+            axiosInstance
                     .put(`http://localhost:8080/api/user/board/update`,
-                        formData,
-                        {
-                            headers: {
-                                Authorization: `Bearer ${token}`
-                            },
-                        });
+                        formData);
                     
                     if(response.status === 200){
                         alert(`[${response.data.title}] 수정완료`);
