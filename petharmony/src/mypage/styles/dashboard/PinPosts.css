@@ -1,4 +1,5 @@
 .pin_posts {
+    position: relative;
     width: 703px;
 }
 
@@ -14,4 +15,11 @@
 
 .custom_board_list_elem {
     width: 703px;
+}
+
+.custom_board_pagination2 {
+    position: absolute;
+    top: 680px;
+    left: 50%;
+    transform: translateX(-50%); 
 }

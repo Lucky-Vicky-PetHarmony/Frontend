@@ -14,7 +14,7 @@ import statusIcon from "../assets/statusIcon.png";
 
 import { useNavigate } from 'react-router-dom';
 
-const PetCard = ({pet, userId}) => {
+const PetCard = ({pet, userId, customClass}) => {
     const nav = useNavigate();
 
     const [petLike, setPetLike] = useState(pet.pet_like);
@@ -52,7 +52,7 @@ const PetCard = ({pet, userId}) => {
     };
 
     return (
-        <div className="pet_card" onClick={() => nav(`/adoption/${pet.desertion_no}`)}>
+        <div className={`pet_card ${customClass}`} onClick={() => nav(`/adoption/${pet.desertion_no}`)}>
             <img className="pc_img" src={pet.popfile} alt="입양동물 사진" />
             <div className="pc_top">
                 <div className="pc_words">
@@ -90,7 +90,7 @@ const PetCard = ({pet, userId}) => {
                 <div className="pc_info_row">
                     <div className="pc_info_row_item">
                         <img src={locationIcon} alt="" className="pc_info_icon" />
-                        <span>{pet.care_nm}</span>
+                        <span>{pet.org_nm}</span>
                     </div>
                     <div className="pc_info_row_item">
                         <img src={statusIcon} alt="" className="pc_info_icon" />

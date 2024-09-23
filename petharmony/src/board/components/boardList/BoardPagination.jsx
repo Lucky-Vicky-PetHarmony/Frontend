@@ -3,7 +3,7 @@ import '../../style/boardList/BoardPagination.css';
 import arrowimg from '../../asset/arrow.png';
 
 
-const BoardPagination = ({setPage, totalPages, currentPage}) => {
+const BoardPagination = ({setPage, totalPages, currentPage, customClass}) => {
 
     const handlePageClick = (page) => {
         setPage(prevPage => {
@@ -24,7 +24,7 @@ const BoardPagination = ({setPage, totalPages, currentPage}) => {
     }
 
     return (
-        <div className="boardpagination">
+        <div className={`boardpagination ${customClass}`} >
             <img 
                 className="boardpagination_arrow_left" 
                 src={arrowimg} 
