@@ -1,4 +1,5 @@
 .my_posts {
+    position: relative;
     width: 703px;
 }
 
@@ -10,4 +11,11 @@
 
 .mps_content {
     margin: 21px 0 0 0;
+}
+
+.custom_board_pagination2 {
+    position: absolute;
+    top: 680px;
+    left: 50%;
+    transform: translateX(-50%); 
 }

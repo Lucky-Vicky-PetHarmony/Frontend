@@ -1,6 +1,7 @@
 .interested_pets {
     position: relative;
     width: 630px;
+    height: 900px;
 }
 
 .ip_title {
@@ -10,7 +11,7 @@
 }
 
 .ip_content {
-    margin: 37px 0 20px 0;
+    margin: 20px 0 0 0;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -23,7 +24,7 @@
 
 .custom_board_pagination {
     position: absolute;
-    top: 900px;
+    top: 850px;
     left: 50%;
     transform: translateX(-50%); 
 }
