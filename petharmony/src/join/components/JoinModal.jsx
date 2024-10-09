@@ -9,21 +9,14 @@ import LoginJoinButton from "../../common/button/components/LoginJoinButton";
 import CancleButton from "../../common/button/components/CancelButton";
 
 const JoinModal = () => {
-    // Zustand의 useModalStore 훅을 사용하여 가져옴
     const { closeModal, openLoginModal } = useModalStore();
-    // 이름
+    
     const [name, setName] = useState("");
-    // 이메일
     const [email, setEmail] = useState("");
-    // 비밀번호
     const [password, setPassword] = useState("");
-    // 비밀번호 확인
     const [passwordCheck, setPasswordCheck] = useState("");
-    // 전화번호
     const [phone, setPhone] = useState("");
-    // 회원가입 성공 여부
     const [joinSuccess, setJoinSuccess] = useState(false);
-    // 회원 가입 성공 후 타이머
     const [count, setCount] = useState(3);
     // 이메일 정규식 패턴 : 첫문자는 영문 대소문자 또는 숫자로 시작, @ 문자 이후 영문 대소문자 또는 숫자가 오고, 이후에는 2~3자리의 영문 대소문자가 와야함
     const emailRegEx = /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/;

@@ -38,7 +38,7 @@ const Main = ({ isLogin }) => {
     useEffect(() => {
         const fetchBoards = async () => {
             try {
-                const response = await axiosInstance.get('/api/public/boards?size=5');
+                const response = await axiosInstance.get('/api/public/boards?size=5&page=0');
                 setBoards(response.data.content);
             } catch (error) {
                 console.error("게시물을 가져오는 데 실패했습니다:", error);

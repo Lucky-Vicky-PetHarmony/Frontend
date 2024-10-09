@@ -3,6 +3,7 @@ import Header from "../layout/header/components/Header";
 import Footer from "../layout/footer/components/Footer";
 
 const Layout = ({ children }) => {
+    
     return (
         <>
             <Header />

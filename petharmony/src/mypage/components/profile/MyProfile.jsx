@@ -5,6 +5,7 @@ import emailIcon from "../../assets/emailIcon.png";
 import phoneIcon from "../../assets/phoneIcon.png";
 
 const MyProfile = ({ profile }) => {
+    
     return (
         <div className="my_profile">
             <p className="mp_title">MY INFO</p>

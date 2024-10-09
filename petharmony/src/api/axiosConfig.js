@@ -29,7 +29,7 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
     (response) => {
         const newToken = response.headers['Authorization'] || response.headers['authorization'];
-  
+
         if (newToken) {
             const accessToken = newToken.replace('Bearer ', '');
             useAuthStore.getState().updateToken(accessToken);
@@ -47,14 +47,14 @@ axiosInstance.interceptors.response.use(
                     '/api/auth/refresh-token',
                     {}
                 );
-                
+
                 const newToken = refreshResponse.headers['Authorization'] || refreshResponse.headers['authorization'];
-         
+
                 if (newToken) {
                     const accessToken = newToken.replace('Bearer ', '');
                     useAuthStore.getState().updateToken(accessToken);
                     localStorage.setItem('token', accessToken);
-    
+
                     originalRequest.headers['Authorization'] = `Bearer ${accessToken}`;
                     return axiosInstance(originalRequest);
                 }
@@ -64,7 +64,7 @@ axiosInstance.interceptors.response.use(
                 throw refreshError;
             }
         }
-    
+
         return Promise.reject(error);
     }
 );

@@ -2,6 +2,7 @@ import React from "react";
 import "../../styles/slide/SlideItem.css";
 
 const SlideItem = ({ popFile, sexCd, age, noticeNo }) => {
+    
     return (
         <div className="slide_item">
             <img className="si_img" src={popFile} alt="유기동물사진"/>
