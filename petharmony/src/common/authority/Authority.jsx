@@ -3,6 +3,7 @@ import "./Authority.css";
 import mainImg from "../../main/assets/mainImg.png";
 
 const Authority = () => {
+    
     return (
         <div className="authority">
             <img src={mainImg} alt="" />

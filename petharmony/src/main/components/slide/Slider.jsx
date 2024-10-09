@@ -33,6 +33,7 @@ const Slider = () => {
         fetchSlides();
     }, []);
 
+    // Swiper 업데이트
     useEffect(() => {
         if (swiperRef.current && swiperRef.current.swiper) {
             swiperRef.current.swiper.update();

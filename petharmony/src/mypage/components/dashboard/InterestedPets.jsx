@@ -12,6 +12,7 @@ const InterestedPets = () => {
     const [totalPages, setTotalPages] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);
 
+    // 관심있는 입양동물
     useEffect(() => {
         const fetchInterestedPet = async () => {
             try {

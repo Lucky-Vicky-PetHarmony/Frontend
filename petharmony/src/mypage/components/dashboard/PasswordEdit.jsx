@@ -12,18 +12,22 @@ const PasswordEdit = ({ profile }) => {
     const [passwordCheck, setPasswordCheck] = useState("");
     const [kakaoUser, setKakaoUser] = useState(!!profile.kakaoId);
 
+    // 기존 비밀번호 필드에 값 입력
     const handlePrePasswordChange = (e) => {
         setPrePassword(e.target.value);
     };
 
+    // 새로운 비밀번호 필드에 값 입력
     const handleNewPasswordChange = (e) => {
         setNewPassword(e.target.value);
     };
 
+    // 새로운 비밀번호 필드에 값 확인
     const handleCheckPasswordChange = (e) => {
         setPasswordCheck(e.target.value);
     };
 
+    // 비밀번호 변경
     const handlePasswordEditSubmit = async () => {
         if (newPassword !== passwordCheck) {
             alert('🐶 새 비밀번호와 확인 비밀번호가 일치하지 않습니다.');
