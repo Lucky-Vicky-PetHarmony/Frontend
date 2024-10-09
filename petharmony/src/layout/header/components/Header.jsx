@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import useAuthStore from "../../../store/useAuthStore";
 import useModalStore from "../../../store/useModalStore";
 import "../styles/Header.css";
@@ -18,6 +18,8 @@ const Header = () => {
 
      const location = useLocation();
 
+     const navigate = useNavigate();
+
     const [showDropDownMenu, setShowDropDownMenu] = useState(false);
 
     // 로그인을 했을 때 드롭다운 메뉴 : USER(마에페이지, 로그아웃) || ADMIN(신고목록, 로그아웃)
@@ -25,8 +27,19 @@ const Header = () => {
         setShowDropDownMenu(!showDropDownMenu);
     };
 
+    // 로그아웃
     const handleLogout = () => {
         logout();
+    };
+
+     // 매칭 페이지로 이동하기 전에 로그인 여부 확인
+    const handleMoveMatching = (e) => {
+        if (!isLogin) {
+            e.preventDefault();  // 페이지 이동 차단
+            alert('🐶 로그인이 필요한 서비스입니다.');
+        } else {
+            navigate('/matching-list');
+        }
     };
 
     return (
@@ -44,6 +57,7 @@ const Header = () => {
                                 color: location.pathname.startsWith('/matching-list') ? 'var(--color-blue)' : 'var(--color-black)',
                                 fontWeight: location.pathname.startsWith('/matching-list') ? 'bold' : '500'
                             }}
+                            onClick={handleMoveMatching}
                         >
                             매칭
                         </NavLink>
