@@ -60,7 +60,14 @@ function App() {
           <Route path="/board/view/:boardId" element={<BoardView isLogin={isLogin} />} />
           <Route path="/board/post" element={<BoardPost />} isLogin={isLogin} />
           <Route path="/board/edit-post" element={<BoardPost isLogin={isLogin} />} />
-          <Route path="/mypage/*" element={<MyPage />} />
+          <Route
+            path="/mypage/*"
+            element={
+              <ProtectedRoute requiredRole="[ROLE_USER]">
+                <MyPage />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/adoption" element={<AdoptionList />} />
           <Route path="/adoption/:desertionNo" element={<AdoptionDetail />} />
           <Route path="/matching" element={<Matching />} />
